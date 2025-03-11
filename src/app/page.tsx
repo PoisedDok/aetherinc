@@ -1,341 +1,977 @@
-
 /* eslint-disable react/no-unescaped-entities */
-"use client"
+"use client";
+
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+
+// Import your utility and custom components
+import { cn } from "@/lib/utils";
+import { BentoGrid, BentoCard } from '@/components/magicui/bento-grid'; 
+import { AnimatedBeam } from '@/components/magicui/animated-beam';
+import { TypingAnimation } from '@/components/magicui/typing-animation';
+// Removed InteractiveGridPattern from some sections to prevent unwanted overlay
+import { InteractiveGridPattern } from '@/components/magicui/interactive-grid-pattern';
+
+// ShadCN UI components or your own UI components
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { 
+  Shield, 
+  Cpu, 
+  Battery, 
+  FileCode, 
+  Building2, 
+  Stethoscope, 
+  GraduationCap,
+  Factory, 
+  Zap, 
+  Lock, 
+  Database, 
+  Sparkles,
+  Clock,
+  CheckCircle2,
+  Eye,
+  MousePointer,
+  ChevronDown
+} from "lucide-react";
 
 export default function Home() {
+  // ---------------------------
+  // State & Refs
+  // ---------------------------
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [activeFeatureIndex, setActiveFeatureIndex] = useState(0);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [activeCaseStudy, setActiveCaseStudy] = useState('enterprise');
 
+  // Smooth scrolling refs
+  const featuresRef = useRef<HTMLElement | null>(null);
+  const howItWorksRef = useRef<HTMLElement | null>(null);
+  const useCasesRef = useRef<HTMLElement | null>(null);
+  const waitlistRef = useRef<HTMLElement | null>(null);
+  const heroRef = useRef<HTMLElement | null>(null);
+
+  // Update scroll function type
+  const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Animation refs
+  const aboutContainerRef = useRef(null);
+  const aboutFromRef = useRef(null);
+  const aboutToRef = useRef(null);
+  const howItWorksContainerRef = useRef(null);
+  const howItWorksFromRef = useRef(null);
+  const howItWorksToRef = useRef(null);
+
+  // Parallax animation
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const heroY = useTransform(scrollYProgress, [0, 0.8], [0, 100]);
+
+  // Product feature list
+  const highlightFeatures = [
+    {
+      title: "100% Private Inference",
+      description: "Your data never leaves your device. GURU runs all AI models locally on the NVIDIA Orin Jetson.",
+      icon: <Shield className="h-8 w-8 text-cyan-400" />,
+      stat: "Zero data sharing",
+    },
+    {
+      title: "Edge Computing Power",
+      description: "NVIDIA Orin delivers 67 TOPS of compute power, enough to run advanced LLMs and vision models locally.",
+      icon: <Cpu className="h-8 w-8 text-cyan-400" />,
+      stat: "67 TOPS",
+    },
+    {
+      title: "Extended Battery Life",
+      description: "Go anywhere with up to 8 hours of continuous AI operation on a single charge.",
+      icon: <Battery className="h-8 w-8 text-cyan-400" />,
+      stat: "8+ hour runtime",
+    },
+    {
+      title: "Multi-Modal Input",
+      description: "Process text, images, audio, and more with our proprietary OmniParser technology.",
+      icon: <FileCode className="h-8 w-8 text-cyan-400" />,
+      stat: "5 input modalities",
+    }
+  ];
+
+  // Bento items
+  const bentoItems = [
+    {
+      title: "On-Device Inference",
+      description: "All inference happens locally on the NVIDIA Orin Jetson. Your data never leaves your device.",
+      icon: <Lock className="h-6 w-6 text-cyan-400" />,
+      className: "md:col-span-2",
+    },
+    {
+      title: "Modular Architecture",
+      description: "Easily extend GURU with additional hardware modules for your specific use case.",
+      icon: <Database className="h-6 w-6 text-cyan-400" />,
+      className: "md:col-span-1",
+    },
+    {
+      title: "Battery Powered",
+      description: "Up to 8 hours of continuous operation on a single charge, perfect for mobile use cases.",
+      icon: <Zap className="h-6 w-6 text-cyan-400" />,
+      className: "md:col-span-1",
+    },
+    {
+      title: "OmniParser Integration",
+      description: "Process diverse data formats with our proprietary parsing engine. Text, images, audio - GURU understands it all.",
+      icon: <FileCode className="h-6 w-6 text-cyan-400" />,
+      className: "md:col-span-2",
+    },
+  ];
+
+  // Case studies
+  const caseStudies = {
+    enterprise: {
+      title: "Acme Corp Improves Security & Efficiency(Example)",
+      description: "Acme implemented GURU devices for their sales team, enabling secure customer data processing without cloud connectivity. Result: 42% faster customer service response times while maintaining strict data privacy compliance.",
+      stats: [
+        { label: "Faster Response", value: "42%" },
+        { label: "Data Breaches", value: "0" },
+        { label: "ROI", value: "389%" }
+      ]
+    },
+    healthcare: {
+      title: "Memorial Hospital Enhances Patient Privacy(Example)",
+      description: "Memorial Hospital deployed GURU units in their diagnostic department to process patient data locally. Result: Maintained HIPAA compliance while improving diagnostic speed by 37% and reducing cloud infrastructure costs by 61%.",
+      stats: [
+        { label: "HIPAA Compliant", value: "100%" },
+        { label: "Faster Diagnosis", value: "37%" },
+        { label: "Cost Reduction", value: "61%" }
+      ]
+    },
+    education: {
+      title: "Westfield University Personalizes Learning(Example)",
+      description: "Westfield equipped 250 classrooms with GURU devices, enabling personalized AI assistance without sharing student data. Result: 29% improvement in student engagement and complete elimination of data privacy concerns.",
+      stats: [
+        { label: "Engagement Increase", value: "29%" },
+        { label: "Privacy Concerns", value: "0" },
+        { label: "Faculty Approval", value: "94%" }
+      ]
+    },
+    manufacturing: {
+      title: "GlobalTech Optimizes Production Line(Example)",
+      description: "GlobalTech integrated GURU into their manufacturing pipeline for real-time quality control and predictive maintenance. Result: 53% reduction in defects and 27% decrease in unplanned downtime.",
+      stats: [
+        { label: "Defect Reduction", value: "53%" },
+        { label: "Downtime Decrease", value: "27%" },
+        { label: "Annual Savings", value: "$3.2M" }
+      ]
+    }
+  };
+
+  // Typing animation phrases
+  const typingPhrases = [
+    "Your Privacy-First AI Assistant",
+    "Powerful Edge Computing",
+    "No Internet Required",
+    "Ultra-Fast Responses",
+    "Zero Data Sharing",
+    "Own Your AI, Own Your Data"
+  ];
+
+  // Specs table
+  const productSpecs = [
+    { name: "Processor", value: "NVIDIA Jetson Orin Nano 8GB" },
+    { name: "Computing Power", value: "67 TOPS" },
+    { name: "RAM", value: "8GB LPDDR5/Module" },
+    { name: "Storage", value: "1TB NVMe SSD" },
+    { name: "Battery Life", value: "8+ hours (continuous)" },
+    { name: "Connectivity", value: "Wi-Fi 6E, Bluetooth 5.2, USB-C, HDMI" },
+    { name: "Dimensions", value: "8.5\" x 5.2\" x 0.9\"" },
+    { name: "Weight", value: "1.9 lbs (860g)" },
+  ];
+
+  // Rotate active feature
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveFeatureIndex(prev => (prev + 1) % highlightFeatures.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [highlightFeatures.length]);
+
+
+  // Form handling
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // In a real implementation, you would send this to your API
     console.log('Email submitted:', email);
     setSubmitted(true);
-    setEmail('');
+    setTimeout(() => {
+      setEmail('');
+      setSubmitted(false);
+    }, 3000);
   };
 
   return (
-    <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 to-indigo-950">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-          {/* Background pattern effect */}
-          <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-center"></div>
-        </div>
-        
-        <div className="container mx-auto px-4 z-10 text-center">
-          <div className="mb-6 inline-block">
-            <Image 
-              src="/logo.jpg" 
-              alt="Aether Inc. Logo" 
-              width={180} 
-              height={60} 
-              className="mx-auto"
-            />
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-            Meet <span className="text-cyan-400">GURU</span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-8">
-            The world's first truly private AI assistant.
-            <span className="block mt-2 text-cyan-300 font-medium">Coming Soon</span>
-          </p>
-          
-          <div className="flex flex-wrap justify-center gap-4">
-            <button className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-3 px-8 rounded-full transition duration-300 shadow-lg">
-              Learn More
-            </button>
-            <button className="bg-transparent hover:bg-white/10 text-white border border-white font-semibold py-3 px-8 rounded-full transition duration-300">
-              Join Waitlist
-            </button>
-          </div>
+    <main className="relative w-full min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-cyan-950 text-white">
+      {/* ------------- Hero Section ------------- */}
+      <section 
+        ref={heroRef}
+        className="relative w-full min-h-screen flex items-center justify-center overflow-hidden"
+      >
+        {/* Subtle Grid Pattern behind hero */}
+        <motion.div 
+          className="absolute inset-0 z-0"
+          style={{ opacity: heroOpacity }}
+        >
+          <InteractiveGridPattern className="w-full h-full" dotColor="rgba(6, 182, 212, 0.15)" />
+        </motion.div>
 
-          <div className="absolute bottom-8 left-0 right-0 flex justify-center">
-            <div className="animate-bounce p-2">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="text-white">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
+        {/* Navigation */}
+        <div className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between py-4">
+              <div className="flex items-center">
+                {/* Replace with your actual logo image */}
+                <Image 
+                  src="/logo-guru.svg"
+                  alt="GURU Logo"
+                  width={120}
+                  height={40}
+                />
+              </div>
+              <div className="hidden md:flex items-center space-x-8">
+                <button onClick={() => scrollToSection(featuresRef)} className="text-gray-300 hover:text-cyan-400 transition">
+                  Features
+                </button>
+                <button onClick={() => scrollToSection(howItWorksRef)} className="text-gray-300 hover:text-cyan-400 transition">
+                  How It Works
+                </button>
+                <button onClick={() => scrollToSection(useCasesRef)} className="text-gray-300 hover:text-cyan-400 transition">
+                  Use Cases
+                </button>
+                <button onClick={() => scrollToSection(waitlistRef)} className="text-white bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded-full transition">
+                  Join Waitlist
+                </button>
+              </div>
+              <button className="md:hidden text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="3" y1="12" x2="21" y2="12"></line>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+              </button>
             </div>
+          </div>
+        </div>
+
+        {/* Hero Content */}
+        <motion.div 
+          className="container mx-auto px-4 z-10 text-center"
+          style={{ y: heroY }}
+        >
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-6 inline-block"
+          >
+            <Badge variant="outline" className="text-cyan-400 border-cyan-400 px-4 py-1 text-sm font-semibold">
+              Introducing
+            </Badge>
+          </motion.div>
+
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-6xl md:text-8xl font-bold mb-6"
+          >
+            Meet <span className="text-cyan-400 inline-block relative">
+              GURU
+              <motion.span 
+                className="absolute -bottom-2 left-0 w-full h-1 bg-cyan-400"
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 0.8, delay: 1 }}
+              />
+            </span>
+          </motion.h1>
+
+          {/* Dynamic tagline with typing animation */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="h-12 mb-6"
+          >
+            <TypingAnimation phrases={typingPhrases} className="text-xl md:text-2xl text-cyan-200" />
+          </motion.div>
+
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-8"
+          >
+            The revolutionary, <strong>privacy-first AI assistant</strong> that keeps your data where it belongs — with you.
+            <span className="block mt-2 text-cyan-300 font-medium">Pre-orders starting Q3 2025</span>
+          </motion.p>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="flex flex-wrap justify-center gap-4"
+          >
+            <Button
+              onClick={() => scrollToSection(waitlistRef)}
+              className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-3 px-8 rounded-full transition duration-300 shadow-lg text-lg h-auto"
+              size="lg"
+            >
+              Reserve Yours Now
+            </Button>
+
+            <Button
+              variant="outline"
+              onClick={() => scrollToSection(featuresRef)}
+              className="bg-white/5 hover:bg-white/10 text-white border border-white/30 font-semibold py-3 px-8 rounded-full transition duration-300 text-lg h-auto"
+              size="lg"
+            >
+              Explore Features
+            </Button>
+          </motion.div>
+
+          {/* Product highlights */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1 }}
+            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto"
+          >
+            {highlightFeatures.map((feature, index) => (
+              <Card 
+                key={index} 
+                className={`bg-slate-800/30 border-slate-700/50 backdrop-blur-sm hover:border-cyan-500/50 transition-all duration-300 overflow-hidden 
+                  ${index === activeFeatureIndex ? 'ring-2 ring-cyan-500/50' : ''}`}
+              >
+                <CardContent className="p-4 text-center">
+                  <div className="w-12 h-12 mx-auto bg-cyan-500/10 rounded-full flex items-center justify-center mb-3">
+                    {feature.icon}
+                  </div>
+                  <h3 className="font-semibold mb-1">{feature.title}</h3>
+                  <p className="text-cyan-300 text-sm font-mono">{feature.stat}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </motion.div>
+
+          {/* Scroll prompt */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
+            className="absolute bottom-12 left-0 right-0 flex justify-center"
+          >
+            <motion.div 
+              animate={{ y: [0, 10, 0] }} 
+              transition={{ duration: 2, repeat: Infinity }}
+              className="p-2 cursor-pointer"
+              onClick={() => scrollToSection(featuresRef)}
+            >
+              <ChevronDown className="text-white/80 w-8 h-8" />
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* ------------- Product Video & Visual Showcase ------------- */}
+      <section className="w-full min-h-screen py-20 bg-slate-900">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col items-center justify-center">
+            <Badge className="mb-6 bg-cyan-500/10 text-cyan-400 border-cyan-500/30">
+              SEE GURU IN ACTION
+            </Badge>
+            
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
+              Privacy-First AI <span className="text-cyan-400">Without Compromise</span>
+            </h2>
+            
+            <div className="relative w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-2xl shadow-cyan-500/10 border border-slate-700/50">
+              <div className="relative aspect-video bg-slate-800">
+                {/* Placeholder for video */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  {!isVideoPlaying ? (
+                    <button 
+                      onClick={() => setIsVideoPlaying(true)}
+                      className="w-20 h-20 rounded-full bg-cyan-500/90 flex items-center justify-center hover:bg-cyan-500 transition-all duration-300 shadow-lg"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </button>
+                  ) : (
+                    <div className="absolute inset-0 bg-slate-900/90 flex items-center justify-center">
+                      <h3 className="text-white text-xl">Video would play here</h3>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            
+            {/* Product specs preview */}
+            <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl">
+              {productSpecs.slice(0, 4).map((spec, i) => (
+                <div key={i} className="bg-slate-800/40 p-4 rounded-lg border border-slate-700/40 text-center">
+                  <p className="text-gray-400 text-sm mb-1">{spec.name}</p>
+                  <p className="text-cyan-300 font-mono font-medium">{spec.value}</p>
+                </div>
+              ))}
+            </div>
+            
+            <Button variant="link" className="mt-4 text-cyan-400">
+              View Full Specifications
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="py-20 bg-slate-900">
+      {/* ------------- Features Section ------------- */}
+      <section ref={featuresRef} className="w-full min-h-screen py-24 bg-slate-900">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-16">
+          <Badge className="mb-6 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 mx-auto block w-fit">
+            CAPABILITIES
+          </Badge>
+          
+          <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
             A Revolution in <span className="text-cyan-400">Privacy-First AI</span>
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-slate-800 p-8 rounded-xl shadow-lg transform transition duration-300 hover:-translate-y-2">
-              <div className="w-16 h-16 bg-cyan-500/20 rounded-full flex items-center justify-center mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
+            {/* Feature Carousel */}
+            <div className="lg:w-1/2">
+              <div className="relative rounded-2xl overflow-hidden aspect-video border border-slate-700 bg-slate-800">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeFeatureIndex}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="absolute inset-0 flex items-center justify-center"
+                  >
+                    <div className="p-8 text-center">
+                      <div className="w-20 h-20 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        {highlightFeatures[activeFeatureIndex].icon}
+                      </div>
+                      <h3 className="text-2xl font-bold mb-4">
+                        {highlightFeatures[activeFeatureIndex].title}
+                      </h3>
+                      <p className="text-gray-300 max-w-lg mx-auto">
+                        {highlightFeatures[activeFeatureIndex].description}
+                      </p>
+                      <div className="mt-6">
+                        <Badge className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30">
+                          {highlightFeatures[activeFeatureIndex].stat}
+                        </Badge>
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Privacy-First AI</h3>
-              <p className="text-gray-300">
-                Own your data. GURU processes everything on your device, ensuring your information never leaves your control.
-              </p>
+              
+              <div className="flex justify-center mt-6 gap-2">
+                {highlightFeatures.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      index === activeFeatureIndex ? 'bg-cyan-500' : 'bg-slate-700'
+                    }`}
+                    onClick={() => setActiveFeatureIndex(index)}
+                  />
+                ))}
+              </div>
             </div>
             
-            <div className="bg-slate-800 p-8 rounded-xl shadow-lg transform transition duration-300 hover:-translate-y-2">
-              <div className="w-16 h-16 bg-cyan-500/20 rounded-full flex items-center justify-center mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+            {/* Bento Grid: removed background prop so text doesn’t appear on tile backgrounds */}
+            <div className="lg:w-1/2">
+              <BentoGrid className="max-w-2xl">
+                {bentoItems.map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1, duration: 0.5 }}
+                    viewport={{ once: true }}
+                  >
+                    <BentoCard
+                    name={item.title}           // <--- pass the required 'name'
+                    background={<div />}        // <--- minimal background or <div className="some-bg" />
+                    className={item.className}
+                    Icon={() => item.icon}
+                    description={item.description}
+                    href="#"
+                    cta="Learn More"
+                   />
+
+                  </motion.div>
+                ))}
+              </BentoGrid>
+              
+              <div className="mt-8">
+                <Button variant="outline" className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10">
+                  <FileCode className="mr-2 h-4 w-4" /> 
+                  Download Technical Whitepaper
+                </Button>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Real-Time Edge Computing</h3>
-              <p className="text-gray-300">
-                Experience instant AI inference with ultra-low latency. No more waiting for cloud processing or connectivity issues.
-              </p>
-            </div>
-            
-            <div className="bg-slate-800 p-8 rounded-xl shadow-lg transform transition duration-300 hover:-translate-y-2">
-              <div className="w-16 h-16 bg-cyan-500/20 rounded-full flex items-center justify-center mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Modular Hardware</h3>
-              <p className="text-gray-300">
-                Customize GURU with modular peripherals like cameras, sensors, and microphones to fit your unique needs.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* About/Vision Section */}
-      <section className="py-20 bg-gradient-to-br from-slate-800 to-slate-900">
+      {/* ------------- About / Vision Section ------------- */}
+      <section className="w-full min-h-screen py-24 bg-slate-900">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-12">
-            <div className="md:w-1/2">
-              <div className="relative h-80 w-full rounded-xl overflow-hidden bg-slate-700">
-                {/* Placeholder for product image */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-48 h-48 bg-cyan-500/30 rounded-full flex items-center justify-center">
-                    <span className="text-cyan-400 text-3xl font-bold">GURU</span>
-                  </div>
+            {/* Left Side Text */}
+            <div className="md:w-1/2 order-2 md:order-1">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                  Our Vision for a <span className="text-cyan-400">Privacy-Driven Future</span>
+                </h2>
+                
+                <p className="text-gray-300 mb-6 text-lg">
+                  GURU is built on the belief that <span className="font-semibold text-white">AI should amplify human potential without sacrificing privacy</span>. Running entirely on-device using NVIDIA Orin, your data remains completely under your control.
+                </p>
+                
+                <div 
+                  ref={aboutContainerRef}
+                  className="relative my-6 p-4 bg-slate-800/40 border border-cyan-500/20 rounded-lg"
+                >
+                  <div ref={aboutFromRef} className="absolute top-[20%] left-[10%] h-2 w-2" />
+                  <div ref={aboutToRef} className="absolute top-[70%] left-[70%] h-2 w-2" />
+                  
+                  <AnimatedBeam
+                    containerRef={aboutContainerRef}
+                    fromRef={aboutFromRef}
+                    toRef={aboutToRef}
+                    pathColor="white"
+                    pathWidth={2}
+                    pathOpacity={0.2}
+                    gradientStartColor="#06b6d4"
+                    gradientStopColor="#3b82f6"
+                    duration={4}
+                  />
+                  
+                  <blockquote className="text-cyan-300 italic px-6 py-2 relative z-10">
+                    "We believe privacy isn't just a feature—it's a fundamental right. GURU represents our commitment to building AI that respects this principle unconditionally."
+                    <footer className="text-white mt-2 font-medium">— Krish Dokania, Founder & CEO</footer>
+                  </blockquote>
                 </div>
-              </div>
+                
+                <p className="text-gray-300 mb-6">
+                  Our modular design empowers diverse sectors with instant, edge-based AI that adapts to your specific needs while keeping your data completely private.
+                </p>
+                
+                <div className="flex flex-wrap gap-3">
+                  {["Privacy", "Edge AI", "Modular", "Low Power", "Secure", "Adaptable"].map((tag, i) => (
+                    <Badge
+                      key={i}
+                      variant="outline"
+                      className="text-cyan-400 border-cyan-500/50 bg-cyan-500/5 px-3 py-1"
+                    >
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              </motion.div>
             </div>
             
-            <div className="md:w-1/2">
-              <h2 className="text-3xl font-bold text-white mb-6">
-                Our Vision for a <span className="text-cyan-400">Better Tomorrow</span>
-              </h2>
-              
-              <p className="text-gray-300 mb-6">
-                At Aether Inc., we're deeply committed to sustainability, user empowerment, and long-term technological progress. GURU represents our belief that AI should enhance human potential without compromising privacy or the planet.
-              </p>
-              
-              <p className="text-gray-300 mb-6">
-                We're building technology that bridges gaps in education, healthcare, industry, and everyday life—all while maintaining a minimal environmental footprint.
-              </p>
-              
-              <div className="flex flex-wrap gap-4">
-                <span className="bg-slate-700 text-cyan-400 px-4 py-2 rounded-full text-sm">Sustainability</span>
-                <span className="bg-slate-700 text-cyan-400 px-4 py-2 rounded-full text-sm">Data Ownership</span>
-                <span className="bg-slate-700 text-cyan-400 px-4 py-2 rounded-full text-sm">User Empowerment</span>
-                <span className="bg-slate-700 text-cyan-400 px-4 py-2 rounded-full text-sm">Technological Progress</span>
-              </div>
+            {/* Right Side Image / Device */}
+            <div className="md:w-1/2 relative h-[500px] order-1 md:order-2">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="absolute inset-0 bg-slate-800/20 rounded-2xl overflow-hidden border border-slate-700 flex items-center justify-center"
+              >
+                <div className="w-48 h-48 md:w-64 md:h-64 relative">
+                  <div className="absolute inset-0 animate-pulse bg-cyan-500/20 rounded-full" />
+                  {/* Replace with actual device image */}
+                  <Image 
+                    src="/product-hero.webp" 
+                    alt="GURU Device" 
+                    width={300} 
+                    height={300}
+                    className="object-contain"
+                  />
+                </div>
+                {/* Removed random orbiting icons to avoid SSR hydration issues */}
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Use Cases Section */}
-      <section className="py-20 bg-slate-900">
+      {/* ------------- How It Works Section ------------- */}
+      <section ref={howItWorksRef} className="w-full min-h-screen py-24 bg-slate-900">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-16">
-            Transforming <span className="text-cyan-400">Industries</span>
+          <Badge className="mb-6 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 mx-auto block w-fit">
+            TECHNOLOGY
+          </Badge>
+          
+          <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
+            How <span className="text-cyan-400">GURU</span> Works
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-slate-800 p-6 rounded-xl border border-slate-700">
-              <div className="w-12 h-12 bg-cyan-500/20 rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">Enterprise</h3>
-              <p className="text-gray-300 text-sm">
-                Secure AI solutions for business intelligence, analytics, and process optimization without data leaving your premises.
-              </p>
+          <div className="max-w-4xl mx-auto">
+            <div 
+              ref={howItWorksContainerRef}
+              className="relative p-8 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-slate-700/50 overflow-hidden"
+            >
+              <div ref={howItWorksFromRef} className="absolute top-[30%] left-[20%] h-2 w-2" />
+              <div ref={howItWorksToRef} className="absolute top-[70%] left-[80%] h-2 w-2" />
+              
+              <AnimatedBeam
+                containerRef={howItWorksContainerRef}
+                fromRef={howItWorksFromRef}
+                toRef={howItWorksToRef}
+                pathColor="white"
+                pathWidth={2}
+                pathOpacity={0.1}
+                gradientStartColor="#06b6d4"
+                gradientStopColor="#3b82f6"
+                duration={3}
+              />
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="relative z-10"
+              >
+                <ol className="relative border-l border-cyan-500/50 space-y-12">
+                  <li className="ml-6">
+                    <div className="absolute w-10 h-10 -left-5 bg-slate-800 border-2 border-cyan-500 rounded-full flex items-center justify-center">
+                      <span className="text-cyan-400 font-bold">1</span>
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">On-Device Processing</h3>
+                    <p className="text-gray-300">
+                      GURU processes all AI tasks locally on the NVIDIA Jetson Orin, with no data sent to external servers. Your information never leaves your device, ensuring complete privacy and security.
+                    </p>
+                  </li>
+                  
+                  <li className="ml-6">
+                    <div className="absolute w-10 h-10 -left-5 bg-slate-800 border-2 border-cyan-500 rounded-full flex items-center justify-center">
+                      <span className="text-cyan-400 font-bold">2</span>
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">OmniParser Technology</h3>
+                    <p className="text-gray-300">
+                      Our proprietary OmniParser technology intelligently processes diverse data formats - including text, images, audio, and more - allowing GURU to understand and respond to any input.
+                    </p>
+                  </li>
+                  
+                  <li className="ml-6">
+                    <div className="absolute w-10 h-10 -left-5 bg-slate-800 border-2 border-cyan-500 rounded-full flex items-center justify-center">
+                      <span className="text-cyan-400 font-bold">3</span>
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">AI Model Optimization</h3>
+                    <p className="text-gray-300">
+                      GURU runs optimized versions of state-of-the-art AI models specifically designed for edge computing, delivering powerful performance without the need for cloud connectivity.
+                    </p>
+                  </li>
+                  
+                  <li className="ml-6">
+                    <div className="absolute w-10 h-10 -left-5 bg-slate-800 border-2 border-cyan-500 rounded-full flex items-center justify-center">
+                      <span className="text-cyan-400 font-bold">4</span>
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">Modular Expansion</h3>
+                    <p className="text-gray-300">
+                      Extend GURU's capabilities with additional hardware modules tailored to your specific use case, from advanced sensor arrays to specialized processing accelerators.
+                    </p>
+                  </li>
+                </ol>
+              </motion.div>
             </div>
             
-            <div className="bg-slate-800 p-6 rounded-xl border border-slate-700">
-              <div className="w-12 h-12 bg-cyan-500/20 rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">Healthcare</h3>
-              <p className="text-gray-300 text-sm">
-                HIPAA-compliant AI assistant that keeps sensitive patient data secure while enhancing diagnostic capabilities.
-              </p>
-            </div>
-            
-            <div className="bg-slate-800 p-6 rounded-xl border border-slate-700">
-              <div className="w-12 h-12 bg-cyan-500/20 rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">Education</h3>
-              <p className="text-gray-300 text-sm">
-                Personalized learning assistants that protect student data while providing tailored educational experiences.
-              </p>
-            </div>
-            
-            <div className="bg-slate-800 p-6 rounded-xl border border-slate-700">
-              <div className="w-12 h-12 bg-cyan-500/20 rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">Manufacturing</h3>
-              <p className="text-gray-300 text-sm">
-                Real-time edge AI for predictive maintenance, quality control, and production optimization without cloud dependency.
-              </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0 }}
+                viewport={{ once: true }}
+                className="bg-slate-800/60 p-6 rounded-lg border border-slate-700/50 flex flex-col items-center text-center"
+              >
+                <div className="w-12 h-12 bg-cyan-500/10 rounded-full flex items-center justify-center mb-4">
+                  <Clock className="h-6 w-6 text-cyan-400" />
+                </div>
+                <h3 className="font-semibold mb-2">Real-Time Response</h3>
+                <p className="text-gray-300 text-sm">
+                  Get instant responses with ultra-low latency, even for complex queries.
+                </p>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                viewport={{ once: true }}
+                className="bg-slate-800/60 p-6 rounded-lg border border-slate-700/50 flex flex-col items-center text-center"
+              >
+                <div className="w-12 h-12 bg-cyan-500/10 rounded-full flex items-center justify-center mb-4">
+                  <CheckCircle2 className="h-6 w-6 text-cyan-400" />
+                </div>
+                <h3 className="font-semibold mb-2">Always Available</h3>
+                <p className="text-gray-300 text-sm">
+                  Works without internet connectivity, perfect for remote locations.
+                </p>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="bg-slate-800/60 p-6 rounded-lg border border-slate-700/50 flex flex-col items-center text-center"
+              >
+                <div className="w-12 h-12 bg-cyan-500/10 rounded-full flex items-center justify-center mb-4">
+                  <Eye className="h-6 w-6 text-cyan-400" />
+                </div>
+                <h3 className="font-semibold mb-2">Complete Privacy</h3>
+                <p className="text-gray-300 text-sm">
+                  Never sends your data to the cloud, ensuring total data sovereignty.
+                </p>
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section className="py-20 bg-gradient-to-tr from-indigo-950 to-slate-900">
+      {/* ------------- Use Cases with Tabs ------------- */}
+      <section ref={useCasesRef} className="w-full min-h-screen py-24 bg-slate-900">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-16">
-            <span className="text-cyan-400">How GURU</span> Works
+          <Badge className="mb-6 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 mx-auto block w-fit">
+            APPLICATIONS
+          </Badge>
+          
+          <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
+            How <span className="text-cyan-400">Industries</span> Use GURU
           </h2>
           
-          <div className="relative">
-            <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-cyan-500/30 -translate-y-1/2"></div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-              <div className="relative bg-slate-800/80 p-6 rounded-xl border border-slate-700 text-center">
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                  1
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-4 mt-4">On-Device Processing</h3>
-                <p className="text-gray-300">
-                  GURU processes all AI tasks locally on your device, ensuring your data never leaves your control.
-                </p>
-              </div>
+          <div className="max-w-5xl mx-auto">
+            <Tabs 
+              defaultValue="enterprise" 
+              value={activeCaseStudy}
+              onValueChange={setActiveCaseStudy}
+              className="w-full"
+            >
+              <TabsList className="grid grid-cols-2 md:grid-cols-4 mb-8 bg-slate-800/50 p-1">
+                <TabsTrigger 
+                  value="enterprise" 
+                  className="data-[state=active]:text-cyan-400 data-[state=active]:bg-cyan-500/10"
+                >
+                  <Building2 className="h-4 w-4 mr-2" />
+                  Enterprise
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="healthcare" 
+                  className="data-[state=active]:text-cyan-400 data-[state=active]:bg-cyan-500/10"
+                >
+                  <Stethoscope className="h-4 w-4 mr-2" />
+                  Healthcare
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="education" 
+                  className="data-[state=active]:text-cyan-400 data-[state=active]:bg-cyan-500/10"
+                >
+                  <GraduationCap className="h-4 w-4 mr-2" />
+                  Education
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="manufacturing" 
+                  className="data-[state=active]:text-cyan-400 data-[state=active]:bg-cyan-500/10"
+                >
+                  <Factory className="h-4 w-4 mr-2" />
+                  Manufacturing
+                </TabsTrigger>
+              </TabsList>
               
-              <div className="relative bg-slate-800/80 p-6 rounded-xl border border-slate-700 text-center">
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                  2
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-4 mt-4">Instant Inference</h3>
-                <p className="text-gray-300">
-                  Experience ultra-low latency responses with GURU's optimized edge computing architecture.
-                </p>
-              </div>
-              
-              <div className="relative bg-slate-800/80 p-6 rounded-xl border border-slate-700 text-center">
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                  3
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-4 mt-4">Modular Expansion</h3>
-                <p className="text-gray-300">
-                  Enhance capabilities with modular peripherals that easily connect to your GURU device.
-                </p>
-              </div>
-            </div>
+              {(Object.keys(caseStudies) as (keyof typeof caseStudies)[]).map((key) => (
+                <TabsContent key={key} value={key}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-slate-700/50 p-8"
+                  >
+                    <h3 className="text-2xl font-bold mb-4">
+                      {caseStudies[key].title}
+                    </h3>
+                    <p className="text-gray-300 mb-8">
+                      {caseStudies[key].description}
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {caseStudies[key].stats.map((stat, i) => (
+                        <div
+                          key={i}
+                          className="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50 text-center"
+                        >
+                          <p className="text-3xl font-bold text-cyan-400 mb-2">{stat.value}</p>
+                          <p className="text-gray-300 text-sm">{stat.label}</p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-8 flex justify-center">
+                      <Button className="bg-cyan-500 hover:bg-cyan-600 text-white">
+                        <MousePointer className="mr-2 h-4 w-4" />
+                        Read Full Case Study
+                      </Button>
+                    </div>
+                  </motion.div>
+                </TabsContent>
+              ))}
+            </Tabs>
           </div>
         </div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-20 bg-slate-900">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <div className="bg-gradient-to-r from-cyan-500/20 to-indigo-500/20 p-8 md:p-12 rounded-2xl border border-cyan-500/30">
-            <h2 className="text-3xl font-bold text-white mb-6 text-center">
-              Be Part of the <span className="text-cyan-400">Future</span>
+      {/* ------------- Waitlist Section ------------- */}
+      <section 
+        ref={waitlistRef} 
+        className="w-full min-h-screen py-24 bg-slate-900 relative overflow-hidden"
+      >
+        {/* You can remove the pattern entirely if you don’t want a grid at the end. */}
+        <div className="absolute inset-0">
+          <InteractiveGridPattern 
+            className="w-full h-full" 
+            dotColor="rgba(6, 182, 212, 0.15)" 
+            size={30}
+          />
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-3xl mx-auto text-center">
+            <Badge className="mb-6 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 mx-auto">
+              EARLY ACCESS
+            </Badge>
+            
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
+              Join the Waitlist
             </h2>
             
-            <p className="text-gray-300 text-center mb-8 max-w-2xl mx-auto">
-              Join us on our journey toward a privacy-centric, AI-driven future. Sign up to be among the first to experience GURU and receive exclusive updates.
+            <p className="text-xl text-gray-300 mb-12">
+              Be among the first to experience the privacy revolution in AI. 
+              Reserve your GURU device today with priority access when we launch.
             </p>
             
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-              <div className="flex flex-col sm:flex-row gap-3">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="flex-grow py-3 px-4 bg-slate-800 text-white rounded-full focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                  required
-                />
-                <button
+            <div className="bg-slate-800/50 p-8 rounded-xl border border-cyan-500/20 backdrop-blur-sm">
+              <form onSubmit={handleSubmit} className="flex flex-col items-center">
+                <div className="w-full max-w-md mb-6">
+                  <label htmlFor="email" className="block text-gray-300 text-sm font-medium mb-2 text-left">
+                    Email Address
+                  </label>
+                  <div className="mt-1 relative">
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="w-full bg-slate-900/80 border border-slate-700 rounded-lg py-3 px-4 text-white focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300"
+                      placeholder="you@example.com"
+                    />
+                  </div>
+                </div>
+                
+                <Button
                   type="submit"
-                  className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-3 px-6 rounded-full transition duration-300"
+                  className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-3 px-8 rounded-lg transition duration-300 shadow-lg flex items-center"
+                  disabled={submitted}
                 >
-                  {submitted ? "Thanks!" : "Stay Informed"}
-                </button>
+                  {submitted ? (
+                    <>
+                      <CheckCircle2 className="mr-2 h-5 w-5" />
+                      Thank You!
+                    </>
+                  ) : (
+                    "Reserve Your GURU"
+                  )}
+                </Button>
+                
+                <p className="mt-4 text-sm text-gray-400">
+                  By joining, you'll receive exclusive updates and early-bird pricing.
+                </p>
+              </form>
+              
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
+                <div className="flex items-center">
+                  <CheckCircle2 className="h-5 w-5 text-cyan-400 mr-2" />
+                  <span className="text-gray-300 text-sm">Priority Access</span>
+                </div>
+                
+                <div className="flex items-center">
+                  <CheckCircle2 className="h-5 w-5 text-cyan-400 mr-2" />
+                  <span className="text-gray-300 text-sm">Early Bird Pricing</span>
+                </div>
+                
+                <div className="flex items-center">
+                  <CheckCircle2 className="h-5 w-5 text-cyan-400 mr-2" />
+                  <span className="text-gray-300 text-sm">Exclusive Updates</span>
+                </div>
               </div>
-            </form>
-            
-            <div className="flex justify-center mt-8 gap-6">
-              <Link href="#" className="text-gray-400 hover:text-cyan-400 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                </svg>
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-cyan-400 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-cyan-400 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
-                </svg>
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-cyan-400 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                </svg>
-              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 bg-slate-950 text-gray-400">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+      {/* ------------- Footer ------------- */}
+      <footer className="bg-slate-900 border-t border-slate-800">
+        <div className="container mx-auto px-4 py-12">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-8">
             <div className="mb-6 md:mb-0">
               <Image 
-                src="/logo-aether.svg" 
-                alt="Aether Inc. Logo" 
+                src="/logo-guru.svg" 
+                alt="GURU Logo" 
                 width={120} 
-                height={40} 
-                className="mx-auto md:mx-0"
+                height={40}
               />
-              <p className="mt-2 text-sm">© 2025 Aether Inc. All rights reserved.</p>
             </div>
             
-            <div className="flex flex-wrap justify-center gap-6 md:gap-8">
-              <Link href="#" className="hover:text-cyan-400 transition">About</Link>
-              <Link href="#" className="hover:text-cyan-400 transition">Products</Link>
-              <Link href="#" className="hover:text-cyan-400 transition">Careers</Link>
-              <Link href="#" className="hover:text-cyan-400 transition">Blog</Link>
-              <Link href="#" className="hover:text-cyan-400 transition">Contact</Link>
-              <Link href="#" className="hover:text-cyan-400 transition">Privacy</Link>
-              <Link href="#" className="hover:text-cyan-400 transition">Terms</Link>
+            <div className="flex flex-wrap gap-6">
+              <Link href="#" className="text-gray-400 hover:text-cyan-400 transition">Features</Link>
+              <Link href="#" className="text-gray-400 hover:text-cyan-400 transition">Technology</Link>
+              <Link href="#" className="text-gray-400 hover:text-cyan-400 transition">Use Cases</Link>
+              <Link href="#" className="text-gray-400 hover:text-cyan-400 transition">About Us</Link>
+              <Link href="#" className="text-gray-400 hover:text-cyan-400 transition">Blog</Link>
+              <Link href="#" className="text-gray-400 hover:text-cyan-400 transition">Contact</Link>
+            </div>
+          </div>
+          
+          <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-500 text-sm mb-4 md:mb-0">
+              © 2025 GURU AI Technologies. All rights reserved.
+            </p>
+            
+            <div className="flex gap-4">
+              <Link href="#" className="text-gray-500 hover:text-cyan-400 transition">
+                Privacy Policy
+              </Link>
+              <Link href="#" className="text-gray-500 hover:text-cyan-400 transition">
+                Terms of Service
+              </Link>
             </div>
           </div>
         </div>
