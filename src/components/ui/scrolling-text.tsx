@@ -33,6 +33,9 @@ export function ScrollingText({
   const duration = distance / speed; // Duration based on speed
   const directionMultiplier = direction === 'left' ? -1 : 1;
 
+  // Safely convert separator to string for comparison
+  const separatorString = separator ? separator.toString().trim() : '';
+
   return (
     <div className={cn("overflow-hidden relative whitespace-nowrap", className)}>
       <motion.div
@@ -54,7 +57,7 @@ export function ScrollingText({
             key={index} 
             className={cn(
               "inline-block",
-              typeof text === 'string' && text.trim() === separator.toString().trim() 
+              typeof text === 'string' && separatorString && text.trim() === separatorString
                 ? "text-gray-500 mx-2" 
                 : textClassName
             )}
@@ -84,7 +87,7 @@ export function ScrollingText({
             key={index} 
             className={cn(
               "inline-block",
-              typeof text === 'string' && text.trim() === separator.toString().trim() 
+              typeof text === 'string' && separatorString && text.trim() === separatorString
                 ? "text-gray-500 mx-2" 
                 : textClassName
             )}
