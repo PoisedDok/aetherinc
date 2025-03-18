@@ -23,7 +23,6 @@ export interface AnimatedBeamProps {
   startYOffset?: number;
   endXOffset?: number;
   endYOffset?: number;
-  
 }
 
 export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
