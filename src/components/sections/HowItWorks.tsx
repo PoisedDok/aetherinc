@@ -16,9 +16,26 @@ export default function HowItWorks({ innerRef }: HowItWorksProps) {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [cellSize, setCellSize] = useState(60);
   
   // Refs for scroll animations
   const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Check if mobile - client-side only
+  useEffect(() => {
+    const handleResize = () => {
+      setCellSize(window.innerWidth < 768 ? 40 : 60);
+    };
+    
+    // Set initial size
+    handleResize();
+    
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+    
+    // Clean up
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   // Toggle video playback
   const togglePlayback = () => {
@@ -92,7 +109,7 @@ export default function HowItWorks({ innerRef }: HowItWorksProps) {
       <div className="absolute inset-0 z-0">
         <RetroGrid 
           className="h-full w-full"
-          cellSize={window.innerWidth < 768 ? 40 : 60}
+          cellSize={cellSize}
           opacity={0.4}
           angle={0}
           lightLineColor="rgba(255, 255, 255, 0.08)"

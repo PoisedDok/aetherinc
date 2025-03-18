@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -7,8 +7,7 @@ const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-int
 export const metadata: Metadata = {
   title: "GURU by AetherInc",
   description: "The world's first privacy-first AI device that keeps your data where it belongs — with you.",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover",
-  themeColor: "#000000",
+  metadataBase: new URL('https://aetherinc.vercel.app'),
   keywords: "AI, artificial intelligence, privacy, edge computing, on-device AI, AetherInc, GURU",
   authors: [{ name: "AetherInc" }],
   openGraph: {
@@ -27,6 +26,14 @@ export const metadata: Metadata = {
     images: ["/og-image.jpg"],
     creator: "@aetherinc",
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
+  themeColor: '#000000',
 };
 
 export default function RootLayout({

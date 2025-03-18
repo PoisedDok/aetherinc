@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { InteractiveGridPattern } from '@/components/magicui/interactive-grid-pattern';
@@ -28,13 +28,30 @@ const typingPhrases = [
 // Morphing text options
 const morphingTexts = [
   "Meet GURU",
-  "Experience",
-  "GURU"
+  "Experience GURU",
+  "Discover GURU"
 ];
 
 export default function Hero({ scrollToSection, featuresRef, waitlistRef }: HeroProps) {
   // Refs for animation
   const heroRef = useRef<HTMLElement | null>(null);
+  const [gridSize, setGridSize] = useState(20);
+  
+  // Check if we're on mobile - client-side only
+  useEffect(() => {
+    const handleResize = () => {
+      setGridSize(window.innerWidth < 768 ? 15 : 20);
+    };
+    
+    // Set the initial size
+    handleResize();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+    
+    // Clean up
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Parallax animation
   const { scrollYProgress } = useScroll({
@@ -57,7 +74,7 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
         <InteractiveGridPattern 
           className="w-full h-full" 
           dotColor="rgba(255, 255, 255, 0.08)"
-          size={window.innerWidth < 768 ? 15 : 20}
+          size={gridSize}
         />
       </motion.div>
 
