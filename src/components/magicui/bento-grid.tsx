@@ -19,11 +19,18 @@ interface BentoCardProps extends ComponentPropsWithoutRef<"div"> {
   cta: string;
 }
 
+interface BentoGridItemProps extends ComponentPropsWithoutRef<"div"> {
+  title: string;
+  description: string;
+  header?: ReactNode;
+  className?: string;
+}
+
 const BentoGrid = ({ children, className, ...props }: BentoGridProps) => {
   return (
     <div
       className={cn(
-        "grid w-full auto-rows-[22rem] grid-cols-3 gap-4",
+        "grid w-full grid-cols-1 gap-4",
         className,
       )}
       {...props}
@@ -80,4 +87,36 @@ const BentoCard = ({
   </div>
 );
 
-export { BentoCard, BentoGrid };
+const BentoGridItem = ({
+  title,
+  description,
+  header,
+  className,
+  ...props
+}: BentoGridItemProps) => (
+  <div
+    className={cn(
+      "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6",
+      "bg-background/5 backdrop-blur-sm border border-white/10",
+      "transition-all duration-300 hover:bg-background/10",
+      className,
+    )}
+    {...props}
+  >
+    {header && (
+      <div className="mb-4">
+        {header}
+      </div>
+    )}
+    <div>
+      <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-white/90">
+        {title}
+      </h3>
+      <p className="text-sm text-gray-300 group-hover:text-white/70">
+        {description}
+      </p>
+    </div>
+  </div>
+);
+
+export { BentoCard, BentoGrid, BentoGridItem };

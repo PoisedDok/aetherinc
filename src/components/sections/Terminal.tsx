@@ -1,0 +1,260 @@
+"use client";
+
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { Terminal as TerminalIcon, Send, Info } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+
+// Gemini API key
+const GEMINI_API_KEY = "AIzaSyD-Z8Qzus6wMzxsVW2ceOMqCTGRfSsW2qQ";
+
+// Interface for chat messages
+interface Message {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+}
+
+export default function Terminal() {
+  const terminalRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const consoleEndRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(terminalRef, { once: true, margin: "-100px" });
+  
+  // State for the terminal
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([
+    { 
+      role: 'system', 
+      content: 'Welcome to the aetherinc Terminal Demo. Type a question to learn more about our AI technology (5 questions limit).' 
+    }
+  ]);
+  const [conversationCount, setConversationCount] = useState(0);
+  const [limitReached, setLimitReached] = useState(false);
+  
+  const MAX_CONVERSATIONS = 5;
+
+  // Auto-scroll to bottom when messages update
+  useEffect(() => {
+    if (consoleEndRef.current) {
+      consoleEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
+
+  // Focus input when component mounts
+  useEffect(() => {
+    if (inputRef.current && isInView) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 500);
+    }
+  }, [isInView]);
+
+  // Handle input submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!input.trim() || isLoading || limitReached) return;
+    
+    // Check if limit reached
+    if (conversationCount >= MAX_CONVERSATIONS) {
+      setLimitReached(true);
+      setMessages(prev => [
+        ...prev,
+        { role: 'system', content: 'Demo limit reached. Please join our waitlist for full access.' }
+      ]);
+      return;
+    }
+    
+    const userMessage = input.trim();
+    setInput('');
+    
+    // Add user message to chat
+    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    
+    // Start loading
+    setIsLoading(true);
+    
+    try {
+      // Call Gemini API
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            contents: [{
+              parts: [{ text: `You are aetherinc AI assistant. Keep responses focused on the company's AI hardware, edge computing, and privacy features. Answer the following question concisely: ${userMessage}` }]
+            }]
+          }),
+        }
+      );
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch from Gemini API');
+      }
+      
+      const responseData = await response.json();
+      let assistantResponse = '';
+      
+      // Extract the response text from Gemini API response
+      if (responseData.candidates && 
+          responseData.candidates[0] && 
+          responseData.candidates[0].content &&
+          responseData.candidates[0].content.parts &&
+          responseData.candidates[0].content.parts[0]) {
+        assistantResponse = responseData.candidates[0].content.parts[0].text;
+      } else {
+        assistantResponse = "I'm having trouble processing that request. Please try another question.";
+      }
+      
+      // Add assistant response to chat
+      setMessages(prev => [...prev, { role: 'assistant', content: assistantResponse }]);
+      
+      // Increment conversation count
+      setConversationCount(prev => prev + 1);
+      
+      // Check if limit reached after this conversation
+      if (conversationCount + 1 >= MAX_CONVERSATIONS) {
+        setLimitReached(true);
+      }
+      
+    } catch (error) {
+      console.error('Error calling Gemini API:', error);
+      setMessages(prev => [
+        ...prev,
+        { role: 'assistant', content: "I'm sorry, I encountered an error processing your request. Please try again." }
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <section className="py-24 bg-black relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-radial from-gray-900/30 to-black/90 z-0"></div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+            Try Our AI
+          </h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Experience aetherinc's AI capabilities through our interactive terminal demo.
+          </p>
+        </motion.div>
+        
+        <div className="max-w-3xl mx-auto">
+          <motion.div
+            ref={terminalRef}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="border border-white/10 rounded-lg bg-black/60 backdrop-blur-md"
+          >
+            {/* Terminal header */}
+            <div className="flex items-center justify-between p-4 border-b border-white/10 bg-white/5">
+              <div className="flex items-center">
+                <TerminalIcon className="w-5 h-5 text-white mr-2" />
+                <span className="text-white font-mono">aetherinc Terminal</span>
+              </div>
+              <div className="flex space-x-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+            </div>
+            
+            {/* Terminal console */}
+            <div className="p-4 h-96 overflow-y-auto font-mono text-sm">
+              {messages.map((message, index) => (
+                <div 
+                  key={index} 
+                  className={`mb-4 ${
+                    message.role === 'user' 
+                      ? 'pl-4 border-l-2 border-cyan-500/70' 
+                      : message.role === 'system' 
+                        ? 'bg-white/5 p-2 rounded' 
+                        : 'pl-4 border-l-2 border-purple-500/70'
+                  }`}
+                >
+                  <div className="text-xs text-gray-400 mb-1">
+                    {message.role === 'user' 
+                      ? 'You:' 
+                      : message.role === 'system' 
+                        ? 'System:' 
+                        : 'aetherinc AI:'}
+                  </div>
+                  <div className="text-white whitespace-pre-wrap">
+                    {message.content}
+                  </div>
+                </div>
+              ))}
+              
+              {isLoading && (
+                <div className="pl-4 border-l-2 border-purple-500/70 mb-4">
+                  <div className="text-xs text-gray-400 mb-1">aetherinc AI:</div>
+                  <div className="text-white">
+                    <span className="inline-block w-2 h-2 bg-purple-500 rounded-full animate-pulse mr-1"></span>
+                    <span className="inline-block w-2 h-2 bg-purple-500 rounded-full animate-pulse delay-100 mr-1"></span>
+                    <span className="inline-block w-2 h-2 bg-purple-500 rounded-full animate-pulse delay-200"></span>
+                  </div>
+                </div>
+              )}
+              
+              {/* Invisible element for auto-scrolling */}
+              <div ref={consoleEndRef}></div>
+            </div>
+            
+            {/* Terminal input */}
+            <form 
+              onSubmit={handleSubmit}
+              className="border-t border-white/10 p-4 flex items-center"
+            >
+              <Input
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder={limitReached ? "Demo limit reached" : "Type your question here..."}
+                disabled={isLoading || limitReached}
+                className="flex-grow bg-white/5 border-white/10 text-white"
+              />
+              <Button
+                type="submit"
+                disabled={isLoading || limitReached || !input.trim()}
+                className="ml-2 bg-white/10 hover:bg-white/20"
+              >
+                <Send className="w-4 h-4" />
+                <span className="sr-only">Send</span>
+              </Button>
+            </form>
+          </motion.div>
+          
+          {/* Info card below terminal */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="mt-6 bg-white/5 rounded-lg p-4 border border-white/10 flex items-start"
+          >
+            <Info className="w-5 h-5 text-cyan-400 mr-3 mt-0.5 flex-shrink-0" />
+            <p className="text-gray-300 text-sm">
+              This is a limited demo of our AI capabilities. Our actual hardware runs entirely on-device 
+              with significantly faster response times and full privacy protection. Join our waitlist 
+              to experience the full version.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+} 

@@ -22,24 +22,24 @@ interface SocialLink {
 
 // Footer links
 const products: FooterLink[] = [
-  { label: 'GURU Device', href: '#' },
-  { label: 'Software', href: '#' },
-  { label: 'Integrations', href: '#' },
-  { label: 'Pricing', href: '#' },
+  { label: 'GURU Device', href: '/coming-soon' },
+  { label: 'Software', href: '/coming-soon' },
+  { label: 'Integrations', href: '/coming-soon' },
+  { label: 'Pricing', href: '/coming-soon' },
 ];
 
 const company: FooterLink[] = [
-  { label: 'About', href: '#' },
-  { label: 'Blog', href: '#' },
-  { label: 'Careers', href: '#' },
-  { label: 'Press', href: '#' },
+  { label: 'About', href: '/coming-soon' },
+  { label: 'Blog', href: '/coming-soon' },
+  { label: 'Careers', href: '/coming-soon' },
+  { label: 'Press', href: '/coming-soon' },
 ];
 
 const resources: FooterLink[] = [
-  { label: 'Documentation', href: '#' },
-  { label: 'Help Center', href: '#' },
-  { label: 'Privacy', href: '#' },
-  { label: 'Terms', href: '#' },
+  { label: 'Documentation', href: '/coming-soon' },
+  { label: 'Help Center', href: '/coming-soon' },
+  { label: 'Privacy', href: '/coming-soon' },
+  { label: 'Terms', href: '/coming-soon' },
 ];
 
 const social: SocialLink[] = [
@@ -230,11 +230,11 @@ export default function Footer() {
             &copy; {currentYear} AetherInc. All rights reserved.
           </p>
           <div className="flex space-x-4 text-sm text-gray-400">
-            <Link href="#" className="hover:text-white">Privacy Policy</Link>
+            <Link href="/coming-soon" className="hover:text-white">Privacy Policy</Link>
             <span>•</span>
-            <Link href="#" className="hover:text-white">Terms of Service</Link>
+            <Link href="/coming-soon" className="hover:text-white">Terms of Service</Link>
             <span>•</span>
-            <Link href="#" className="hover:text-white">Cookies</Link>
+            <Link href="/coming-soon" className="hover:text-white">Cookies</Link>
           </div>
         </motion.div>
       </div>
