@@ -23,7 +23,6 @@ interface HeroProps {
 // Morphing text options
 const morphingTexts = [
   "Your Private AI Partner.",
-  "On-Device Superintelligence.",
   "Meet GURU."
 ];
 

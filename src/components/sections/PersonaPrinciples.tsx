@@ -48,13 +48,13 @@ export default function PersonaPrinciples() {
               Your Digital Partner
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-               More Than an Assistant, <br />A Personal Superintelligence.
+               More Than an Assistant, <br />Your Autonomous Partner.
             </h2>
             <p className="text-lg text-gray-300 mb-4">
-              Think of GURU like Jarvis – an ever-present, adaptable intelligence designed to amplify your capabilities. It learns your context, anticipates needs, and manages complex tasks across any field.
+              Think of GURU like Jarvis – an ever-present, adaptable intelligence designed to amplify *you*. It connects securely to your digital life (computer, phone, workspaces), learns your context, anticipates needs, and autonomously manages complex tasks.
             </p>
             <p className="text-lg text-gray-300 mb-6">
-               Whether you're coding, designing, researching, or managing operations, GURU integrates seamlessly, aiming for 20x productivity gains with minimal power and zero recurring AI fees.
+               Whether you're coding, designing, managing operations, or simply navigating your day, GURU integrates seamlessly via voice or contextual awareness, aiming for 20x productivity gains with minimal power and zero recurring AI fees.
             </p>
             <div className="flex items-center gap-3 text-cyan-400">
                <Sparkles size={20} />

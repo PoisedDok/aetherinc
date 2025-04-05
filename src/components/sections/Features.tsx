@@ -11,7 +11,7 @@ import { TiltCard } from '@/components/magicui/tilt-card';
 import { BentoGrid, BentoGridItem } from '@/components/magicui/bento-grid';
 
 // Icons
-import { Bot, BrainCircuit, ShieldCheck, Gauge, Database, Layers, Palette, Server } from 'lucide-react';
+import { Bot, BrainCircuit, ShieldCheck, Gauge, Database, Layers, Palette, Server, Link as LinkIcon } from 'lucide-react';
 
 // Feature type
 interface Feature {
@@ -82,6 +82,13 @@ const features: Feature[] = [
     description: "Choose to sync data across *your* devices with end-to-end encryption. You control the keys.",
     className: "lg:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-orange-900/15 to-transparent"></div>
+  },
+  {
+    icon: <LinkIcon className="h-6 w-6 text-indigo-400" />,
+    title: "Unified Device Control",
+    description: "Securely connect and interact with your computer, phone, and smart devices via GURU.",
+    className: "lg:col-span-1", 
+    background: <div className="absolute inset-0 bg-gradient-radial from-indigo-900/20 to-transparent"></div>
   },
    {
     icon: PaletteIcon,
