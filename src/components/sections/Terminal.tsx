@@ -186,7 +186,7 @@ Okay, GURU AI, answer the following user question based *only* on the informatio
   };
 
   return (
-    <section className="py-24 bg-black relative overflow-hidden">
+    <section id="ask-guru" className="py-24 bg-black relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-radial from-gray-900/30 to-black/90 z-0"></div>
       
       <div className="container mx-auto px-4 relative z-10">

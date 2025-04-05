@@ -20,26 +20,27 @@ interface SocialLink {
   icon: React.ReactNode;
 }
 
-// Footer links
+// Footer links - Updated
 const products: FooterLink[] = [
-  { label: 'GURU Device', href: '/coming-soon' },
-  { label: 'Software', href: '/coming-soon' },
-  { label: 'Integrations', href: '/coming-soon' },
-  { label: 'Pricing', href: '/coming-soon' },
+  { label: 'GURU Device', href: '/' }, // Links to home page
+  { label: 'Software', href: '/software' },
+  // { label: 'Integrations', href: '/coming-soon' }, // Removed
+  { label: 'Pricing', href: '/pricing' },
 ];
 
 const company: FooterLink[] = [
-  { label: 'About', href: '/coming-soon' },
-  { label: 'Blog', href: '/coming-soon' },
-  { label: 'Careers', href: '/coming-soon' },
-  { label: 'Press', href: '/coming-soon' },
+  { label: 'About', href: '/about' },
+  { label: 'Blog', href: '/coming-soon' }, // Assuming /blog exists or is coming soon
+  { label: 'Careers', href: '/careers' },
+  // { label: 'Press', href: '/coming-soon' }, // Removed
 ];
 
-const resources: FooterLink[] = [
-  { label: 'Documentation', href: '/coming-soon' },
-  { label: 'Help Center', href: '/coming-soon' },
-  { label: 'Privacy', href: '/coming-soon' },
-  { label: 'Terms', href: '/coming-soon' },
+// Renamed from resources to support/legal
+const support: FooterLink[] = [
+  { label: 'Documentation', href: '/documentation' },
+  { label: 'Help Center', href: '/#ask-guru' }, // Links to terminal section on home page
+  { label: 'Privacy', href: '/privacy' },
+  { label: 'Terms', href: '/terms' },
 ];
 
 const social: SocialLink[] = [
@@ -157,7 +158,7 @@ export default function Footer() {
             </motion.div>
           </div>
           
-          {/* Links Columns */}
+          {/* Links Columns - Updated */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-16">
             {/* Products */}
             <motion.div 
@@ -197,16 +198,16 @@ export default function Footer() {
               </ul>
             </motion.div>
             
-            {/* Resources */}
+            {/* Support & Legal (Renamed from Resources) */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <h3 className="font-bold text-lg mb-4">Resources</h3>
+              <h3 className="font-bold text-lg mb-4">Support & Legal</h3> {/* Renamed Header */}
               <ul className="space-y-3">
-                {resources.map((link, index) => (
+                {support.map((link, index) => ( /* Use updated support array */
                   <li key={index} className="opacity-80 hover:opacity-100 transition-opacity">
                     <Link href={link.href} className="text-gray-300 hover:text-white">
                       {link.label}
@@ -218,7 +219,7 @@ export default function Footer() {
           </div>
         </div>
         
-        {/* Copyright */}
+        {/* Copyright - Updated Links */}
         <motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -230,11 +231,12 @@ export default function Footer() {
             &copy; {currentYear} AetherInc. All rights reserved.
           </p>
           <div className="flex space-x-4 text-sm text-gray-400">
-            <Link href="/coming-soon" className="hover:text-white">Privacy Policy</Link>
+            <Link href="/privacy" className="hover:text-white">Privacy Policy</Link> {/* Updated Link */}
             <span>•</span>
-            <Link href="/coming-soon" className="hover:text-white">Terms of Service</Link>
-            <span>•</span>
-            <Link href="/coming-soon" className="hover:text-white">Cookies</Link>
+            <Link href="/terms" className="hover:text-white">Terms of Service</Link> {/* Updated Link */}
+            {/* Removed Cookies Link for now */}
+            {/* <span>•</span>
+            <Link href="/coming-soon" className="hover:text-white">Cookies</Link> */}
           </div>
         </motion.div>
       </div>
