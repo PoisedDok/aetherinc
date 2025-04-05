@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 // Gemini API key
+// TODO: MOVE THIS TO ENVIRONMENT VARIABLES (.env.local, .env.production) BEFORE DEPLOYMENT!
+// NEVER COMMIT API KEYS TO VERSION CONTROL.
 const GEMINI_API_KEY = "AIzaSyD-Z8Qzus6wMzxsVW2ceOMqCTGRfSsW2qQ";
 
 // Interface for chat messages

@@ -1,19 +1,17 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
-import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useInView } from 'framer-motion';
 import { InteractiveGridPattern } from '@/components/magicui/interactive-grid-pattern';
-import { TypingAnimation } from '@/components/magicui/typing-animation';
 import { MorphingText } from '@/components/magicui/morphing-text';
 import { ShineBorder } from '@/components/magicui/shine-border';
 import { BentoGrid, BentoGridItem } from '@/components/magicui/bento-grid';
-import { HyperText } from '@/components/magicui/hyper-text';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Cpu, Server, ShieldCheck, Zap } from 'lucide-react';
+import { Cpu, Server, ShieldCheck, Zap, Database, Infinity, BrainCircuit } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { ParticleBackground } from '@/components/magicui/particle-background';
+import Link from 'next/link';
 
 // Hero section props type
 interface HeroProps {
@@ -22,53 +20,51 @@ interface HeroProps {
   waitlistRef: React.RefObject<HTMLElement | null>;
 }
 
-// Typing animation phrases
-const typingPhrases = [
-  "The world's first privacy-first AI device.",
-  "Powerful AI without the cloud.",
-  "Your data never leaves your device.",
-  "67 TOPS of on-device compute power.",
-  "Ollama and OmniParser on NVIDIA Orin Jetson Super."
-];
-
 // Morphing text options
 const morphingTexts = [
-  "Meet GURU",
-  "Experience GURU",
-  "Discover GURU"
+  "Your Private AI Partner.",
+  "On-Device Superintelligence.",
+  "Meet GURU."
 ];
 
 // Bento grid items
 const bentoItems = [
   {
-    title: "Local Processing",
-    description: "On-device LLM inference via Ollama and screen parsing via OmniParser",
-    icon: <Cpu className="h-8 w-8 text-white" />,
+    title: "Local AI Processing",
+    description: "All AI tasks, from LLMs to vision, run directly on GURU.",
+    icon: <Cpu className="h-6 w-6 text-cyan-400" />,
     className: "md:col-span-1",
+    background: <div className="absolute inset-0 bg-gradient-radial from-cyan-900/20 to-transparent"></div>
   },
   {
-    title: "Privacy Focused",
-    description: "All your data stays on your device, with no cloud dependencies",
-    icon: <ShieldCheck className="h-8 w-8 text-white" />,
+    title: "Uncompromising Privacy",
+    description: "Your data never leaves the device. Period.",
+    icon: <ShieldCheck className="h-6 w-6 text-green-400" />,
     className: "md:col-span-1",
+    background: <div className="absolute inset-0 bg-gradient-radial from-green-900/20 to-transparent"></div>
   },
   {
-    title: "Low Power",
-    description: "Optimized for battery operation with efficient power management",
-    icon: <Zap className="h-8 w-8 text-white" />,
+    title: "10TB Local Storage",
+    description: "Build a vast, private knowledge base accessible instantly.",
+    icon: <Database className="h-6 w-6 text-yellow-400" />,
     className: "md:col-span-1",
+    background: <div className="absolute inset-0 bg-gradient-radial from-yellow-900/15 to-transparent"></div>
   },
   {
-    title: "Modular Design",
-    description: "Expandable with cameras, sensors, and industry-specific modules",
-    icon: <Server className="h-8 w-8 text-white" />,
+    title: "Zero Recurring Costs",
+    description: "One device, lifetime access. No subscriptions for core AI.",
+    icon: <Infinity className="h-6 w-6 text-purple-400" />,
     className: "md:col-span-1",
+    background: <div className="absolute inset-0 bg-gradient-radial from-purple-900/20 to-transparent"></div>
   },
 ];
 
 export default function Hero({ scrollToSection, featuresRef, waitlistRef }: HeroProps) {
-  // Refs for animation
   const heroRef = useRef<HTMLElement | null>(null);
+  const statsRef = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(statsRef, { once: true, margin: "-100px" });
+
+  // Refs for animation
   const [gridSize, setGridSize] = useState(20);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -131,7 +127,7 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
   return (
     <section 
       ref={heroRef}
-      className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-black pb-20"
+      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black pb-20 pt-24 md:pt-32"
     >
       {/* Subtle Grid Pattern behind hero */}
       <motion.div 
@@ -151,7 +147,7 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
 
       {/* Hero Content */}
       <motion.div 
-        className="container relative mx-auto z-10 text-center px-4 sm:px-6 pt-20"
+        className="container relative mx-auto z-10 text-center px-4 sm:px-6"
         style={{ y: heroY }}
       >
         <motion.div 
@@ -161,7 +157,7 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
           className="mb-6 inline-block"
         >
           <Badge variant="outline" className="text-white border-white/30 px-4 py-1 text-xs sm:text-sm font-semibold backdrop-blur-sm">
-            By AetherInc
+            Introducing GURU
           </Badge>
         </motion.div>
 
@@ -169,72 +165,72 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-6 relative"
+          className="mb-4 mt-4 relative"
         >
-          <div className="absolute inset-0 -z-10">
-            <ParticleBackground 
-              className="w-full h-full"
-              particleCount={30}
-              particleSize={1.5}
-              particleSpeed={0.3}
-              particleOpacity={0.15}
-            />
-          </div>
           <MorphingText 
             texts={morphingTexts}
-            className="heading-1 font-bold text-white"
-          />
-          <motion.span 
-            className="absolute -bottom-2 left-0 right-0 mx-auto w-40 h-1 bg-white"
-            initial={{ width: 0 }}
-            animate={{ width: "40%" }}
-            transition={{ duration: 0.8, delay: 1 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight"
           />
         </motion.div>
 
-        {/* Dynamic tagline with typing animation */}
         <motion.div 
+          ref={statsRef}
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="h-12 sm:h-16 mb-6"
+          className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 sm:gap-x-10 text-sm sm:text-base text-gray-400 mb-8 mt-6"
         >
-          <TypingAnimation phrases={typingPhrases} className="body-text text-gray-400" />
+          <div className="flex items-center gap-2">
+            <BrainCircuit size={18} className="text-cyan-400" />
+            <span className="font-semibold text-white">67</span> TOPS NPU
+          </div>
+          <div className="flex items-center gap-2">
+            <Database size={18} className="text-yellow-400" />
+            <span className="font-semibold text-white">10TB</span> Local Storage
+          </div>
+          <div className="flex items-center gap-2">
+            <ShieldCheck size={18} className="text-green-400" />
+            100% On-Device AI
+          </div>
         </motion.div>
 
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="body-text text-gray-300 max-w-3xl mx-auto mb-8"
+          className="body-text text-gray-300 max-w-2xl mx-auto mb-10"
         >
-          <span className="text-white font-semibold">GURU</span> is a revolutionary <strong className="text-white">privacy-first AI assistant</strong> powered by advanced local inference engines running on NVIDIA hardware. Experience powerful on-device AI that keeps your data where it belongs — with you.
-          <div className="block mt-2 text-gray-400 font-medium">Pre-orders starting Q3 2025</div>
+          GURU isn't just an AI assistant; it's your secure, hyper-intelligent digital partner. Like Jarvis, it learns, assists, and empowers across all aspects of your life or work—all while guaranteeing absolute privacy and operating safely with built-in reasoning guardrails. 
+          <Link href="/examples" className="text-cyan-400 hover:text-cyan-300 transition-colors"> See examples.</Link>
+          <div className="block mt-3 text-gray-500 text-sm font-medium">Pre-orders Q3 2025</div>
         </motion.div>
 
-        {/* Bento Grid for Key Features */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
-          className="mb-10 max-w-4xl mx-auto"
+          className="mb-12 max-w-4xl mx-auto"
         >
-          <BentoGrid className="grid-cols-1 md:grid-cols-2 gap-4">
+          <BentoGrid className="grid-cols-2 md:grid-cols-4 gap-4">
             {bentoItems.map((item, i) => (
-              <BentoGridItem
-                key={i}
-                title={item.title}
-                description={item.description}
-                header={
-                  <div className="flex items-center justify-center p-3 bg-white/5 backdrop-blur-sm rounded-lg">
-                    {item.icon}
-                  </div>
-                }
-                className={cn(
-                  "group/bento hover:border-white/20 transition-all overflow-hidden bg-white/[0.05] border border-white/[0.08] backdrop-blur-sm",
-                  item.className
-                )}
-              />
+              <motion.div
+                key={`hero-bento-${i}`}
+                initial={{ opacity: 0, scale: 0.9 }} 
+                animate={{ opacity: 1, scale: 1 }} 
+                transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }}
+                className="relative rounded-lg overflow-hidden"
+              > 
+                {item.background}
+                <div className="relative z-10 h-full">
+                  <BentoGridItem
+                    key={i}
+                    title={item.title}
+                    description={item.description}
+                    header={<div className="p-2 rounded-md bg-black/20 flex items-center justify-center">{item.icon}</div>}
+                    className={cn("group/bento hover:shadow-xl transition-shadow duration-200 h-full", item.className)}
+                  />
+                </div>
+              </motion.div>
             ))}
           </BentoGrid>
         </motion.div>
@@ -242,8 +238,8 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="flex flex-wrap justify-center gap-4 mt-8 mb-16"
+          transition={{ duration: 0.6, delay: 0.9 }}
+          className="flex flex-wrap justify-center gap-4 mt-8"
         >
           <div className="relative overflow-hidden rounded-full">
             <ShineBorder 
@@ -254,10 +250,10 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
             />
             <Button
               onClick={() => scrollToSection(waitlistRef)}
-              className="relative bg-white hover:bg-white/90 text-black font-semibold py-3 px-6 sm:px-8 rounded-full transition duration-300 shadow-glow-subtle text-base sm:text-lg h-auto min-w-[180px]"
+              className="relative bg-white hover:bg-white/90 text-black font-semibold py-3 px-8 rounded-full transition duration-300 shadow-glow-subtle text-base sm:text-lg h-auto min-w-[180px] transform hover:scale-105"
               size="lg"
             >
-              Reserve Yours Now
+              Reserve Your GURU
             </Button>
           </div>
 
@@ -271,27 +267,12 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
             <Button
               variant="outline"
               onClick={() => scrollToSection(featuresRef)}
-              className="relative bg-white/5 hover:bg-white/10 text-white border border-white/30 font-semibold py-3 px-6 sm:px-8 rounded-full transition duration-300 text-base sm:text-lg h-auto backdrop-blur-md min-w-[180px]"
+              className="relative bg-white/5 hover:bg-white/10 text-white border border-white/30 font-semibold py-3 px-8 rounded-full transition duration-300 text-base sm:text-lg h-auto backdrop-blur-md min-w-[180px] transform hover:scale-105"
               size="lg"
             >
               Explore Features
             </Button>
           </div>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div 
-          className="absolute left-1/2 transform -translate-x-1/2 bottom-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, y: [0, 10, 0] }}
-          transition={{ 
-            opacity: { delay: 1.5, duration: 1 },
-            y: { repeat: Infinity, duration: 1.5, ease: "easeInOut" }
-          }}
-        >
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 5V19M12 19L19 12M12 19L5 12" stroke="rgba(255, 255, 255, 0.6)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
         </motion.div>
       </motion.div>
     </section>
