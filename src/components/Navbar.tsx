@@ -8,12 +8,18 @@ import { ShineBorder } from '@/components/magicui/shine-border';
 import Link from 'next/link';
 
 interface NavbarProps {
-  scrollToSection: (ref: React.RefObject<HTMLElement | null>) => void;
-  featuresRef: React.RefObject<HTMLElement | null>;
-  waitlistRef: React.RefObject<HTMLElement | null>;
+  scrollToSection?: (ref: React.RefObject<HTMLElement | null>) => void;
+  featuresRef?: React.RefObject<HTMLElement | null>;
+  waitlistRef?: React.RefObject<HTMLElement | null>;
+  howItWorksRef?: React.RefObject<HTMLElement | null>;
 }
 
-export default function Navbar({ scrollToSection, featuresRef, waitlistRef }: NavbarProps) {
+export default function Navbar({ 
+  scrollToSection, 
+  featuresRef, 
+  waitlistRef, 
+  howItWorksRef
+}: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
   
@@ -73,13 +79,15 @@ export default function Navbar({ scrollToSection, featuresRef, waitlistRef }: Na
             transition={{ duration: 0.3 }}
             className="hidden sm:flex items-center gap-4"
           >
-            <Button
-              variant="ghost"
-              onClick={() => scrollToSection(featuresRef)}
-              className="text-sm text-white/70 hover:text-white transition-colors"
-            >
-              Features
-            </Button>
+            {scrollToSection && featuresRef && (
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection(featuresRef)}
+                className="text-sm text-white/70 hover:text-white transition-colors"
+              >
+                Features
+              </Button>
+            )}
             <Link href="/examples" passHref>
               <Button
                 variant="ghost"
@@ -101,7 +109,8 @@ export default function Navbar({ scrollToSection, featuresRef, waitlistRef }: Na
               duration={10}
             />
             <Button
-              onClick={() => scrollToSection(waitlistRef)}
+              onClick={() => scrollToSection && waitlistRef && scrollToSection(waitlistRef)}
+              disabled={!scrollToSection || !waitlistRef}
               className={cn(
                 "relative font-semibold px-4 py-2 rounded-full transition-all duration-300",
                 isScrolled

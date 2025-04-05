@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/sections/Hero';
 import Features from '@/components/sections/Features';
+import VisualWorkflow from '@/components/sections/VisualWorkflow';
 import Terminal from '@/components/sections/Terminal';
 import Waitlist from '@/components/sections/Waitlist';
 import Footer from '@/components/Footer';
@@ -56,10 +57,11 @@ export default function Home() {
           waitlistRef={waitlistRef}
         />
         <Features featuresRef={featuresRef} />
+        <VisualWorkflow />
         <Terminal />
         <Waitlist waitlistRef={waitlistRef} />
       </main>
       <Footer />
-        </div>
+    </div>
   );
 }

@@ -89,20 +89,16 @@ const exampleWorkflows = [
 ];
 
 export default function ExamplesPage() {
-  // Dummy refs and function for Navbar compatibility
-  const dummyRef = React.useRef(null);
-  const scrollToSection = () => {};
+  // Dummy refs and function for Navbar compatibility - NO LONGER NEEDED
+  // const dummyRef = React.useRef(null);
+  // const scrollToSection = () => {};
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-slate-950 to-black text-white">
       <ScrollProgress />
       <BackToTop />
-      {/* Ensure Navbar props are satisfied - adjust if Navbar requires different props */}
-      <Navbar 
-        scrollToSection={scrollToSection} 
-        featuresRef={dummyRef} 
-        waitlistRef={dummyRef} 
-      />
+      {/* Navbar no longer needs dummy props */}
+      <Navbar />
       
       <main className="flex-grow pt-28 pb-20 px-4 md:px-6">
         <motion.div

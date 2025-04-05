@@ -8,86 +8,89 @@ import { InteractiveGridPattern } from '@/components/magicui/interactive-grid-pa
 import { RetroGrid } from '@/components/magicui/retro-grid';
 import { ShineBorder } from '@/components/magicui/shine-border';
 import { TiltCard } from '@/components/magicui/tilt-card';
+import { BentoGrid, BentoGridItem } from '@/components/magicui/bento-grid';
 
 // Icons
-import { CircuitBoard, Shield, Zap, LucideIcon, Wifi, Fingerprint, PlusCircle, Languages, GraduationCap, Building2 } from 'lucide-react';
+import { Bot, BrainCircuit, ShieldCheck, Gauge, Database, Layers, Palette, Server } from 'lucide-react';
 
-// Feature types
+// Feature type
 interface Feature {
-  icon: LucideIcon;
+  icon: React.ReactNode;
   title: string;
   description: string;
-  detail?: string;
-  delay: number;
-  highlight?: boolean;
+  className: string; 
+  background?: React.ReactNode;
 }
 
-// Features array
+// Explicitly define icons as ReactNode before the array
+const BotIcon = <Bot className="h-6 w-6 text-purple-400" />;
+const BrainCircuitIcon = <BrainCircuit className="h-6 w-6 text-cyan-400" />;
+const ShieldCheckIcon = <ShieldCheck className="h-6 w-6 text-green-400" />;
+const GaugeIcon = <Gauge className="h-6 w-6 text-red-400" />;
+const DatabaseIcon = <Database className="h-6 w-6 text-yellow-400" />;
+const LayersIcon = <Layers className="h-6 w-6 text-blue-400" />;
+const ServerIcon = <Server className="h-6 w-6 text-orange-400" />;
+const PaletteIcon = <Palette className="h-6 w-6 text-pink-400" />;
+
+// Assign the ReactNode variables to the icon property
 const features: Feature[] = [
   {
-    icon: CircuitBoard,
+    icon: BotIcon,
+    title: "Truly Private AI Core",
+    description: "Think Jarvis, but private. GURU processes everything on-device. Your data, thoughts, and conversations stay yours, always.",
+    className: "lg:col-span-2",
+    background: <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-black to-black opacity-50 group-hover:opacity-70 transition-opacity"></div>
+  },
+  {
+    icon: BrainCircuitIcon,
     title: "67 TOPS Neural Engine",
-    description: "NVIDIA Orin Jetson Super platform delivers lightning-fast AI inference on your local device.",
-    detail: "Built on NVIDIA's cutting-edge architecture, our 67 TOPS NPU efficiently runs complex models like Llama and Mistral with minimal power consumption.",
-    delay: 0.1,
-    highlight: true
+    description: "Blazing-fast AI powered by NVIDIA Orin Jetson Super. Handles complex tasks locally with ease.",
+    className: "lg:col-span-1",
+    background: <div className="absolute inset-0 bg-gradient-radial from-cyan-900/20 to-transparent"></div>
   },
   {
-    icon: Shield,
-    title: "Secure Enclave",
-    description: "Hardware-level security ensures all your personal data and interactions remain private.",
-    detail: "Advanced encryption and isolated processing guarantees your data never leaves your device without explicit permission.",
-    delay: 0.2
+    icon: ShieldCheckIcon,
+    title: "Hardware Secure Enclave",
+    description: "Fort Knox for your data. Dedicated hardware security isolates and protects your sensitive information.",
+    className: "lg:col-span-1",
+    background: <div className="absolute inset-0 bg-gradient-radial from-green-900/20 to-transparent"></div>
   },
   {
-    icon: Zap,
-    title: "Ultra-Low Latency",
-    description: "AI responses in milliseconds without cloud round-trips for smooth, real-time interactions.",
-    detail: "Experience conversation-quality response times of under 100ms, eliminating the lag and disconnection issues common with cloud-based AI.",
-    delay: 0.3
+    icon: GaugeIcon,
+    title: "Millisecond Latency",
+    description: "Instantaneous responses. No cloud lag, just fluid interaction, like a natural conversation.",
+    className: "lg:col-span-1",
+    background: <div className="absolute inset-0 bg-gradient-radial from-red-900/20 to-transparent"></div>
   },
   {
-    icon: Wifi,
-    title: "Optional Cloud Sync",
-    description: "Selectively sync your data across devices with end-to-end encryption when you choose.",
-    detail: "Control exactly what data gets synchronized, with granular permissions and automatic encryption to maintain privacy across your devices.",
-    delay: 0.4
+    icon: DatabaseIcon,
+    title: "On-Device Knowledge",
+    description: "GURU learns *locally*. It adapts to you without sending your behaviour patterns to the cloud.",
+    className: "lg:col-span-1",
+    background: <div className="absolute inset-0 bg-gradient-radial from-yellow-900/15 to-transparent"></div>
   },
   {
-    icon: Fingerprint,
-    title: "Biometric Authentication",
-    description: "Multi-layer security with fingerprint and voice recognition for personalized access.",
-    detail: "Instantly recognize authorized users through multiple biometric factors, ensuring both security and a personalized AI experience.",
-    delay: 0.5
+    icon: LayersIcon,
+    title: "Modular & Expandable",
+    description: "Add cameras, sensors, or custom modules. GURU adapts to your specific needs.",
+    className: "lg:col-span-1",
+    background: <div className="absolute inset-0 bg-gradient-radial from-blue-900/20 to-transparent"></div>
   },
   {
-    icon: PlusCircle,
-    title: "Expandable Functionality",
-    description: "Extend capabilities with cameras, sensors, and privacy-first plugins for custom solutions.",
-    detail: "The modular hardware design allows for easy integration of additional sensors or specialized tools for your specific needs.",
-    delay: 0.6
+    icon: ServerIcon,
+    title: "Optional Secure Sync",
+    description: "Choose to sync data across *your* devices with end-to-end encryption. You control the keys.",
+    className: "lg:col-span-1",
+    background: <div className="absolute inset-0 bg-gradient-radial from-orange-900/15 to-transparent"></div>
   },
-  {
-    icon: Languages,
-    title: "Multilingual Assistant",
-    description: "Real-time translation across languages with natural speech synthesis.",
-    detail: "aetherinc's on-device processing enables fluent translation in over 40 languages without internet connectivity.",
-    delay: 0.7
+   {
+    icon: PaletteIcon,
+    title: "Open & Customizable",
+    description: "Built with developers in mind. Integrate GURU into your own projects with our open SDK.",
+    className: "lg:col-span-2",
+    background: <div className="absolute inset-0 bg-gradient-to-br from-pink-900/20 via-black to-black opacity-50 group-hover:opacity-70 transition-opacity"></div>
   },
-  {
-    icon: GraduationCap,
-    title: "Personalized Learning",
-    description: "Adaptive tutoring that evolves with your learning style and knowledge gaps.",
-    detail: "Create personalized learning plans with interactive lessons, quizzes, and explanations tailored to your pace.",
-    delay: 0.8
-  },
-  {
-    icon: Building2,
-    title: "Industry Solutions",
-    description: "Specialized configurations for healthcare, manufacturing, education, and more.",
-    detail: "Custom workflows and dedicated processing for industry-specific tasks, from healthcare documentation to manufacturing quality control.",
-    delay: 0.9
-  }
+  
 ];
 
 // Feature section props type
@@ -167,106 +170,26 @@ export default function Features({ featuresRef }: FeaturesProps) {
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            index === 0 ? (
-              // First feature box without animation
-              <div key={index} className="h-full">
-                <div className="relative group h-full">
-                  <Card className={cn(
-                    "h-full backdrop-blur-sm border-white/10 transition-all duration-300 hover:border-white/20 overflow-hidden relative",
-                    feature.highlight 
-                      ? "bg-transparent" 
-                      : "bg-white/5"
-                  )}>
-                    <CardHeader className="pb-2 relative z-10">
-                      <div className="bg-white/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                        <feature.icon className="w-6 h-6 text-white" />
-                      </div>
-                      <CardTitle className="text-xl font-semibold text-white">{feature.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="relative z-10">
-                      <CardDescription className="text-gray-200 mb-2">{feature.description}</CardDescription>
-                      {feature.detail && (
-                        <p className="text-sm text-gray-300 mt-2">
-                          {feature.detail}
-                        </p>
-                      )}
-                    </CardContent>
-                  </Card>
-                </div>
+        <BentoGrid className="lg:grid-rows-3 max-w-6xl mx-auto">
+          {features.map((feature, i) => (
+            <motion.div
+               key={i} 
+               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+               className={cn("relative rounded-lg overflow-hidden", feature.className)} 
+            >
+              {feature.background || <div className="absolute inset-0 bg-white/5 group-hover/bento:bg-white/10 transition-colors"></div>}
+              
+              <div className="relative z-10 h-full"> 
+                <BentoGridItem
+                  header={<div className="p-2 rounded-md bg-black/10 flex items-center justify-center">{feature.icon}</div>}
+                  title={feature.title}
+                  description={feature.description}
+                  className={cn("group/bento hover:shadow-xl transition-shadow duration-200 h-full")} 
+                />
               </div>
-            ) : (
-              // Remaining feature boxes with animation
-              <TiltCard
-                key={index}
-                className="h-full"
-                tiltMax={8}
-                scale={1.02}
-              >
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: feature.delay }}
-                  viewport={{ once: true, margin: "-10%" }}
-                  onMouseEnter={() => setIsHoveredMap(prev => ({...prev, [index]: true}))}
-                  onMouseLeave={() => setIsHoveredMap(prev => ({...prev, [index]: false}))}
-                  className="relative group h-full"
-                >
-                  <ShineBorder 
-                    className={cn(
-                      "absolute inset-0 rounded-lg transition-opacity duration-300",
-                      isHoveredMap[index] || feature.highlight ? "opacity-100" : "opacity-0",
-                    )}
-                    borderWidth={1}
-                    shineColor={feature.highlight ? 
-                      ["rgba(255, 255, 255, 0.3)", "rgba(255, 255, 255, 0.6)"] : 
-                      ["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.3)"]}
-                    duration={feature.highlight ? 10 : 14}
-                  />
-                  <Card className={cn(
-                    "h-full backdrop-blur-sm border-white/10 transition-all duration-300 hover:border-white/20 overflow-hidden relative",
-                    feature.highlight 
-                      ? "bg-transparent" 
-                      : "bg-white/5"
-                  )}>
-                    <CardHeader className="pb-2 relative z-10">
-                      <div className="bg-white/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                        <feature.icon className="w-6 h-6 text-white" />
-                      </div>
-                      <CardTitle className="text-xl font-semibold text-white">{feature.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="relative z-10">
-                      <CardDescription className="text-gray-200 mb-2">{feature.description}</CardDescription>
-                      {feature.detail && (
-                        <motion.p 
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ 
-                            opacity: isHoveredMap[index] ? 1 : 0,
-                            height: isHoveredMap[index] ? "auto" : 0
-                          }}
-                          transition={{ duration: 0.3 }}
-                          className="text-sm text-gray-300 mt-2 overflow-hidden"
-                        >
-                          {feature.detail}
-                        </motion.p>
-                      )}
-                    </CardContent>
-                    
-                    {feature.highlight && (
-                      <div className="absolute inset-0 rounded-lg pointer-events-none">
-                        <div className="absolute inset-0 overflow-hidden rounded-lg">
-                          <div className="absolute -inset-[100%] animate-[spin_5s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0_340deg,white_360deg)]" />
-                        </div>
-                        <div className="absolute inset-[1px] rounded-lg bg-gradient-to-br from-white/10 to-white/5" />
-                      </div>
-                    )}
-                  </Card>
-                </motion.div>
-              </TiltCard>
-            )
+            </motion.div>
           ))}
-        </div>
+        </BentoGrid>
       </div>
     </section>
   );
