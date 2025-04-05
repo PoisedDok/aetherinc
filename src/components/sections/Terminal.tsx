@@ -29,7 +29,7 @@ export default function Terminal() {
   const [messages, setMessages] = useState<Message[]>([
     { 
       role: 'system', 
-      content: 'Welcome to the aetherinc Terminal Demo. Type a question to learn more about our AI technology (5 questions limit).' 
+      content: 'Welcome! Ask me anything about the GURU device, AetherInc, or our privacy-first AI approach. (5 question limit for this demo)' 
     }
   ]);
   const [conversationCount, setConversationCount] = useState(0);
@@ -40,18 +40,9 @@ export default function Terminal() {
   // Auto-scroll to bottom when messages update
   useEffect(() => {
     if (consoleEndRef.current) {
-      consoleEndRef.current.scrollIntoView({ behavior: 'smooth' });
+      consoleEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   }, [messages]);
-
-  // Focus input when component mounts
-  useEffect(() => {
-    if (inputRef.current && isInView) {
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, 500);
-    }
-  }, [isInView]);
 
   // Handle input submission
   const handleSubmit = async (e: React.FormEvent) => {
@@ -171,6 +162,11 @@ Okay, GURU AI, answer the following user question based *only* on the informatio
       // Check if limit reached after this conversation
       if (conversationCount + 1 >= MAX_CONVERSATIONS) {
         setLimitReached(true);
+        // Add limit reached message immediately after response
+        setMessages(prev => [
+          ...prev,
+          { role: 'system', content: 'Demo limit reached. Please join our waitlist for full access.' }
+        ]);
       }
       
     } catch (error) {
@@ -181,6 +177,11 @@ Okay, GURU AI, answer the following user question based *only* on the informatio
       ]);
     } finally {
       setIsLoading(false);
+      // Re-focus the input after the response is handled and loading is finished
+      // Only focus if the limit hasn't been reached
+      if (!limitReached && inputRef.current) {
+        inputRef.current.focus();
+      }
     }
   };
 
@@ -196,14 +197,14 @@ Okay, GURU AI, answer the following user question based *only* on the informatio
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
-            Try Our AI
+            Ask About GURU
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Experience aetherinc's AI capabilities through our interactive terminal demo.
+            Have questions about our privacy-first AI device? Ask our AI assistant below!
           </p>
         </motion.div>
         
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <motion.div
             ref={terminalRef}
             initial={{ opacity: 0, y: 20 }}
@@ -242,7 +243,7 @@ Okay, GURU AI, answer the following user question based *only* on the informatio
                       ? 'You:' 
                       : message.role === 'system' 
                         ? 'System:' 
-                        : 'aetherinc AI:'}
+                        : 'GURU AI:'}
                   </div>
                   <div className="text-white whitespace-pre-wrap">
                     {message.content}
@@ -252,7 +253,7 @@ Okay, GURU AI, answer the following user question based *only* on the informatio
               
               {isLoading && (
                 <div className="pl-4 border-l-2 border-purple-500/70 mb-4">
-                  <div className="text-xs text-gray-400 mb-1">aetherinc AI:</div>
+                  <div className="text-xs text-gray-400 mb-1">GURU AI:</div>
                   <div className="text-white">
                     <span className="inline-block w-2 h-2 bg-purple-500 rounded-full animate-pulse mr-1"></span>
                     <span className="inline-block w-2 h-2 bg-purple-500 rounded-full animate-pulse delay-100 mr-1"></span>
@@ -275,14 +276,14 @@ Okay, GURU AI, answer the following user question based *only* on the informatio
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder={limitReached ? "Demo limit reached" : "Type your question here..."}
+                placeholder={limitReached ? "Demo limit reached. Join waitlist!" : "Ask about GURU's features, privacy, tech..."}
                 disabled={isLoading || limitReached}
-                className="flex-grow bg-white/5 border-white/10 text-white"
+                className="flex-grow bg-white/5 border-white/10 text-white focus:ring-cyan-500 focus:border-cyan-500"
               />
               <Button
                 type="submit"
                 disabled={isLoading || limitReached || !input.trim()}
-                className="ml-2 bg-white/10 hover:bg-white/20"
+                className="ml-2 bg-cyan-600 hover:bg-cyan-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send className="w-4 h-4" />
                 <span className="sr-only">Send</span>
@@ -299,9 +300,8 @@ Okay, GURU AI, answer the following user question based *only* on the informatio
           >
             <Info className="w-5 h-5 text-cyan-400 mr-3 mt-0.5 flex-shrink-0" />
             <p className="text-gray-300 text-sm">
-              This is a limited demo of our AI capabilities. Our actual hardware runs entirely on-device 
-              with significantly faster response times and full privacy protection. Join our waitlist 
-              to experience the full version.
+              This is a limited demo using cloud APIs. The actual GURU device runs entirely locally 
+              with instant responses and complete privacy. Join the waitlist for the real experience!
             </p>
           </motion.div>
         </div>
