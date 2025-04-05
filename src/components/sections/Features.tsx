@@ -1,16 +1,10 @@
 "use client";
 
-import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { InteractiveGridPattern } from '@/components/magicui/interactive-grid-pattern';
-import { RetroGrid } from '@/components/magicui/retro-grid';
-import { ShineBorder } from '@/components/magicui/shine-border';
-import { TiltCard } from '@/components/magicui/tilt-card';
-import { BentoGrid, BentoGridItem } from '@/components/magicui/bento-grid';
-
-// Icons
+import { RetroGrid } from '@/components/magicui/retro-grid'; 
+import { BentoGrid, BentoGridItem } from "@/components/magicui/bento-grid"; 
 import { Bot, BrainCircuit, ShieldCheck, Gauge, Database, Layers, Palette, Server, Link as LinkIcon } from 'lucide-react';
 
 // Feature type
@@ -22,7 +16,7 @@ interface Feature {
   background?: React.ReactNode;
 }
 
-// Explicitly define icons as ReactNode before the array
+// Define icons as ReactNode
 const BotIcon = <Bot className="h-6 w-6 text-purple-400" />;
 const BrainCircuitIcon = <BrainCircuit className="h-6 w-6 text-cyan-400" />;
 const ShieldCheckIcon = <ShieldCheck className="h-6 w-6 text-green-400" />;
@@ -30,16 +24,17 @@ const GaugeIcon = <Gauge className="h-6 w-6 text-red-400" />;
 const DatabaseIcon = <Database className="h-6 w-6 text-yellow-400" />;
 const LayersIcon = <Layers className="h-6 w-6 text-blue-400" />;
 const ServerIcon = <Server className="h-6 w-6 text-orange-400" />;
+const LinkIconNode = <LinkIcon className="h-6 w-6 text-indigo-400" />; // Use different name due to Link import conflict
 const PaletteIcon = <Palette className="h-6 w-6 text-pink-400" />;
 
-// Assign the ReactNode variables to the icon property
+// Features array for Bento Grid layout
 const features: Feature[] = [
   {
     icon: BotIcon,
     title: "Truly Private AI Core",
     description: "Think Jarvis, but private. GURU processes everything on-device. Your data, thoughts, and conversations stay yours, always.",
     className: "lg:col-span-2",
-    background: <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-black to-black opacity-50 group-hover:opacity-70 transition-opacity"></div>
+    background: <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-black to-black opacity-50 group-hover/bento:opacity-70 transition-opacity"></div>
   },
   {
     icon: BrainCircuitIcon,
@@ -84,7 +79,7 @@ const features: Feature[] = [
     background: <div className="absolute inset-0 bg-gradient-radial from-orange-900/15 to-transparent"></div>
   },
   {
-    icon: <LinkIcon className="h-6 w-6 text-indigo-400" />,
+    icon: LinkIconNode, // Use renamed icon variable
     title: "Unified Device Control",
     description: "Securely connect and interact with your computer, phone, and smart devices via GURU.",
     className: "lg:col-span-1", 
@@ -95,9 +90,8 @@ const features: Feature[] = [
     title: "Open & Customizable",
     description: "Built with developers in mind. Integrate GURU into your own projects with our open SDK.",
     className: "lg:col-span-2",
-    background: <div className="absolute inset-0 bg-gradient-to-br from-pink-900/20 via-black to-black opacity-50 group-hover:opacity-70 transition-opacity"></div>
+    background: <div className="absolute inset-0 bg-gradient-to-br from-pink-900/20 via-black to-black opacity-50 group-hover/bento:opacity-70 transition-opacity"></div>
   },
-  
 ];
 
 // Feature section props type
@@ -106,97 +100,84 @@ interface FeaturesProps {
 }
 
 export default function Features({ featuresRef }: FeaturesProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isHoveredMap, setIsHoveredMap] = useState<{[key: number]: boolean}>({});
-  
-  // Scroll-based animations
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-  
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [100, 0, 0, 100]);
-  
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 }); // Trigger animation earlier
+
   return (
     <section 
-      ref={featuresRef}
+      ref={featuresRef} // Keep the ref for scrolling from Navbar
       id="features" 
-      className="relative bg-black py-24 overflow-hidden"
+      className="relative bg-gradient-to-b from-black via-slate-950 to-black py-24 md:py-32 overflow-hidden"
     >
-      {/* Background grid */}
-      <div className="absolute inset-0 z-0">
-        <RetroGrid 
-          className="h-full w-full"
-          cellSize={60}
-          opacity={0.6}
-          angle={10}
-          lightLineColor="rgba(255, 255, 255, 0.07)"
-          darkLineColor="rgba(255, 255, 255, 0.05)"
-        />
-      </div>
+      {/* Background elements */}
+       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+        <RetroGrid cellSize={80} /> 
+      </div> 
+       {/* You could add another layer like ParticleBackground here if desired */}
     
-      <div ref={containerRef} className="container mx-auto px-4 relative z-10">
-        {/* Interactive pattern in background */}
-        <div className="absolute inset-0 h-full w-full pointer-events-none">
-          <InteractiveGridPattern 
-            className="h-full w-full"
-            dotColor="rgba(255, 255, 255, 0.1)"
-            size={20}
-          />
-        </div>
-
+      <div ref={sectionRef} className="container mx-auto px-4 relative z-10">
         <motion.div 
-          style={{ opacity, y }}
-          className="max-w-4xl mx-auto text-center mb-16"
+           initial={{ opacity: 0, y: -30 }}
+           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
+           transition={{ duration: 0.7, ease: "easeOut" }}
+           className="max-w-3xl mx-auto text-center mb-16 md:mb-20"
         >
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="heading-2 font-bold mb-6 relative inline-block text-white"
+          <h2 
+            className="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400"
           >
-            Cutting-edge Features
-            <motion.div 
-              className="absolute -bottom-2 left-0 right-0 mx-auto w-40 h-1 bg-white"
-              initial={{ width: 0 }}
-              whileInView={{ width: "100%" }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              viewport={{ once: true }}
-            />
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="body-text text-gray-300 max-w-3xl mx-auto"
+            Why GURU is Revolutionary
+          </h2>
+          <p 
+            className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
           >
-            aetherinc combines powerful hardware with privacy-first design to deliver an AI experience that respects your data sovereignty while providing cutting-edge capabilities.
-          </motion.p>
+            Imagine Jarvis-level AI, completely private, running locally. GURU blends powerful hardware with unparalleled data sovereignty.
+          </p>
         </motion.div>
 
-        <BentoGrid className="lg:grid-rows-3 max-w-6xl mx-auto">
-          {features.map((feature, i) => (
-            <motion.div
-               key={i} 
-               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-               className={cn("relative rounded-lg overflow-hidden", feature.className)} 
-            >
-              {feature.background || <div className="absolute inset-0 bg-white/5 group-hover/bento:bg-white/10 transition-colors"></div>}
-              
-              <div className="relative z-10 h-full"> 
-                <BentoGridItem
-                  header={<div className="p-2 rounded-md bg-black/10 flex items-center justify-center">{feature.icon}</div>}
-                  title={feature.title}
-                  description={feature.description}
-                  className={cn("group/bento hover:shadow-xl transition-shadow duration-200 h-full")} 
-                />
-              </div>
-            </motion.div>
-          ))}
-        </BentoGrid>
+        {/* Use BentoGrid for layout */}
+        <motion.div
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { 
+              opacity: 1,
+              transition: { staggerChildren: 0.08, delayChildren: 0.2 }
+            }
+          }}
+          className="max-w-6xl mx-auto" // Ensure grid doesn't exceed max width
+        >
+          <BentoGrid className="lg:grid-rows-3"> {/* Removed max-w-6xl from here */} 
+            {features.map((feature, i) => (
+              // Apply motion to the div containing background and item
+              <motion.div
+                 key={feature.title} // Use title for key if unique
+                 variants={{ hidden: { opacity: 0, y: 20, scale: 0.98 }, visible: { opacity: 1, y: 0, scale: 1 } }}
+                 className={cn(
+                     "relative rounded-xl overflow-hidden", // Apply base styling here
+                     feature.className
+                 )}
+              >
+                {/* Background Element */} 
+                {feature.background || <div className="absolute inset-0 bg-white/5 group-hover/bento:bg-white/10 transition-colors duration-300"></div>}
+                
+                {/* BentoGridItem wrapper for content and positioning */}
+                <div className="relative z-10 h-full"> 
+                  <BentoGridItem
+                    header={<div className="p-3 rounded-lg bg-black/10 shadow-inner flex items-center justify-center w-fit">{feature.icon}</div>} // Adjusted padding/styling
+                    title={feature.title} 
+                    description={feature.description}
+                    className={cn(
+                        "group/bento hover:shadow-xl transition-shadow duration-300", 
+                        "flex flex-col justify-between p-5 md:p-6 h-full" // Use flex for layout, adjust padding
+                    )} 
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </BentoGrid>
+        </motion.div>
+
       </div>
     </section>
   );
