@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/sections/Hero';
@@ -15,6 +15,18 @@ export default function Home() {
   // Section refs for smooth scrolling
   const featuresRef = useRef<HTMLElement | null>(null);
   const waitlistRef = useRef<HTMLElement | null>(null);
+
+  // Prevent automatic scrolling to sections on initial page load
+  useEffect(() => {
+    // Reset scroll position when page loads
+    window.scrollTo(0, 0);
+    
+    // Clear any URL hash that might trigger automatic scrolling
+    if (window.location.hash) {
+      const cleanUrl = window.location.href.split('#')[0];
+      window.history.replaceState({}, document.title, cleanUrl);
+    }
+  }, []);
 
   // Scroll to section function
   const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
