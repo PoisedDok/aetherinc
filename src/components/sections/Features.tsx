@@ -100,7 +100,7 @@ interface FeaturesProps {
 }
 
 export default function Features({ featuresRef }: FeaturesProps) {
-  const sectionRef = useRef<HTMLElement | null>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 }); // Trigger animation earlier
 
   return (
