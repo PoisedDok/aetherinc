@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ShineBorder } from '@/components/magicui/shine-border';
+import Link from 'next/link';
 
 interface NavbarProps {
   scrollToSection: (ref: React.RefObject<HTMLElement | null>) => void;
@@ -70,7 +71,7 @@ export default function Navbar({ scrollToSection, featuresRef, waitlistRef }: Na
               scale: isScrolled ? 1 : 0.8,
             }}
             transition={{ duration: 0.3 }}
-            className="hidden sm:block"
+            className="hidden sm:flex items-center gap-4"
           >
             <Button
               variant="ghost"
@@ -79,6 +80,14 @@ export default function Navbar({ scrollToSection, featuresRef, waitlistRef }: Na
             >
               Features
             </Button>
+            <Link href="/examples" passHref>
+              <Button
+                variant="ghost"
+                className="text-sm text-white/70 hover:text-white transition-colors"
+              >
+                Examples
+              </Button>
+            </Link>
           </motion.div>
 
           <div className="relative">
