@@ -6,31 +6,11 @@ import Footer from '@/components/Footer'; // Adjust path if needed
 import { motion } from 'framer-motion';
 import { ScrollProgress } from '@/components/ui/scroll-progress';
 import { BackToTop } from '@/components/ui/back-to-top';
-import { ArrowRight, Mic, Code, Bot, FileText, Database, ShieldCheck, Briefcase, CodeXml, FileSearch, Headphones, Link as LinkIcon, RadioTower, ShieldQuestion, Lock, ShieldAlert } from 'lucide-react';
+import { ArrowRight, Mic, Code, Bot, FileText, ShieldCheck, Briefcase, CodeXml, FileSearch, Headphones, Link as LinkIcon, RadioTower, ShieldQuestion } from 'lucide-react';
 import { Button } from '@/components/ui/button'; // Adjust path if needed
 import Link from 'next/link';
 import { cn } from "@/lib/utils"; // Import cn utility
 import { ShineBorder } from '@/components/magicui/shine-border'; // Import ShineBorder for effect
-import { Marquee } from "@/components/magicui/marquee"; // Corrected: Named import
-
-// Principles data (copied from PersonaPrinciples.tsx)
-const principles = [
-  {
-    icon: Lock,
-    title: "Absolute Privacy",
-    description: "Your world stays yours. All processing happens locally. GURU sees only what you allow, and shares nothing."
-  },
-  {
-    icon: Database,
-    title: "Complete Ownership",
-    description: "With 10TB of secure local storage, your knowledge base, memories, and creations belong solely to you."
-  },
-  {
-    icon: ShieldAlert,
-    title: "Responsible Reasoning",
-    description: "GURU is designed with ethical guardrails to prevent misuse and promote helpful, safe interactions."
-  }
-];
 
 // Updated data focusing on autonomous workflows
 const useCases = [
@@ -114,40 +94,10 @@ const useCases = [
   },
 ];
 
-// Component for individual principle card in Marquee
-const PrincipleCard = ({ icon: Icon, title, description, index }: { icon: React.ElementType, title: string, description: string, index: number }) => (
-  <figure className={cn(
-    "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
-    "border-gray-700 bg-gray-800/80 hover:bg-gray-700/60" // Dark theme card
-  )}>
-    <div className="flex flex-row items-center gap-3 mb-2">
-       <div className={cn(
-            "p-2 rounded-md w-fit h-fit",
-            index === 0 ? "bg-blue-500/20 text-blue-400" :
-            index === 1 ? "bg-yellow-500/20 text-yellow-400" :
-            "bg-red-500/20 text-red-400"
-          )}>
-        <Icon className="h-6 w-6" />
-       </div>
-      <div className="flex flex-col">
-        <figcaption className="text-sm font-medium text-white">
-          {title}
-        </figcaption>
-      </div>
-    </div>
-    <blockquote className="mt-1 text-xs text-gray-300">
-      {description}
-    </blockquote>
-  </figure>
-);
-
 export default function UseCasesPage() {
   // Dummy refs and function for Navbar compatibility - NO LONGER NEEDED
   // const dummyRef = React.useRef(null);
   // const scrollToSection = () => {};
-
-  const firstRow = principles.slice(0, principles.length / 2);
-  const secondRow = principles.slice(principles.length / 2);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-slate-950 to-black text-white">
@@ -171,24 +121,6 @@ export default function UseCasesPage() {
           </p>
         </motion.div>
 
-        {/* Marquee Section for Principles */}
-        <div className="relative flex h-[250px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl mb-16 md:mb-20">
-          <h2 className="text-2xl font-semibold text-center text-white mb-6">Core Principles</h2>
-          <Marquee pauseOnHover className="[--duration:20s]">
-            {principles.map((review, idx) => (
-              <PrincipleCard key={review.title} {...review} index={idx}/>
-            ))}
-          </Marquee>
-          {/* Optional: Add a second row reversing direction */}
-           {/* <Marquee reverse pauseOnHover className="[--duration:20s]">
-             {secondRow.map((review) => (
-               <ReviewCard key={review.username} {...review} />
-             ))}
-           </Marquee> */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-black"></div>
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-black"></div>
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
           {useCases.map((useCase, index) => (
             <motion.div
@@ -197,7 +129,7 @@ export default function UseCasesPage() {
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
-              className="relative group bg-gradient-to-br from-white/5 to-white/0 border border-white/10 rounded-xl p-6 flex flex-col h-full shadow-lg overflow-hidden"
+              className="relative group bg-gradient-to-br from-white/5 to-white/0 border border-white/10 rounded-xl p-7 flex flex-col h-full shadow-lg overflow-hidden"
             >
               <ShineBorder 
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -210,19 +142,19 @@ export default function UseCasesPage() {
                     {useCase.icon}
                   </div>
                   <h2 className="text-xl font-semibold mb-2 text-white">{useCase.title}</h2>
-                  <p className="text-gray-300 text-sm mb-4 flex-grow">{useCase.description}</p>
-                  <div className="mb-4 mt-auto">
-                    <h3 className="text-xs font-semibold text-gray-400 mb-2 uppercase tracking-wider">Example Flow:</h3>
-                    <ul className="space-y-1 text-gray-300 text-xs list-none">
+                  <p className="text-gray-300 text-base mb-4 flex-grow">{useCase.description}</p>
+                  <div className="mb-4 mt-6">
+                    <h3 className="text-sm font-semibold text-gray-400 mb-2 uppercase tracking-wider">Example Flow:</h3>
+                    <ul className="space-y-2 text-gray-300 text-sm list-none">
                       {useCase.steps.map((step, stepIndex) => (
                         <li key={stepIndex} className="flex items-start">
-                           <span className={cn("mr-2 mt-0.5", step.toLowerCase().includes("user:") ? "text-cyan-400" : "text-purple-400")}>■</span>
+                           <ArrowRight size={14} className={cn("mr-2 mt-1 flex-shrink-0", step.toLowerCase().includes("user:") ? "text-cyan-400" : "text-purple-400")} />
                           <span>{step}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
-                  <div className="mt-4 border-t border-white/10 pt-4">
+                  <div className="mt-6 border-t border-white/10 pt-4">
                      <div className="flex flex-wrap gap-2">
                       {useCase.tags.map(tag => (
                         <span key={tag} className="text-xs bg-white/10 text-white/70 px-2 py-0.5 rounded-full">
