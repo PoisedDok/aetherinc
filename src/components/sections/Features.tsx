@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { RetroGrid } from '@/components/magicui/retro-grid'; 
+import { RetroGrid } from '@/components/magicui/retro-grid';
 import { BentoGrid, BentoGridItem } from "@/components/magicui/bento-grid"; 
 import { Bot, BrainCircuit, ShieldCheck, Gauge, Database, Layers, Palette, Server, Link as LinkIcon } from 'lucide-react';
 
@@ -102,7 +102,7 @@ interface FeaturesProps {
 export default function Features({ featuresRef }: FeaturesProps) {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 }); // Trigger animation earlier
-
+  
   return (
     <section 
       ref={featuresRef} // Keep the ref for scrolling from Navbar
@@ -112,7 +112,7 @@ export default function Features({ featuresRef }: FeaturesProps) {
       {/* Background elements */}
        <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
         <RetroGrid cellSize={80} /> 
-      </div> 
+      </div>
        {/* You could add another layer like ParticleBackground here if desired */}
     
       <div ref={sectionRef} className="container mx-auto px-4 relative z-10">
@@ -172,9 +172,9 @@ export default function Features({ featuresRef }: FeaturesProps) {
                         "flex flex-col justify-between p-5 md:p-6 h-full" // Use flex for layout, adjust padding
                     )} 
                   />
-                </div>
-              </motion.div>
-            ))}
+                      </div>
+                </motion.div>
+          ))}
           </BentoGrid>
         </motion.div>
 
