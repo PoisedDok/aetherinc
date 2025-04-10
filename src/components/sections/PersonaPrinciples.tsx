@@ -33,7 +33,10 @@ export default function PersonaPrinciples() {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <section ref={ref} className="py-24 md:py-32 bg-gradient-to-b from-black via-slate-900 to-black text-white overflow-hidden relative z-10">
+    <section 
+      ref={ref} 
+      className="py-24 md:py-32 bg-gradient-to-b from-black via-slate-900 to-black text-white overflow-hidden relative z-10"
+    >
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
           {/* Left Column: The Partner */}

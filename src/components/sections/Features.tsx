@@ -221,14 +221,14 @@ export default function Features({ featuresRef }: FeaturesProps) {
                   <BentoGridItem
                     header={<div className="p-3 rounded-lg bg-black/10 shadow-inner flex items-center justify-center w-fit">{study.icon}</div>}
                     title={study.title} 
-                    description={`${study.problem} ${study.solution}`}
+                    description={study.title}
                     className={cn(
                         "group/bento hover:shadow-xl transition-shadow duration-300", 
                         "flex flex-col justify-between p-5 md:p-6 h-full"
                     )} 
                     children={
-                      <>
-                        <div className="space-y-3 mb-4">
+                      <div className="flex flex-col justify-between h-full">
+                        <div className="space-y-3 mb-4 flex-grow">
                           <div>
                             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/60 mb-1">Problem</h3>
                             <p className="text-gray-300 text-sm">{study.problem}</p>
@@ -238,15 +238,16 @@ export default function Features({ featuresRef }: FeaturesProps) {
                             <p className="text-gray-300 text-sm">{study.solution}</p>
                           </div>
                         </div>
-                        <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t border-white/10">
+                        
+                        <div className="flex flex-wrap gap-3 mt-auto pt-4 border-t border-white/10">
                           {study.stats.map((stat, j) => (
-                            <div key={j} className="bg-white/5 rounded-lg px-3 py-2 text-center">
+                            <div key={j} className="bg-white/5 rounded-lg px-3 py-2 text-center flex-shrink-0">
                               <div className="text-sm font-bold text-cyan-400">{stat.value}</div>
                               <div className="text-xs text-gray-400">{stat.label}</div>
                             </div>
                           ))}
                         </div>
-                      </>
+                      </div>
                     }
                   />
                 </div>

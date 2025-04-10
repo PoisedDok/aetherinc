@@ -104,12 +104,12 @@ export default function Navbar({
               onClick={() => scrollToSection && waitlistRef && scrollToSection(waitlistRef)}
               disabled={!scrollToSection || !waitlistRef}
               className={cn(
-                "relative font-semibold px-4 py-2 rounded-full transition-all duration-300",
+                "relative font-semibold px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105",
                 isScrolled
-                  ? "bg-white text-black hover:bg-white/90"
+                  ? "bg-white text-black hover:bg-gray-200 shadow-lg"
                   : "bg-white/10 text-white hover:bg-white/20"
               )}
-              size="sm"
+              size="lg"
             >
               Reserve Now
             </Button>

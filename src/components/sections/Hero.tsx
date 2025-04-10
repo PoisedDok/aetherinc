@@ -224,7 +224,7 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
                     key={i}
                     title={item.title}
                     description={item.description}
-                    header={<div className="p-2 rounded-md bg-black/20 flex items-center justify-center">{item.icon}</div>}
+                    header={<div className="p-3 rounded-md bg-black/20 flex items-center justify-center">{item.icon}</div>}
                     className={cn("group/bento hover:shadow-xl transition-shadow duration-200 h-full", item.className)}
                   />
                 </div>
