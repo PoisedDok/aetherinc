@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/sections/Hero';
 import Features from '@/components/sections/Features';
-import VisualWorkflow from '@/components/sections/VisualWorkflow';
+import HowItWorks from '@/components/sections/HowItWorks';
 import PersonaPrinciples from '@/components/sections/PersonaPrinciples';
 import Terminal from '@/components/sections/Terminal';
 import Waitlist from '@/components/sections/Waitlist';
@@ -17,6 +17,7 @@ export default function Home() {
   // Section refs for smooth scrolling
   const featuresRef = useRef<HTMLElement | null>(null);
   const waitlistRef = useRef<HTMLElement | null>(null);
+  const howItWorksRef = useRef<HTMLElement | null>(null);
 
   // Prevent automatic scrolling to sections on initial page load
   useEffect(() => {
@@ -50,6 +51,7 @@ export default function Home() {
         scrollToSection={scrollToSection}
         featuresRef={featuresRef}
         waitlistRef={waitlistRef}
+        howItWorksRef={howItWorksRef}
       />
       <main className="flex-grow pt-20">
         <Hero 
@@ -58,7 +60,7 @@ export default function Home() {
           waitlistRef={waitlistRef}
         />
         <Features featuresRef={featuresRef} />
-        <VisualWorkflow />
+        <HowItWorks innerRef={howItWorksRef} />
         <PersonaPrinciples />
         <Terminal />
         <Waitlist waitlistRef={waitlistRef} />

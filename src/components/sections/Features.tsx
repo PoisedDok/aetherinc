@@ -7,7 +7,6 @@ import { RetroGrid } from '@/components/magicui/retro-grid';
 import { BentoGrid, BentoGridItem } from "@/components/magicui/bento-grid"; 
 import { Bot, BrainCircuit, ShieldCheck, Gauge, Briefcase, Headphones, BookOpen, Globe, Users, Wallet } from 'lucide-react';
 import { ShineBorder } from '@/components/magicui/shine-border';
-import { ArrowRight } from 'lucide-react';
 
 // UseCases type
 interface UseCase {
@@ -107,20 +106,6 @@ const useCases: UseCase[] = [
   },
 ];
 
-// Custom Description component for BentoGridItem
-const UseCaseDescription = ({ problem, solution }: { problem: string, solution: string }) => (
-  <div className="mt-2 space-y-3">
-    <div>
-      <h3 className="text-sm font-semibold text-gray-400 mb-1 uppercase tracking-wider">Problem:</h3>
-      <p className="text-gray-300 text-sm">{problem}</p>
-    </div>
-    <div>
-      <h3 className="text-sm font-semibold text-gray-400 mb-1 uppercase tracking-wider">Solution:</h3>
-      <p className="text-gray-300 text-sm">{solution}</p>
-    </div>
-  </div>
-);
-
 // Feature section props type
 interface FeaturesProps {
   featuresRef: React.RefObject<HTMLElement | null>;
@@ -173,38 +158,47 @@ export default function Features({ featuresRef }: FeaturesProps) {
           }}
           className="max-w-6xl mx-auto" // Ensure grid doesn't exceed max width
         >
-          <BentoGrid className="lg:grid-rows-3"> 
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {useCases.map((useCase, i) => (
-              // Apply motion to the div containing background and item
               <motion.div
-                 key={useCase.title} 
-                 variants={{ hidden: { opacity: 0, y: 20, scale: 0.98 }, visible: { opacity: 1, y: 0, scale: 1 } }}
-                 className={cn(
-                     "relative rounded-xl overflow-hidden", // Apply base styling here
-                     useCase.className
-                 )}
+                key={useCase.title} 
+                variants={{ hidden: { opacity: 0, y: 20, scale: 0.98 }, visible: { opacity: 1, y: 0, scale: 1 } }}
+                className={cn(
+                  "relative rounded-xl overflow-hidden h-full bg-black/20 border border-white/10 shadow-lg group",
+                  useCase.className
+                )}
               >
                 {/* Background Element */} 
-                {useCase.background || <div className="absolute inset-0 bg-white/5 group-hover/bento:bg-white/10 transition-colors duration-300"></div>}
+                {useCase.background || <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition-colors duration-300"></div>}
                 
-                {/* BentoGridItem wrapper for content and positioning */}
-                <div className="relative z-10 h-full"> 
-                  <BentoGridItem
-                    header={<div className="p-3 rounded-lg bg-black/10 shadow-inner flex items-center justify-center w-fit">{useCase.icon}</div>}
-                    title={useCase.title} 
-                    description={useCase.description}
-                    className={cn(
-                        "group/bento hover:shadow-xl transition-shadow duration-300", 
-                        "flex flex-col justify-between p-5 md:p-6 h-full" // Use flex for layout, adjust padding
-                    )} 
-                  />
-                  <div className="px-5 md:px-6 pb-5 md:pb-6">
-                    <UseCaseDescription problem={useCase.problem} solution={useCase.solution} />
+                {/* Content */}
+                <div className="relative z-10 h-full p-6 flex flex-col">
+                  {/* Header with icon and title */}
+                  <div className="mb-4 flex items-start gap-4">
+                    <div className="p-3 rounded-lg bg-black/30 shadow-inner flex items-center justify-center">
+                      {useCase.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-white leading-tight">{useCase.title}</h3>
+                      <p className="text-gray-400 text-sm mt-1">{useCase.description}</p>
+                    </div>
+                  </div>
+                  
+                  {/* Problem & Solution */}
+                  <div className="mt-4 space-y-4 flex-grow">
+                    <div className="bg-black/20 rounded-lg p-4">
+                      <h4 className="text-sm font-semibold text-gray-300 mb-2 uppercase tracking-wider">Problem:</h4>
+                      <p className="text-gray-400 text-sm">{useCase.problem}</p>
+                    </div>
+                    <div className="bg-black/20 rounded-lg p-4">
+                      <h4 className="text-sm font-semibold text-gray-300 mb-2 uppercase tracking-wider">Solution:</h4>
+                      <p className="text-gray-400 text-sm">{useCase.solution}</p>
+                    </div>
                   </div>
                 </div>
               </motion.div>
             ))}
-          </BentoGrid>
+          </div>
         </motion.div>
       </div>
     </section>

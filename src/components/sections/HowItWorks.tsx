@@ -103,6 +103,7 @@ export default function HowItWorks({ innerRef }: HowItWorksProps) {
   return (
     <section 
       ref={innerRef}
+      id="how-it-works"
       className="relative min-h-screen py-16 md:py-24 bg-black overflow-hidden"
     >
       {/* Background */}

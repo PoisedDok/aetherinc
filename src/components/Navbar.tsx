@@ -88,6 +88,15 @@ export default function Navbar({
                 Features
               </Button>
             )}
+            {scrollToSection && howItWorksRef && (
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection(howItWorksRef)}
+                className="text-sm text-white/70 hover:text-white transition-colors"
+              >
+                How It Works
+              </Button>
+            )}
           </motion.div>
 
           <div className="relative">
