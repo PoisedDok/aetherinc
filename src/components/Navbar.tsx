@@ -88,14 +88,6 @@ export default function Navbar({
                 Features
               </Button>
             )}
-            <Link href="/use-cases" passHref>
-              <Button
-                variant="ghost"
-                className="text-sm text-white/70 hover:text-white transition-colors"
-              >
-                Use Cases
-              </Button>
-            </Link>
           </motion.div>
 
           <div className="relative">

@@ -5,89 +5,123 @@ import { motion, useInView } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { RetroGrid } from '@/components/magicui/retro-grid';
 import { BentoGrid, BentoGridItem } from "@/components/magicui/bento-grid"; 
-// Import relevant icons for use cases
-import { Briefcase, HeartPulse, Wrench, GraduationCap, Code, DollarSign, Home, Languages, Users, ShieldCheck, Database, BrainCircuit } from 'lucide-react'; 
+import { Bot, BrainCircuit, ShieldCheck, Gauge, Briefcase, Headphones, BookOpen, Globe, Users, Wallet } from 'lucide-react';
+import { ShineBorder } from '@/components/magicui/shine-border';
+import { ArrowRight } from 'lucide-react';
 
-// Use Case type (adapted from Feature)
+// UseCases type
 interface UseCase {
   icon: React.ReactNode;
   title: string;
   description: string;
+  problem: string;
+  solution: string;
   className: string; 
   background?: React.ReactNode;
 }
 
-// Define icons for use cases
-const BriefcaseIcon = <Briefcase className="h-6 w-6 text-blue-400" />;
-const HeartPulseIcon = <HeartPulse className="h-6 w-6 text-red-400" />;
-const WrenchIcon = <Wrench className="h-6 w-6 text-orange-400" />;
-const GraduationCapIcon = <GraduationCap className="h-6 w-6 text-green-400" />;
-const CodeIcon = <Code className="h-6 w-6 text-purple-400" />;
-const DollarSignIcon = <DollarSign className="h-6 w-6 text-yellow-400" />;
-const HomeIcon = <Home className="h-6 w-6 text-pink-400" />;
-const LanguagesIcon = <Languages className="h-6 w-6 text-cyan-400" />;
+// Define icons as ReactNode
+const BotIcon = <Bot className="h-6 w-6 text-purple-400" />;
+const BriefcaseIcon = <Briefcase className="h-6 w-6 text-cyan-400" />;
+const ShieldCheckIcon = <ShieldCheck className="h-6 w-6 text-green-400" />;
+const GaugeIcon = <Gauge className="h-6 w-6 text-red-400" />;
+const HeadphonesIcon = <Headphones className="h-6 w-6 text-yellow-400" />;
+const BookOpenIcon = <BookOpen className="h-6 w-6 text-blue-400" />;
+const GlobeIcon = <Globe className="h-6 w-6 text-orange-400" />;
+const UsersIcon = <Users className="h-6 w-6 text-indigo-400" />; 
+const WalletIcon = <Wallet className="h-6 w-6 text-pink-400" />;
 
-// Use Cases array for Bento Grid layout
+// UseCases array for Bento Grid layout
 const useCases: UseCase[] = [
   {
-    icon: BriefcaseIcon,
-    title: "Digital Nomads: Unhackable Productivity",
-    description: "Unsecured Wi-Fi exposes sensitive data. GURU provides offline translation, task management, and secure document processing—anywhere, anytime.",
+    icon: BotIcon,
+    title: "Personal Privacy Companion for Digital Nomads",
+    description: "Meet GURU: a pocket-sized, NVIDIA Jetson-powered ally.",
+    problem: "Digital nomads thrive on freedom, working from cafes, airports, and co-working hubs. But unsecured Wi-Fi turns cloud-based tools into ticking time bombs—exposing sensitive data to hackers.",
+    solution: "It delivers real-time translation, task management, and secure document processing—no internet required. Pair it with a mic and camera for hands-free brilliance, and it's the ultimate travel companion for the untethered worker.",
     className: "lg:col-span-2",
-    background: <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-black to-black opacity-50 group-hover/bento:opacity-70 transition-opacity"></div>
+    background: <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-black to-black opacity-50 group-hover/bento:opacity-70 transition-opacity"></div>
   },
   {
-    icon: HeartPulseIcon,
-    title: "Clinics: Secure Patient Insights",
-    description: "Cloud uploads risk HIPAA/GDPR breaches. GURU processes vitals and notes locally with sensors & OmniParser, ensuring compliance.",
-    className: "lg:col-span-1",
-    background: <div className="absolute inset-0 bg-gradient-radial from-red-900/20 to-transparent"></div>
-  },
-   {
-    icon: WrenchIcon,
-    title: "Field Techs: Co-Pilot in Dead Zones",
-    description: "No internet on remote sites? GURU uses OmniParser & AR for offline diagnostics and repair guides, minimizing downtime.",
-    className: "lg:col-span-1",
-    background: <div className="absolute inset-0 bg-gradient-radial from-orange-900/15 to-transparent"></div>
-  },
-  {
-    icon: GraduationCapIcon,
-    title: "Education: Accessible Learning",
-    description: "Connectivity gaps limit personalized learning. GURU delivers offline, adaptive lessons and feedback, leveling the educational field.",
+    icon: ShieldCheckIcon,
+    title: "Secure Healthcare Assistant for Clinics",
+    description: "GURU steps in as a medical marvel.",
+    problem: "Clinics need real-time patient insights to save lives, but cloud uploads risk catastrophic breaches under HIPAA and GDPR. Compliance isn't negotiable—it's everything.",
+    solution: "Equipped with sensors (think pulse oximeters), a mic for transcription, and OmniParser to scan notes or images, it processes vitals and flags issues—all locally. It's a doctor's trusted, silent partner.",
     className: "lg:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-green-900/20 to-transparent"></div>
   },
   {
-    icon: CodeIcon,
-    title: "Developers: Privacy-First Playground",
-    description: "Cloud costs and privacy risks stifle AI development. GURU offers an offline platform (Ollama, LangChain) for building local apps.",
+    icon: GaugeIcon,
+    title: "Hands-Free Field Technician Co-Pilot",
+    description: "GURU goes rugged.",
+    problem: "Field techs on oil rigs or wind farms battle breakdowns in dead zones—no internet, no backup. Delays mean lost revenue and rising stakes.",
+    solution: "Worn with a camera and mic, it uses OmniParser to diagnose gear on the spot and overlays AR repair guides. LangChain digs up manuals instantly—all offline. It's a lifeline when the grid can't help.",
     className: "lg:col-span-1",
-    background: <div className="absolute inset-0 bg-gradient-radial from-purple-900/20 to-transparent"></div>
+    background: <div className="absolute inset-0 bg-gradient-radial from-red-900/20 to-transparent"></div>
   },
   {
-    icon: DollarSignIcon,
-    title: "Gig Workers: Offline Finance Wingman",
-    description: "Cloud finance apps compromise data. GURU tracks earnings, forecasts taxes, and scans receipts securely offline.",
+    icon: BookOpenIcon,
+    title: "Accessible Education Tutor for Underserved Communities",
+    description: "GURU becomes a tireless tutor.",
+    problem: "Kids in rural or low-income areas are locked out of personalized learning—cost and connectivity gaps turn education into a privilege, not a right.",
+    solution: "Offline, it delivers adaptive STEM lessons, real-time feedback, and speech-to-text for accessibility. Teachers tweak it to fit local needs, leveling the playing field.",
     className: "lg:col-span-1",
-    background: <div className="absolute inset-0 bg-gradient-radial from-yellow-900/15 to-transparent"></div>
+    background: <div className="absolute inset-0 bg-gradient-radial from-blue-900/20 to-transparent"></div>
   },
   {
-    icon: HomeIcon,
-    title: "Elderly Care: Warmth, Not Wires",
-    description: "Internet devices feel invasive. GURU offers offline med reminders, exercise guidance, fall detection, and companionship.",
-    className: "lg:col-span-1", // Adjusted span
+    icon: BriefcaseIcon,
+    title: "Developer Playground for Privacy-First Apps",
+    description: "GURU is their canvas.",
+    problem: "Developers hunger for AI tools, but cloud costs, latency, and privacy risks stifle their creativity. They need freedom, not shackles.",
+    solution: "Powered by Ollama, LangChain, and Jetson Orin, it's an open platform for building smart home controls, robotics, or IoT apps—all local. AetherInc's SDK makes it a breeze to customize.",
+    className: "lg:col-span-1",
+    background: <div className="absolute inset-0 bg-gradient-radial from-cyan-900/20 to-transparent"></div>
+  },
+  {
+    icon: WalletIcon,
+    title: "Personal Finance Wingman for Gig Workers",
+    description: "GURU is their offline money mentor.",
+    problem: "Gig workers swim in chaos—irregular pay, tax headaches, and budgeting woes. Cloud finance apps promise help but sell out their data. Trust is shattered.",
+    solution: "It tracks earnings, forecasts taxes, and scans receipts with OmniParser—all voice-activated and leak-proof. It's a CPA that fits in your pocket.",
+    className: "lg:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-pink-900/20 to-transparent"></div>
   },
   {
-    icon: LanguagesIcon,
-    title: "Travelers: Your Pocket Translator",
-    description: "Language barriers in remote areas? GURU translates speech and signs offline via OmniParser, beaming results to your phone.",
-    className: "lg:col-span-2", // Adjusted span
-    background: <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/30 via-black to-black opacity-50 group-hover/bento:opacity-70 transition-opacity"></div>
-  }
+    icon: UsersIcon,
+    title: "Elderly Care Companion for Aging Populations",
+    description: "GURU is a friendly, offline caregiver.",
+    problem: "Seniors living solo need daily support and emergency alerts, but internet-reliant devices feel invasive and impersonal. They deserve warmth, not wires.",
+    solution: "It reminds them of meds, guides exercises, and detects falls with sensors—alerting family if trouble strikes. Its conversational charm melts loneliness away.",
+    className: "lg:col-span-1",
+    background: <div className="absolute inset-0 bg-gradient-radial from-indigo-900/20 to-transparent"></div>
+  },
+  {
+    icon: GlobeIcon,
+    title: "Real-Time Translator for Global Travelers",
+    description: "GURU is a pocket translator.",
+    problem: "Travelers stumble over language barriers in remote corners with no Wi-Fi. Miscommunication turns adventure into aggravation.",
+    solution: "With a mic and camera, it decodes speech and signs offline via OmniParser, beaming translations to your phone. Lightweight and relentless, it's built for the road.",
+    className: "lg:col-span-2",
+    background: <div className="absolute inset-0 bg-gradient-to-br from-orange-900/20 via-black to-black opacity-50 group-hover/bento:opacity-70 transition-opacity"></div>
+  },
 ];
 
-// Features section props type (keeping ref name for compatibility)
+// Custom Description component for BentoGridItem
+const UseCaseDescription = ({ problem, solution }: { problem: string, solution: string }) => (
+  <div className="mt-2 space-y-3">
+    <div>
+      <h3 className="text-sm font-semibold text-gray-400 mb-1 uppercase tracking-wider">Problem:</h3>
+      <p className="text-gray-300 text-sm">{problem}</p>
+    </div>
+    <div>
+      <h3 className="text-sm font-semibold text-gray-400 mb-1 uppercase tracking-wider">Solution:</h3>
+      <p className="text-gray-300 text-sm">{solution}</p>
+    </div>
+  </div>
+);
+
+// Feature section props type
 interface FeaturesProps {
   featuresRef: React.RefObject<HTMLElement | null>;
 }
@@ -99,7 +133,7 @@ export default function Features({ featuresRef }: FeaturesProps) {
   return (
     <section 
       ref={featuresRef} // Keep the ref for scrolling from Navbar
-      id="features" // Keep id for potential direct links, though Navbar link is removed
+      id="features" 
       className="relative bg-gradient-to-b from-black via-slate-950 to-black py-24 md:py-32 overflow-hidden"
     >
       {/* Background elements */}
@@ -114,16 +148,15 @@ export default function Features({ featuresRef }: FeaturesProps) {
            transition={{ duration: 0.7, ease: "easeOut" }}
            className="max-w-3xl mx-auto text-center mb-16 md:mb-20"
         >
-          {/* Updated Title and Description */}
           <h2 
             className="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400"
           >
-            GURU: Solving Real-World Problems, Offline
+            Why GURU is Revolutionary
           </h2>
           <p 
             className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
           >
-            Explore how GURU's private, on-device AI provides innovative solutions across diverse industries and personal needs—no cloud required.
+            Imagine Jarvis-level AI, completely private, running locally. GURU blends powerful hardware with unparalleled data sovereignty.
           </p>
         </motion.div>
 
@@ -140,16 +173,15 @@ export default function Features({ featuresRef }: FeaturesProps) {
           }}
           className="max-w-6xl mx-auto" // Ensure grid doesn't exceed max width
         >
-          {/* Adjusted grid rows if needed, check layout with 8 items */}
           <BentoGrid className="lg:grid-rows-3"> 
-            {useCases.map((useCase, i) => ( // Map over useCases
+            {useCases.map((useCase, i) => (
               // Apply motion to the div containing background and item
               <motion.div
-                 key={useCase.title} // Use title for key
+                 key={useCase.title} 
                  variants={{ hidden: { opacity: 0, y: 20, scale: 0.98 }, visible: { opacity: 1, y: 0, scale: 1 } }}
                  className={cn(
                      "relative rounded-xl overflow-hidden", // Apply base styling here
-                     useCase.className // Use className from useCase object
+                     useCase.className
                  )}
               >
                 {/* Background Element */} 
@@ -158,20 +190,22 @@ export default function Features({ featuresRef }: FeaturesProps) {
                 {/* BentoGridItem wrapper for content and positioning */}
                 <div className="relative z-10 h-full"> 
                   <BentoGridItem
-                    header={<div className="p-3 rounded-lg bg-black/10 shadow-inner flex items-center justify-center w-fit">{useCase.icon}</div>} // Use useCase icon
-                    title={useCase.title} // Use useCase title
-                    description={useCase.description} // Use useCase description
+                    header={<div className="p-3 rounded-lg bg-black/10 shadow-inner flex items-center justify-center w-fit">{useCase.icon}</div>}
+                    title={useCase.title} 
+                    description={useCase.description}
                     className={cn(
                         "group/bento hover:shadow-xl transition-shadow duration-300", 
                         "flex flex-col justify-between p-5 md:p-6 h-full" // Use flex for layout, adjust padding
                     )} 
                   />
+                  <div className="px-5 md:px-6 pb-5 md:pb-6">
+                    <UseCaseDescription problem={useCase.problem} solution={useCase.solution} />
+                  </div>
                 </div>
               </motion.div>
             ))}
           </BentoGrid>
         </motion.div>
-
       </div>
     </section>
   );

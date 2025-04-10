@@ -199,8 +199,8 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
           transition={{ duration: 0.6, delay: 0.6 }}
           className="body-text text-gray-300 max-w-2xl mx-auto mb-10"
         >
-          GURU isn't just an AI assistant; it's your secure, hyper-intelligent digital partner. Like Jarvis, it learns, assists, and empowers across all aspects of your life or work—all while guaranteeing absolute privacy and operating safely with built-in reasoning guardrails. 
-          <Link href="/examples" className="text-cyan-400 hover:text-cyan-300 transition-colors"> See examples.</Link>
+          GURU isn't just an AI assistant; it's your secure, hyper-intelligent digital partner. Like Jarvis, it learns, assists, and empowers across all aspects of your life or work—all while guaranteeing absolute privacy and operating safely with built-in reasoning guardrails.
+          
           <div className="block mt-3 text-gray-500 text-sm font-medium">Pre-orders Q3 2025</div>
         </motion.div>
 
