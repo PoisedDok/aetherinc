@@ -112,10 +112,7 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
   };
   
   return (
-    <section 
-      ref={waitlistRef} 
-      className="py-24 md:py-32 bg-black relative overflow-hidden"
-    >
+    <section ref={waitlistRef} className="py-24 bg-black relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-radial from-gray-900/30 to-black/90 z-0"></div>
       
       <div className="container mx-auto px-4 relative z-10">
@@ -257,11 +254,18 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
                 
                 <Button
                   type="submit"
-                  disabled={formState === 'submitting' || formState === 'success'}
-                  className="w-full font-semibold py-3 rounded-full transition duration-300 transform hover:scale-105 bg-white text-black hover:bg-gray-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                  size="lg"
+                  className="w-full flex items-center justify-center"
+                  disabled={formState === 'submitting'}
                 >
-                  {formState === 'submitting' ? 'Submitting...' : 'Reserve Your Device'}
+                  {formState === 'submitting' ? (
+                    <>
+                      <span className="animate-pulse">Processing...</span>
+                    </>
+                  ) : (
+                    <>
+                      Join the Waitlist <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
+                  )}
                 </Button>
               </div>
             </form>

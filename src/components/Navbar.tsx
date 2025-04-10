@@ -88,6 +88,14 @@ export default function Navbar({
                 Features
               </Button>
             )}
+            <Link href="/use-cases" passHref>
+              <Button
+                variant="ghost"
+                className="text-sm text-white/70 hover:text-white transition-colors"
+              >
+                Use Cases
+              </Button>
+            </Link>
           </motion.div>
 
           <div className="relative">
@@ -104,12 +112,12 @@ export default function Navbar({
               onClick={() => scrollToSection && waitlistRef && scrollToSection(waitlistRef)}
               disabled={!scrollToSection || !waitlistRef}
               className={cn(
-                "relative font-semibold px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105",
+                "relative font-semibold px-4 py-2 rounded-full transition-all duration-300",
                 isScrolled
-                  ? "bg-white text-black hover:bg-gray-200 shadow-lg"
+                  ? "bg-white text-black hover:bg-white/90"
                   : "bg-white/10 text-white hover:bg-white/20"
               )}
-              size="lg"
+              size="sm"
             >
               Reserve Now
             </Button>

@@ -10,11 +10,10 @@ import { Menu, X } from 'lucide-react';
 interface NavbarProps {
   scrollToSection: (ref: React.RefObject<HTMLElement | null>) => void;
   featuresRef: React.RefObject<HTMLElement | null>;
-  howItWorksRef: React.RefObject<HTMLElement | null>;
   waitlistRef: React.RefObject<HTMLElement | null>;
 }
 
-export default function Navbar({ scrollToSection, featuresRef, howItWorksRef, waitlistRef }: NavbarProps) {
+export default function Navbar({ scrollToSection, featuresRef, waitlistRef }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -52,12 +51,6 @@ export default function Navbar({ scrollToSection, featuresRef, howItWorksRef, wa
               className="text-gray-300 hover:text-white transition-colors"
             >
               Features
-            </button>
-            <button 
-              onClick={() => scrollToSection(howItWorksRef)} 
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              How It Works
             </button>
             <Button 
               variant="outline" 
@@ -101,15 +94,6 @@ export default function Navbar({ scrollToSection, featuresRef, howItWorksRef, wa
                 className="py-2 text-gray-300 hover:text-white transition-colors"
               >
                 Features
-              </button>
-              <button 
-                onClick={() => {
-                  scrollToSection(howItWorksRef);
-                  setMobileMenuOpen(false);
-                }} 
-                className="py-2 text-gray-300 hover:text-white transition-colors"
-              >
-                How It Works
               </button>
               <Button 
                 variant="outline" 

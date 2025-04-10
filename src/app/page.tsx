@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/sections/Hero';
 import Features from '@/components/sections/Features';
+import VisualWorkflow from '@/components/sections/VisualWorkflow';
 import PersonaPrinciples from '@/components/sections/PersonaPrinciples';
 import Terminal from '@/components/sections/Terminal';
 import Waitlist from '@/components/sections/Waitlist';
@@ -57,6 +58,7 @@ export default function Home() {
           waitlistRef={waitlistRef}
         />
         <Features featuresRef={featuresRef} />
+        <VisualWorkflow />
         <PersonaPrinciples />
         <Terminal />
         <Waitlist waitlistRef={waitlistRef} />
