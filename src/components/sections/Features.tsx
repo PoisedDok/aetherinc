@@ -32,63 +32,63 @@ const features: Feature[] = [
   {
     icon: BotIcon,
     title: "Truly Private AI Core",
-    description: "Think Jarvis, but private. GURU processes everything on-device. Your data, thoughts, and conversations stay yours, always.",
+    description: "Eliminate cloud AI risks. GURU runs advanced AI models entirely offline, ensuring your proprietary data and interactions remain confidential.",
     className: "lg:col-span-2",
     background: <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-black to-black opacity-50 group-hover/bento:opacity-70 transition-opacity"></div>
   },
   {
     icon: BrainCircuitIcon,
     title: "67 TOPS Neural Engine",
-    description: "Blazing-fast AI powered by NVIDIA Orin Jetson Super. Handles complex tasks locally with ease.",
+    description: "Execute demanding AI workflows—like real-time analysis or complex simulations—instantly on-device, bypassing cloud latency and costs.",
     className: "lg:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-cyan-900/20 to-transparent"></div>
   },
   {
     icon: ShieldCheckIcon,
     title: "Hardware Secure Enclave",
-    description: "Fort Knox for your data. Dedicated hardware security isolates and protects your sensitive information.",
+    description: "Military-grade security anchors your AI. Isolate sensitive processing and data from potential software threats.",
     className: "lg:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-green-900/20 to-transparent"></div>
   },
   {
     icon: GaugeIcon,
     title: "Millisecond Latency",
-    description: "Instantaneous responses. No cloud lag, just fluid interaction, like a natural conversation.",
+    description: "Unlock fluid, real-time AI interaction. GURU responds instantly, crucial for seamless workflows impossible with cloud delays.",
     className: "lg:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-red-900/20 to-transparent"></div>
   },
   {
     icon: DatabaseIcon,
     title: "On-Device Knowledge",
-    description: "GURU learns *locally*. It adapts to you without sending your behaviour patterns to the cloud.",
+    description: "Build a powerful, personalized knowledge graph that adapts *to you*, not a generic cloud profile. True context, locally mastered.",
     className: "lg:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-yellow-900/15 to-transparent"></div>
   },
   {
     icon: LayersIcon,
     title: "Modular & Expandable",
-    description: "Add cameras, sensors, or custom modules. GURU adapts to your specific needs.",
+    description: "Tailor GURU to specific industry needs. Easily integrate specialized sensors or hardware for unique edge AI applications.",
     className: "lg:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-blue-900/20 to-transparent"></div>
   },
   {
     icon: ServerIcon,
     title: "Optional Secure Sync",
-    description: "Choose to sync data across *your* devices with end-to-end encryption. You control the keys.",
+    description: "Maintain data sovereignty even when syncing. Securely bridge *your* devices with end-to-end encryption you control.",
     className: "lg:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-orange-900/15 to-transparent"></div>
   },
   {
     icon: LinkIconNode, // Use renamed icon variable
     title: "Unified Device Control",
-    description: "Securely connect and interact with your computer, phone, and smart devices via GURU.",
+    description: "Streamline complex digital environments. Securely command and orchestrate computers, IoT devices, and systems through one private interface.",
     className: "lg:col-span-1", 
     background: <div className="absolute inset-0 bg-gradient-radial from-indigo-900/20 to-transparent"></div>
   },
    {
     icon: PaletteIcon,
     title: "Open & Customizable",
-    description: "Built with developers in mind. Integrate GURU into your own projects with our open SDK.",
+    description: "Accelerate innovation. Leverage our SDK to integrate GURU's private AI capabilities into your unique products and services.",
     className: "lg:col-span-2",
     background: <div className="absolute inset-0 bg-gradient-to-br from-pink-900/20 via-black to-black opacity-50 group-hover/bento:opacity-70 transition-opacity"></div>
   },
@@ -125,12 +125,12 @@ export default function Features({ featuresRef }: FeaturesProps) {
           <h2 
             className="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400"
           >
-            Why GURU is Revolutionary
+            Unlock True AI Potential, Privately
           </h2>
           <p 
             className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
           >
-            Imagine Jarvis-level AI, completely private, running locally. GURU blends powerful hardware with unparalleled data sovereignty.
+            GURU tackles complex AI challenges locally, surpassing cloud limitations in security, speed, and cost-efficiency. Discover the key advantages.
           </p>
         </motion.div>
 

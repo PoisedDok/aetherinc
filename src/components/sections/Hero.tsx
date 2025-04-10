@@ -30,28 +30,28 @@ const morphingTexts = [
 const bentoItems = [
   {
     title: "Local AI Processing",
-    description: "All AI tasks, from LLMs to vision, run directly on GURU.",
+    description: "Keep control. All AI tasks, from LLMs to vision, run securely on GURU, not in the cloud.",
     icon: <Cpu className="h-6 w-6 text-cyan-400" />,
     className: "md:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-cyan-900/20 to-transparent"></div>
   },
   {
     title: "Uncompromising Privacy",
-    description: "Your data never leaves the device. Period.",
+    description: "Absolute confidentiality. Your data never leaves the device, ensuring total privacy.",
     icon: <ShieldCheck className="h-6 w-6 text-green-400" />,
     className: "md:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-green-900/20 to-transparent"></div>
   },
   {
     title: "10TB Local Storage",
-    description: "Build a vast, private knowledge base accessible instantly.",
+    description: "Instant access to your world. Build a vast, private knowledge base, always available locally.",
     icon: <Database className="h-6 w-6 text-yellow-400" />,
     className: "md:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-yellow-900/15 to-transparent"></div>
   },
   {
     title: "Zero Recurring Costs",
-    description: "One device, lifetime access. No subscriptions for core AI.",
+    description: "Own your AI. Lifetime access with one purchase—no hidden subscriptions for core functions.",
     icon: <Infinity className="h-6 w-6 text-purple-400" />,
     className: "md:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-purple-900/20 to-transparent"></div>
@@ -199,8 +199,7 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
           transition={{ duration: 0.6, delay: 0.6 }}
           className="body-text text-gray-300 max-w-2xl mx-auto mb-10"
         >
-          GURU isn't just an AI assistant; it's your secure, hyper-intelligent digital partner. Like Jarvis, it learns, assists, and empowers across all aspects of your life or work—all while guaranteeing absolute privacy and operating safely with built-in reasoning guardrails. 
-          <Link href="/examples" className="text-cyan-400 hover:text-cyan-300 transition-colors"> See examples.</Link>
+          GURU is your **private AI powerhouse**. Move beyond cloud constraints and leverage hyper-intelligent, secure, on-device processing for your most demanding tasks and sensitive data. 
           <div className="block mt-3 text-gray-500 text-sm font-medium">Pre-orders Q3 2025</div>
         </motion.div>
 
