@@ -163,7 +163,7 @@ export default function HowItWorks({ innerRef }: HowItWorksProps) {
                 preload="metadata"
                 playsInline
               >
-                <source src="/20250303_1045_Futuristic GURU Computer_remix_01jndsr1f4fartej0dewgqv4kv.mp4" type="video/mp4" />
+                <source src="/GURU-AD.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
               
