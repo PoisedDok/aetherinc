@@ -22,8 +22,8 @@ interface HeroProps {
 
 // Morphing text options
 const morphingTexts = [
-  "Your AI-Powered Digital Companion.",
-  "Solve Real-World Tasks With Ease.",
+  "Your AI Companion.",
+  "Solve Real-World Tasks.",
   "Meet GURU."
 ];
 
