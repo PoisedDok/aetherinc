@@ -127,7 +127,7 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
   return (
     <section 
       ref={heroRef}
-      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black pb-20 pt-28 md:pt-36"
+      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black pb-20 pt-32 md:pt-40"
     >
       {/* Subtle Grid Pattern behind hero */}
       <motion.div 

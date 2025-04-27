@@ -24,11 +24,11 @@ export default function Navbar({
   const { scrollY } = useScroll();
   
   // Transform values for scroll-based animations
-  const headerHeight = useTransform(scrollY, [0, 100], ["5rem", "4rem"]);
+  const headerHeight = useTransform(scrollY, [0, 100], ["4.5rem", "3.5rem"]);
   const headerBg = useTransform(
     scrollY,
     [0, 100],
-    ["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.8)"]
+    ["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.9)"]
   );
   const logoScale = useTransform(scrollY, [0, 100], [1, 0.9]);
   const blur = useTransform(scrollY, [0, 100], [0, 8]);
@@ -61,7 +61,7 @@ export default function Navbar({
           style={{ scale: logoScale }}
           className="flex items-center"
         >
-          <a href="/" className="text-2xl font-bold text-white flex items-center gap-2">
+          <a href="/" className="text-xl font-bold text-white flex items-center gap-2">
             <span className="font-bold">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white font-extrabold">A</span>ether<span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white font-extrabold">I</span>nc
             </span>
@@ -83,7 +83,7 @@ export default function Navbar({
               <Button
                 variant="ghost"
                 onClick={() => scrollToSection(featuresRef)}
-                className="text-sm text-white/70 hover:text-white transition-colors"
+                className="text-xs text-white/70 hover:text-white transition-colors"
               >
                 Features
               </Button>
@@ -92,7 +92,7 @@ export default function Navbar({
               <Button
                 variant="ghost"
                 onClick={() => scrollToSection(howItWorksRef)}
-                className="text-sm text-white/70 hover:text-white transition-colors"
+                className="text-xs text-white/70 hover:text-white transition-colors"
               >
                 How It Works
               </Button>
@@ -113,14 +113,14 @@ export default function Navbar({
               onClick={() => scrollToSection && waitlistRef && scrollToSection(waitlistRef)}
               disabled={!scrollToSection || !waitlistRef}
               className={cn(
-                "relative font-semibold px-4 py-2 rounded-full transition-all duration-300",
+                "relative font-semibold px-4 py-1.5 rounded-full transition-all duration-300 text-xs",
                 isScrolled
                   ? "bg-white text-black hover:bg-white/90"
                   : "bg-white/10 text-white hover:bg-white/20"
               )}
               size="sm"
             >
-              Reserve Now
+              Reserve
             </Button>
           </div>
         </div>
