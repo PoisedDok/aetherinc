@@ -122,8 +122,8 @@ export default function Footer() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="text-gray-400 mb-6"
             >
-              Redefining AI with uncompromising privacy. 
-              Experience powerful on-device AI that keeps your data where it belongs — with you.
+              GURU: Your revolutionary AI companion that solves real-world tasks through natural conversation. 
+              Founded by Krish Dokania and Adrian Wong with a mission to transform how you interact with AI.
             </motion.p>
             
             {/* Social Links */}
@@ -228,7 +228,7 @@ export default function Footer() {
           className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4"
         >
           <p className="text-sm text-gray-400">
-            &copy; {currentYear} AetherInc. All rights reserved.
+            &copy; {currentYear} AetherInc. All rights reserved. | Founded by Krish Dokania and Adrian Wong
           </p>
           <div className="flex space-x-4 text-sm text-gray-400">
             <Link href="/privacy" className="hover:text-white">Privacy Policy</Link> {/* Updated Link */}

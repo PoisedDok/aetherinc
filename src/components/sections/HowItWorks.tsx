@@ -140,7 +140,7 @@ export default function HowItWorks({ innerRef }: HowItWorksProps) {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="body-text text-gray-300 text-center max-w-3xl mx-auto mb-12"
           >
-            GURU transforms how you interact with AI by processing everything locally on-device, ensuring complete privacy and instant responses.
+            GURU transforms how you interact with AI by processing everything locally on-device, ensuring complete privacy and instant responses. With a powerful toolkit that includes browser automation, file management, web crawling, command-line execution, and API integration, GURU solves complex problems through simple conversation.
           </motion.p>
           
           {/* Video Player Section */}
@@ -159,12 +159,12 @@ export default function HowItWorks({ innerRef }: HowItWorksProps) {
                 onClick={togglePlayback}
                 muted={isMuted}
                 className="w-full aspect-video object-cover cursor-pointer"
-                poster="/path-to-poster-image.jpg"
+                poster="/guru-poster.jpg"
                 preload="metadata"
                 playsInline
               >
                 <source src="/GURU-AD.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
+                GURU: Your revolutionary AI companion for real-world tasks. Experience browser automation, file management, and seamless workflow integration with complete privacy.
               </video>
               
               {/* Play/Pause overlay */}
@@ -225,28 +225,28 @@ export default function HowItWorks({ innerRef }: HowItWorksProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: "1. Zero Cloud Dependency",
-                description: "All computations happen directly on your GURU device, ensuring your data never leaves your possession."
+                title: "1. Browser Automation",
+                description: "GURU seamlessly navigates the web and extracts data for research and tasks without sending your browsing activity to the cloud."
               },
               {
-                title: "2. Neural Processing Unit",
-                description: "Our custom 67 TOPS NPU efficiently handles complex AI tasks with minimal power consumption."
+                title: "2. File Management",
+                description: "Create, edit, and organize documents with natural language commands, making document workflows intuitive and efficient."
               },
               {
-                title: "3. Personalized Learning",
-                description: "GURU adapts to your preferences and usage patterns, becoming more helpful over time."
+                title: "3. Extended Search",
+                description: "Web crawling and advanced search capabilities help you find exactly what you need across various sources and formats."
               },
               {
-                title: "4. Seamless Integration",
-                description: "Works with your existing devices and services through secure, privacy-preserving connections."
+                title: "4. Command Execution",
+                description: "Run system tasks and scripts through simple conversations, automating complex workflows with minimal effort."
               },
               {
-                title: "5. Continuous Updates",
-                description: "Regular model updates are downloaded and verified locally, improving capabilities while maintaining privacy."
+                title: "5. API Integration",
+                description: "Seamlessly connect with your favorite services and platforms through secure, privacy-preserving API interactions."
               },
               {
-                title: "6. Complete Transparency",
-                description: "Full control over what data is used and stored, with the option to delete anything at any time."
+                title: "6. Complete Ownership",
+                description: "You own GURU completely with no recurring costs—it's your personal AI assistant that's always ready to help."
               }
             ].map((step, index) => (
               <motion.div

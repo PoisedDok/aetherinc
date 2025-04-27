@@ -127,7 +127,7 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
             Join the Waitlist
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Experience aetherinc's revolutionary AI technology. Reserve your spot in our exclusive early access program.
+            Experience GURU, the revolutionary AI companion by AetherInc founded by Krish Dokania and Adrian Wong. Reserve your spot to be among the first to own your personal AI assistant for real-world tasks.
           </p>
         </motion.div>
         

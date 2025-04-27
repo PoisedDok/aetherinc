@@ -9,17 +9,17 @@ const principles = [
   {
     icon: Lock,
     title: "Absolute Privacy",
-    description: "Your world stays yours. All processing happens locally. GURU sees only what you allow, and shares nothing."
+    description: "Your data never leaves your possession. All AI tasks process directly on your device for complete privacy and security."
   },
   {
     icon: Database,
-    title: "Complete Ownership",
-    description: "With 10TB of secure local storage, your knowledge base, memories, and creations belong solely to you."
+    title: "Powerful Automation",
+    description: "From browser automation to file management, GURU handles complex tasks through natural conversation, making workflows seamless."
   },
   {
     icon: ShieldAlert,
-    title: "Responsible Reasoning",
-    description: "GURU is designed with ethical guardrails to prevent misuse and promote helpful, safe interactions."
+    title: "Complete Ownership",
+    description: "No recurring costs or subscriptions. You own GURU completely, gaining a digital companion that's always ready to help."
   }
 ];
 
@@ -48,17 +48,17 @@ export default function PersonaPrinciples() {
               Your Digital Partner
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-               More Than an Assistant, <br />Your Autonomous Partner.
+               More Than an Assistant, <br />Your AI Companion.
             </h2>
             <p className="text-lg text-gray-300 mb-4">
-              Think of GURU like Jarvis – an ever-present, adaptable intelligence designed to amplify *you*. It connects securely to your digital life (computer, phone, workspaces), learns your context, anticipates needs, and autonomously manages complex tasks.
+              GURU is your revolutionary AI companion that helps you accomplish real-world tasks with ease. Through natural conversation, it becomes your digital partner for research, data analysis, and everyday challenges.
             </p>
             <p className="text-lg text-gray-300 mb-6">
-               Whether you're coding, designing, managing operations, or simply navigating your day, GURU integrates seamlessly via voice or contextual awareness, aiming for 20x productivity gains with minimal power and zero recurring AI fees.
+              With a powerful toolkit that includes browser automation, file management, and API integration, GURU solves your complex problems through simple conversations. It adapts to your needs, enhancing your productivity where you need support the most.
             </p>
             <div className="flex items-center gap-3 text-cyan-400">
                <Sparkles size={20} />
-               <span className="font-medium">Unlock your superhuman potential.</span>
+               <span className="font-medium">Experience the future of AI assistance.</span>
             </div>
           </motion.div>
 

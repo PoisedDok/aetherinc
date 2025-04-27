@@ -141,7 +141,7 @@ export default function Features({ featuresRef }: FeaturesProps) {
           <p 
             className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
           >
-            Imagine Jarvis-level AI, completely private, running locally. GURU blends powerful hardware with unparalleled data sovereignty.
+            Your digital companion for research, data analysis, and everyday challenges. GURU combines powerful capabilities with an intuitive interface that understands what you need and delivers results instantly.
           </p>
         </motion.div>
 
