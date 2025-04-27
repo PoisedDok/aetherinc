@@ -34,7 +34,7 @@ export default function Home() {
   // Scroll to section function
   const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
     if (ref.current) {
-      const navHeight = 80; // Height of sticky header
+      const navHeight = 100; // Increased height of sticky header to prevent overlap
       const elementPosition = ref.current.offsetTop - navHeight;
       window.scrollTo({
         top: elementPosition,
@@ -53,7 +53,7 @@ export default function Home() {
         waitlistRef={waitlistRef}
         howItWorksRef={howItWorksRef}
       />
-      <main className="flex-grow pt-20">
+      <main className="flex-grow pt-24">
         <Hero 
           scrollToSection={scrollToSection}
           featuresRef={featuresRef}
