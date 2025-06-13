@@ -22,25 +22,18 @@ interface SocialLink {
 
 // Footer links - Updated
 const products: FooterLink[] = [
-  { label: 'GURU Device', href: '/' }, // Links to home page
   { label: 'Software', href: '/software' },
-  // { label: 'Integrations', href: '/coming-soon' }, // Removed
   { label: 'Pricing', href: '/pricing' },
 ];
 
 const company: FooterLink[] = [
   { label: 'About', href: '/about' },
-  { label: 'Blog', href: '/coming-soon' }, // Assuming /blog exists or is coming soon
-  { label: 'Careers', href: '/careers' },
-  // { label: 'Press', href: '/coming-soon' }, // Removed
+  { label: 'Blog', href: '/coming-soon' },
 ];
 
 // Renamed from resources to support/legal
 const support: FooterLink[] = [
   { label: 'Documentation', href: '/documentation' },
-  { label: 'Help Center', href: '/#ask-guru' }, // Links to terminal section on home page
-  { label: 'Privacy', href: '/privacy' },
-  { label: 'Terms', href: '/terms' },
 ];
 
 const social: SocialLink[] = [

@@ -6,10 +6,7 @@ import { Terminal as TerminalIcon, Send, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-// Gemini API key
-// TODO: MOVE THIS TO ENVIRONMENT VARIABLES (.env.local, .env.production) BEFORE DEPLOYMENT!
-// NEVER COMMIT API KEYS TO VERSION CONTROL.
-const GEMINI_API_KEY = "AIzaSyD-Z8Qzus6wMzxsVW2ceOMqCTGRfSsW2qQ";
+// Gemini API key is now securely handled in the backend proxy
 
 // Interface for chat messages
 interface Message {
@@ -122,66 +119,47 @@ Okay, GURU AI, answer the following user question based *only* on the informatio
 `;
 
     try {
-      // Call Gemini API
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            contents: [{
-              parts: [{ text: `${systemPrompt}${userMessage}` }] // Use the enhanced prompt
-            }]
-          }),
-        }
-      );
-      
+      // Call backend Gemini proxy API
+      const response = await fetch('/api/gemini-proxy', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: userMessage }),
+      });
       if (!response.ok) {
-        throw new Error('Failed to fetch from Gemini API');
+        throw new Error('Failed to fetch from Gemini proxy API');
       }
-      
       const responseData = await response.json();
       let assistantResponse = '';
-      
-      // Extract the response text from Gemini API response
-      if (responseData.candidates && 
-          responseData.candidates[0] && 
+      if (responseData.candidates &&
+          responseData.candidates[0] &&
           responseData.candidates[0].content &&
           responseData.candidates[0].content.parts &&
           responseData.candidates[0].content.parts[0]) {
         assistantResponse = responseData.candidates[0].content.parts[0].text;
+      } else if (responseData.error) {
+        assistantResponse = `Error: ${responseData.error}`;
       } else {
         assistantResponse = "I'm having trouble processing that request. Please try another question.";
       }
-      
-      // Add assistant response to chat
       setMessages(prev => [...prev, { role: 'assistant', content: assistantResponse }]);
-      
-      // Increment conversation count
       setConversationCount(prev => prev + 1);
-      
-      // Check if limit reached after this conversation
       if (conversationCount + 1 >= MAX_CONVERSATIONS) {
         setLimitReached(true);
-        // Add limit reached message immediately after response
         setMessages(prev => [
           ...prev,
           { role: 'system', content: 'Demo limit reached. Please join our waitlist for full access.' }
         ]);
       }
-      
     } catch (error) {
-      console.error('Error calling Gemini API:', error);
+      console.error('Error calling Gemini proxy API:', error);
       setMessages(prev => [
         ...prev,
         { role: 'assistant', content: "I'm sorry, I encountered an error processing your request. Please try again." }
       ]);
     } finally {
       setIsLoading(false);
-      // Re-focus the input after the response is handled and loading is finished
-      // Only focus if the limit hasn't been reached
       if (!limitReached && inputRef.current) {
         inputRef.current.focus();
       }
@@ -229,7 +207,13 @@ Okay, GURU AI, answer the following user question based *only* on the informatio
             </div>
             
             {/* Terminal console */}
-            <div className="p-4 h-96 overflow-y-auto font-mono text-sm">
+            <div
+              className="p-4 h-96 overflow-y-auto font-mono text-sm"
+              role="log"
+              aria-live="polite"
+              aria-atomic="false"
+              aria-busy={isLoading}
+            >
               {messages.map((message, index) => (
                 <div 
                   key={index} 
@@ -255,7 +239,11 @@ Okay, GURU AI, answer the following user question based *only* on the informatio
               ))}
               
               {isLoading && (
-                <div className="pl-4 border-l-2 border-purple-500/70 mb-4">
+                <div
+                  className="pl-4 border-l-2 border-purple-500/70 mb-4"
+                  role="status"
+                  aria-live="polite"
+                >
                   <div className="text-xs text-gray-400 mb-1">GURU AI:</div>
                   <div className="text-white">
                     <span className="inline-block w-2 h-2 bg-purple-500 rounded-full animate-pulse mr-1"></span>
@@ -281,11 +269,13 @@ Okay, GURU AI, answer the following user question based *only* on the informatio
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={limitReached ? "Demo limit reached. Join waitlist!" : "Ask about GURU's features, privacy, tech..."}
                 disabled={isLoading || limitReached}
+                aria-disabled={isLoading || limitReached}
                 className="flex-grow bg-white/5 border-white/10 text-white focus:ring-cyan-500 focus:border-cyan-500"
               />
               <Button
                 type="submit"
                 disabled={isLoading || limitReached || !input.trim()}
+                aria-disabled={isLoading || limitReached || !input.trim()}
                 className="ml-2 bg-cyan-600 hover:bg-cyan-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send className="w-4 h-4" />

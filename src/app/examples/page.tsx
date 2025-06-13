@@ -6,7 +6,7 @@ import Footer from '@/components/Footer'; // Adjust path if needed
 import { motion } from 'framer-motion';
 import { ScrollProgress } from '@/components/ui/scroll-progress';
 import { BackToTop } from '@/components/ui/back-to-top';
-import { ArrowRight, Mic, Code, Bot, FileText, Database, ShieldCheck, Briefcase, CodeXml, FileSearch, Headphones, Link as LinkIcon, RadioTower, ShieldQuestion } from 'lucide-react';
+import { Bot, CodeXml, FileSearch, Headphones, Link as LinkIcon, ShieldQuestion } from 'lucide-react';
 import { Button } from '@/components/ui/button'; // Adjust path if needed
 import Link from 'next/link';
 import { cn } from "@/lib/utils"; // Import cn utility

@@ -1,23 +1,21 @@
 "use client";
 
 import React, { useRef, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import Navbar from '@/components/Navbar';
-import Hero from '@/components/sections/Hero';
-import Features from '@/components/sections/Features';
-import HowItWorks from '@/components/sections/HowItWorks';
-import PersonaPrinciples from '@/components/sections/PersonaPrinciples';
-import Terminal from '@/components/sections/Terminal';
-import Waitlist from '@/components/sections/Waitlist';
+import dynamic from 'next/dynamic';
 import Footer from '@/components/Footer';
 import { ScrollProgress } from '@/components/ui/scroll-progress';
 import { BackToTop } from '@/components/ui/back-to-top';
 
+// Dynamically load sections for better performance
+const CleanHero = dynamic(() => import('@/components/sections/CleanHero'), { ssr: false });
+const CompanyVision = dynamic(() => import('@/components/sections/CompanyVision'), { ssr: false });
+const Waitlist = dynamic(() => import('@/components/sections/Waitlist'), { ssr: false });
+
 export default function Home() {
   // Section refs for smooth scrolling
-  const featuresRef = useRef<HTMLElement | null>(null);
+  const visionRef = useRef<HTMLElement | null>(null);
   const waitlistRef = useRef<HTMLElement | null>(null);
-  const howItWorksRef = useRef<HTMLElement | null>(null);
 
   // Prevent automatic scrolling to sections on initial page load
   useEffect(() => {
@@ -34,7 +32,7 @@ export default function Home() {
   // Scroll to section function
   const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
     if (ref.current) {
-      const navHeight = 120; // Further increased height of sticky header to prevent overlap
+      const navHeight = 120;
       const elementPosition = ref.current.offsetTop - navHeight;
       window.scrollTo({
         top: elementPosition,
@@ -48,21 +46,18 @@ export default function Home() {
       <ScrollProgress />
       <BackToTop />
       <Navbar 
-        scrollToSection={scrollToSection}
-        featuresRef={featuresRef}
         waitlistRef={waitlistRef}
-        howItWorksRef={howItWorksRef}
+        scrollToSection={scrollToSection}
       />
       <main className="flex-grow pt-28">
-        <Hero 
+        <CleanHero 
           scrollToSection={scrollToSection}
-          featuresRef={featuresRef}
+          visionRef={visionRef}
           waitlistRef={waitlistRef}
         />
-        <Features featuresRef={featuresRef} />
-        <HowItWorks innerRef={howItWorksRef} />
-        <PersonaPrinciples />
-        <Terminal />
+        <section ref={visionRef}>
+          <CompanyVision />
+        </section>
         <Waitlist waitlistRef={waitlistRef} />
       </main>
       <Footer />

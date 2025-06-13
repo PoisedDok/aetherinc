@@ -5,21 +5,24 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ShineBorder } from '@/components/magicui/shine-border';
+import { Shield } from 'lucide-react';
 import Link from 'next/link';
 
 interface NavbarProps {
-  scrollToSection?: (ref: React.RefObject<HTMLElement | null>) => void;
-  featuresRef?: React.RefObject<HTMLElement | null>;
   waitlistRef?: React.RefObject<HTMLElement | null>;
-  howItWorksRef?: React.RefObject<HTMLElement | null>;
+  scrollToSection?: (ref: React.RefObject<HTMLElement | null>) => void;
 }
 
-export default function Navbar({ 
-  scrollToSection, 
-  featuresRef, 
-  waitlistRef, 
-  howItWorksRef
-}: NavbarProps) {
+const navigationItems = [
+  { label: "About", href: "/about" },
+  { label: "Products", href: "/products" },
+  { label: "Services", href: "/services" },
+  { label: "AI Tools", href: "/ai-tools" },
+  { label: "Insights", href: "/insights" },
+  { label: "Contact", href: "/contact" },
+];
+
+export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
   
@@ -61,14 +64,15 @@ export default function Navbar({
           style={{ scale: logoScale }}
           className="flex items-center"
         >
-          <a href="/" className="text-xl font-bold text-white flex items-center gap-2">
+          <Link href="/" className="text-xl font-bold text-white flex items-center gap-2 hover:opacity-80 transition-opacity">
             <span className="font-bold">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white font-extrabold">A</span>ether<span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white font-extrabold">I</span>nc
             </span>
-          </a>
+          </Link>
         </motion.div>
 
         <div className="flex items-center gap-2 sm:gap-4">
+          {/* Desktop Navigation */}
           <motion.div
             initial={false}
             animate={{ 
@@ -77,28 +81,54 @@ export default function Navbar({
               scale: isScrolled ? 1 : 0.8,
             }}
             transition={{ duration: 0.3 }}
-            className="hidden sm:flex items-center gap-4"
+            className="hidden lg:flex items-center gap-1"
           >
-            {scrollToSection && featuresRef && (
+            {navigationItems.map((item) => (
               <Button
+                key={item.href}
                 variant="ghost"
-                onClick={() => scrollToSection(featuresRef)}
-                className="text-xs text-white/70 hover:text-white transition-colors"
+                asChild
+                className="text-xs text-white/70 hover:text-white transition-colors px-3 py-1"
               >
-                Features
+                <Link href={item.href}>
+                  {item.label}
+                </Link>
               </Button>
-            )}
-            {scrollToSection && howItWorksRef && (
-              <Button
-                variant="ghost"
-                onClick={() => scrollToSection(howItWorksRef)}
-                className="text-xs text-white/70 hover:text-white transition-colors"
-              >
-                How It Works
-              </Button>
-            )}
+            ))}
+            
+            {/* Admin Login Button */}
+            <Button
+              variant="ghost"
+              asChild
+              className="text-xs text-white/70 hover:text-white transition-colors px-3 py-1"
+            >
+              <Link href="/admin">
+                <Shield className="h-3 w-3 mr-1" />
+                Admin
+              </Link>
+            </Button>
           </motion.div>
 
+          {/* Mobile menu button */}
+          <motion.div
+            initial={false}
+            animate={{ 
+              y: isScrolled ? 0 : -50,
+              opacity: isScrolled ? 1 : 0,
+              scale: isScrolled ? 1 : 0.8,
+            }}
+            transition={{ duration: 0.3 }}
+            className="lg:hidden"
+          >
+            <Button
+              variant="ghost"
+              className="text-xs text-white/70 hover:text-white"
+            >
+              Menu
+            </Button>
+          </motion.div>
+
+          {/* Join Waitlist Button */}
           <div className="relative">
             <ShineBorder 
               className={cn(
@@ -110,8 +140,17 @@ export default function Navbar({
               duration={10}
             />
             <Button
-              onClick={() => scrollToSection && waitlistRef && scrollToSection(waitlistRef)}
-              disabled={!scrollToSection || !waitlistRef}
+              onClick={() => {
+                if (waitlistRef && scrollToSection) {
+                  scrollToSection(waitlistRef);
+                } else {
+                  // If no ref available, try to scroll to waitlist section
+                  const waitlistSection = document.querySelector('[data-section="waitlist"]');
+                  if (waitlistSection) {
+                    waitlistSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }
+              }}
               className={cn(
                 "relative font-semibold px-4 py-1.5 rounded-full transition-all duration-300 text-xs",
                 isScrolled
@@ -120,7 +159,7 @@ export default function Navbar({
               )}
               size="sm"
             >
-              Reserve
+              Join Waitlist
             </Button>
           </div>
         </div>

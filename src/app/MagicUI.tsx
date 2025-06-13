@@ -8,8 +8,11 @@ import React, {
 } from "react";
 import { CalendarIcon, FileTextIcon } from "@radix-ui/react-icons";
 import { BellIcon, Share2Icon } from "lucide-react";
+import dynamic from 'next/dynamic';
 
-import { Calendar } from "react-calendar"; // Changed from @/components/ui/calendar
+// Dynamically import react-calendar on client to reduce bundle size
+const Calendar = dynamic(() => import('react-calendar'), { ssr: false });
+
 function cn(...inputs: (string | undefined | null | boolean)[]): string {
     return inputs.filter(Boolean).join(' ');
 }
@@ -59,6 +62,7 @@ export function BentoGrid({
 
 // Minimal BentoCard placeholder
 export function BentoCard({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Icon,
   name,
   description,
@@ -67,6 +71,7 @@ export function BentoCard({
   background,
   className,
 }: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Icon?: React.ComponentType<any>;
   name?: string;
   description?: string;
@@ -133,8 +138,7 @@ export function AnimatedBeam({
   endYOffset?: number;
   reverse?: boolean;
 }) {
-  // You could implement real drawing logic here.
-  // For now, just return an empty <svg> as a placeholder.
+  // Placeholder logic only
   return <svg className="absolute inset-0 pointer-events-none" />;
 }
 
@@ -523,7 +527,7 @@ export function InteractiveGridPattern({
   className,
 }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("bg-gradient-to-r from-cyan-500 to-indigo-500", className)} />
+    <div className={cn("bg-gradient-to-r from-gray-600 to-gray-800", className)} />
   );
 }
 

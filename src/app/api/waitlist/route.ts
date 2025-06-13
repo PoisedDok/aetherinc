@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { addWaitlistEntry } from '@/lib/waitlist';
+import { prisma } from '@/lib/database';
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,43 +13,50 @@ export async function POST(request: NextRequest) {
     // Validate required fields
     if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
       return NextResponse.json(
-        { success: false, message: 'Invalid email address' },
+        { success: false, message: 'Invalid email address', error: 'Invalid email address' },
         { status: 400 }
       );
     }
     
     if (!name || name.trim() === '') {
       return NextResponse.json(
-        { success: false, message: 'Name is required' },
+        { success: false, message: 'Name is required', error: 'Name is required' },
         { status: 400 }
       );
     }
     
-    // Add to waitlist with all fields
-    const success = addWaitlistEntry({
-      name,
-      email,
-      reason,
-      useCase,
-      earlyAccess: !!earlyAccess,
-      ip
+    // Check if email already exists in the database
+    const existingEntry = await prisma.waitlistEntry.findUnique({
+      where: { email }
     });
-    
-    if (success) {
-      return NextResponse.json({
-        success: true,
-        message: 'Successfully added to waitlist'
-      });
-    } else {
-      return NextResponse.json({
-        success: false,
-        message: 'Email already exists in waitlist'
-      });
+
+    if (existingEntry) {
+      return NextResponse.json(
+        { success: false, message: 'Email already exists in waitlist', error: 'Email already exists in waitlist' },
+        { status: 409 }
+      );
     }
+
+    // Create a new waitlist entry
+    await prisma.waitlistEntry.create({
+      data: {
+        name,
+        email,
+        reason,
+        useCase,
+        earlyAccess: !!earlyAccess,
+        ip
+      }
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: 'Successfully added to waitlist'
+    });
   } catch (error) {
     console.error('Error processing waitlist submission:', error);
     return NextResponse.json(
-      { success: false, message: 'Server error processing request' },
+      { success: false, message: 'Server error processing request', error: 'Server error processing request' },
       { status: 500 }
     );
   }

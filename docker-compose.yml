@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - EMAIL_USER=info@aetherinc.xyz
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD} # Use your Zoho password or app password
+      # Add any other environment variables needed
+    restart: always 

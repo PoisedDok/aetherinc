@@ -1,0 +1,58 @@
+Name	Category	Type	License	Description	URL	Pricing
+n8n	Workflow Automation	Open Source (Paid Cloud)	Fair-code	AI-powered workflow automation with 350+ integrations	https://n8n.io	Free (self-hosted), Cloud from $20/month
+Ollama	LLM Runtime	Open Source	MIT	Run & manage open-source LLMs locally	https://ollama.ai	Free
+llama.cpp	LLM Inference	Open Source	MIT	C++ library for efficient LLM inference	https://github.com/ggerganov/llama.cpp	Free
+AnythingLLM	LLM App Framework	Open Source	Elastic	Full-stack private AI deployment suite	https://github.com/Mintplex-Labs/anything-llm	Free
+AutoGen	Multi-Agent Framework	Open Source	Apache 2.0	Microsoft's framework for building conversational AI systems	https://github.com/microsoft/autogen	Free
+Suno AI	Music Generation	Paid	Proprietary	AI music generation platform	https://suno.ai	$10-30/month
+Chatterbox TTS	Text-to-Speech	Open Source	MIT	Open-source voice cloning system from Resemble AI	https://github.com/resemble-ai/chatterbox-tts	Free
+Void Editor	Code Editor	Open Source	AGPLv3	VS Code fork with AI capabilities	https://github.com/void-editor/void	Free
+SearXNG	Search Engine	Open Source	AGPLv3	Privacy-focused metasearch engine	https://searxng.org	Free
+Postman	API Development	Paid	Proprietary	API development environment with AI features	https://postman.com	Free tier, $12-29/user/month
+Cursor	Code Editor	Paid	Proprietary	AI-powered code editor with GPT-4 integration	https://cursor.sh	$20/month (Pro)
+GitHub Copilot	Code Assistant	Paid	Proprietary	AI pair programmer from GitHub	https://github.com/features/copilot	$10/month (Individual)
+Synthesia	Video Generation	Paid	Proprietary	AI video creation with digital avatars	https://synthesia.io	$22-89/month
+Midjourney	Image Generation	Paid	Proprietary	Advanced text-to-image generation	https://midjourney.com	$10-120/month
+LangChain	LLM Framework	Open Source	MIT	Framework for AI applications with RAG support	https://langchain.ai	Free
+Hugging Face Transformers	NLP Library	Open Source	Apache 2.0	State-of-the-art NLP models	https://huggingface.co	Free
+Weaviate	Vector Database	Open Source	BSD	AI-native vector database	https://weaviate.io	Open Source, Cloud from $25/month
+MLflow	MLOps	Open Source	Apache 2.0	End-to-end ML lifecycle platform	https://mlflow.org	Free
+Tabnine	Code Assistant	Paid	Proprietary	AI code completion tool	https://tabnine.com	$12-39/user/month
+Firecrawl	Web Crawling	Open Source	MIT	LLM-friendly web crawler	https://github.com/unclecode/crawl4ai	Free
+DeepSeek	LLM	Open Source	MIT	Powerful open-source language model	https://deepseek.com	Free
+LM Studio	LLM Runtime	Paid	Proprietary	Local LLM runner with GUI	https://lmstudio.ai	$20/month
+vLLM	LLM Serving	Open Source	Apache 2.0	High-throughput LLM serving	https://vllm.ai	Free
+Runway	Video Editing	Paid	Proprietary	AI-powered video editing suite	https://runway.ml	$15-95/month
+Coqui TTS	Text-to-Speech	Open Source	Apache 2.0	Multi-lingual voice synthesis	https://github.com/coqui-ai/TTS	Free
+InvokeAI	Image Generation	Open Source	AGPLv3	Stable Diffusion interface	https://invoke.ai	Free
+AutoGPT	AI Agent	Open Source	MIT	Autonomous AI agent framework	https://github.com/Significant-Gravitas/AutoGPT	Free
+Poe	AI Chatbot	Paid	Proprietary	Multi-LLM chatbot platform	https://poe.com	Free, $20/month (Pro)
+Perplexity AI	Conversational Search Engine	Paid	Proprietary	AI-powered search engine that answers questions with citations.	https://www.perplexity.ai	Free, Pro $20/month
+Claude	AI Chatbot	Paid	Proprietary	A family of large language models developed by Anthropic.	https://claude.ai	Free, Pro $20/month
+ElevenLabs	Text-to-Speech	Paid	Proprietary	AI-powered text-to-speech and voice cloning.	https://elevenlabs.io	Free, Paid from $5/month
+Replit	Code Editor	Paid	Proprietary	An online IDE with AI-powered features for collaboration.	https://replit.com	Free, Paid from $20/month
+HeyGen	Video Generation	Paid	Proprietary	AI-powered video platform with avatars and voice cloning.	https://www.heygen.com	Free trial, from $24/month
+Zed	Code Editor	Open Source	GPL-3.0	A high-performance, multiplayer code editor.	https://zed.dev	Free
+Giskard	MLOps	Open Source	Apache-2.0	Open-source framework for testing LLMs and ML models.	https://www.giskard.ai	Free
+marimo	Notebook	Open Source	Apache-2.0	A reactive, reproducible, and git-friendly Python notebook for AI.	https://marimo.io	Free
+Claude Code	Code Assistant / AI Agent	Open Source	Not Specified	Agentic coding tool from Anthropic that lives in your terminal.	https://github.com/anthropics/claude-code	Free
+Notion AI	Productivity / Note-taking	Paid Add-on	Proprietary	AI features integrated into the Notion workspace.	https://www.notion.so/product/ai	$10/user/month
+Fireflies.ai	Meeting Assistant	Paid	Proprietary	Records, transcribes, and analyzes voice conversations.	https://fireflies.ai	Free tier, from $10/user/month
+Descript	Video/Audio Editing	Paid	Proprietary	All-in-one editor that lets you edit media like a doc.	https://www.descript.com	Free tier, from $12/user/month
+Gamma	Presentation	Paid	Proprietary	AI-powered tool to create presentations, docs, and webpages.	https://gamma.app	Free tier, from $10/month
+Tome	Presentation / Storytelling	Paid	Proprietary	AI-powered storytelling format for presentations and microsites.	https://tome.app	Free tier, from $16/user/month
+Amazon CodeWhisperer	Code Assistant	Paid	Proprietary	AI coding companion from AWS that generates code suggestions.	https://aws.amazon.com/codewhisperer/	Free tier, Pro $19/user/month
+Sourcegraph Cody	Code Assistant	Open Source (Paid Cloud)	Apache-2.0	AI coding assistant that understands your entire codebase.	https://sourcegraph.com/cody	Free tier, Pro from $9/user/month
+Pika	Video Generation	Paid	Proprietary	An idea-to-video platform that brings creativity to motion with AI.	https://pika.art	Free tier, from $8/month
+Luma Dream Machine	Video Generation	Paid	Proprietary	AI model for creating high-quality, realistic videos from text/images.	https://lumalabs.ai/dream-machine	Free tier, from $29.99/month
+Uizard	UI/UX Design	Paid	Proprietary	AI-powered design tool for creating mockups and prototypes from text.	https://uizard.io	Free tier, from $12/user/month
+Vercel v0	UI/UX Design / Frontend	Paid	Proprietary	Generative UI system that creates React components from prompts.	https://v0.dev	Credit-based, from $10/month
+Kubeflow	MLOps	Open Source	Apache-2.0	The Machine Learning Toolkit for Kubernetes.	https://www.kubeflow.org	Free
+BentoML	MLOps / Model Serving	Open Source	Apache-2.0	Framework for building, shipping, and running AI applications.	https://www.bentoml.com	Free
+CrewAI	Multi-Agent Framework	Open Source	MIT	Framework for orchestrating autonomous AI agents.	https://www.crewai.com/	Free
+LangGraph	LLM Framework	Open Source	MIT	Library for building stateful, multi-agent applications with LLMs.	https://github.com/langchain-ai/langgraph	Free
+Mem.ai	Note-taking	Paid	Proprietary	A self-organizing workspace that uses AI to connect your notes.	https://mem.ai	Free tier, from $10/month
+Elicit	Research Assistant	Paid	Proprietary	AI research assistant to automate literature reviews and data extraction.	https://elicit.com	Free credits, from $10/month
+Consensus	Research Assistant	Paid	Proprietary	An AI search engine that extracts findings from scientific papers.	https://consensus.app	Free tier, from $7.99/month
+Beautiful.ai	Presentation	Paid	Proprietary	Presentation software that uses AI to automate design.	https://www.beautiful.ai/	From $12/user/month (annual)
+Galileo AI	UI/UX Design	Paid	Proprietary	Creates editable UI designs from a simple text description.	https://www.usegalileo.ai/	Waitlist

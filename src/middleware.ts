@@ -1,27 +1,40 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { withAuth } from 'next-auth/middleware';
 
-export function middleware(request: NextRequest) {
-  // Get the pathname from the URL
-  const { pathname } = request.nextUrl;
+export default withAuth(
+  function middleware(req) {
+    const { token } = req.nextauth;
+    const { pathname } = req.nextUrl;
 
-  // If it's the root path '/', make sure to show the landing page
-  if (pathname === '/') {
-    // Create a new URL object from the request URL
-    const url = request.nextUrl.clone();
-    
-    // Reset any hash or search parameters that might be redirecting to the 'Try our AI' section
-    url.hash = '';
-    
-    // Return the modified URL without any automatic scroll
-    return NextResponse.rewrite(url);
-  }
-
-  // Continue with the request for all other paths
+    // If trying to access login, let them through
+    if (pathname === '/admin/login') {
+      // If already logged in as admin, redirect to dashboard
+      if (token && token.role === 'ADMIN') {
+        return NextResponse.redirect(new URL('/admin', req.url));
+      }
   return NextResponse.next();
 }
 
-// Configure the middleware to run only on specific paths
+    // For any other admin route, check for admin role
+    if (pathname.startsWith('/admin')) {
+      if (!token || token.role !== 'ADMIN') {
+        // Redirect to login, preserving the originally requested URL
+        const loginUrl = new URL('/admin/login', req.url);
+        loginUrl.searchParams.set('callbackUrl', req.url);
+        return NextResponse.redirect(loginUrl);
+      }
+    }
+
+    return NextResponse.next();
+  },
+  {
+    callbacks: {
+      // This is required for the middleware to run
+      authorized: () => true,
+    },
+  }
+);
+
 export const config = {
-  matcher: '/',
+  matcher: ['/admin/:path*'],
 }; 

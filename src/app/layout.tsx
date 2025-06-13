@@ -1,31 +1,68 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { SessionProvider } from "@/components/SessionProvider";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "GURU by AetherInc",
-  description: "The world's first privacy-first AI device that keeps your data where it belongs — with you.",
-  metadataBase: new URL('https://aetherinc.vercel.app'),
-  keywords: "AI, artificial intelligence, privacy, edge computing, on-device AI, AetherInc, GURU",
-  authors: [{ name: "AetherInc" }],
+  title: "AetherInc - Privacy-First AI Solutions | GURU & AetherArena",
+  description: "Scottish AI startup building the future of privacy-first AI. GURU personal AI assistant and AetherArena self-improving platform. Local AI, no cloud dependency.",
+  metadataBase: new URL('https://aetherinc.com'),
+  keywords: "AI startup Scotland, privacy AI, local AI, GURU AI assistant, AetherArena platform, on-device AI, AI consulting Glasgow, enterprise AI solutions, NVIDIA Jetson, Iron Man Jarvis, AI automation, Business Bloom",
+  authors: [
+    { name: "Krish Dokania", url: "https://linkedin.com/in/krish-dokania-56203b217" },
+    { name: "Adrian Wong", url: "https://linkedin.com/in/acpwong" }
+  ],
+  creator: "AetherInc Limited",
+  publisher: "AetherInc Limited",
+  category: "Technology",
   openGraph: {
-    title: "AetherInc - GURU: Privacy-First AI Assistant",
-    description: "Experience the world's first truly private AI device. AetherInc's GURU keeps your data where it belongs - with you.",
-    images: ["/og-image.jpg"],
+    title: "AetherInc - Privacy-First AI Solutions | GURU & AetherArena",
+    description: "Scottish AI startup building GURU personal AI assistant and AetherArena self-improving platform. Iron Man-inspired vision meets cutting-edge local AI technology.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "AetherInc - Privacy-First AI Solutions"
+      }
+    ],
     url: "https://aetherinc.com",
     siteName: "AetherInc",
-    locale: "en_US",
+    locale: "en_GB",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AetherInc - GURU: Privacy-First AI Assistant",
-    description: "Experience the world's first truly private AI device. AetherInc's GURU keeps your data where it belongs - with you.",
+    title: "AetherInc - Privacy-First AI Solutions | GURU & AetherArena",
+    description: "Scottish AI startup building GURU personal AI assistant and AetherArena self-improving platform. Iron Man-inspired vision meets cutting-edge local AI technology.",
     images: ["/og-image.jpg"],
     creator: "@aetherinc",
+    site: "@aetherinc",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'google-site-verification-token',
+  },
+  alternates: {
+    canonical: 'https://aetherinc.com',
+  },
+  other: {
+    'company-registration': 'SC851680',
+    'company-location': 'Glasgow, Scotland',
+    'founded': '2025-06-10'
+  }
 };
 
 export const viewport: Viewport = {
@@ -33,7 +70,10 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: 'cover',
-  themeColor: '#000000',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#000000' },
+    { media: '(prefers-color-scheme: dark)', color: '#000000' }
+  ],
 };
 
 export default function RootLayout({
@@ -42,16 +82,60 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en-GB" className={inter.variable}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-title" content="AetherInc" />
+        <meta name="application-name" content="AetherInc" />
         <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "AetherInc Limited",
+            "alternateName": "AetherInc",
+            "url": "https://aetherinc.com",
+            "logo": "https://aetherinc.com/logo.png",
+            "description": "Scottish AI startup building privacy-first AI solutions including GURU personal assistant and AetherArena platform",
+            "foundingDate": "2025-06-10",
+            "foundingLocation": {
+              "@type": "Place",
+              "name": "Glasgow, Scotland"
+            },
+            "legalName": "AetherInc Limited",
+            "taxID": "SC851680",
+            "founder": [
+              {
+                "@type": "Person",
+                "name": "Krish Dokania",
+                "jobTitle": "CEO & Founder",
+                "sameAs": "https://linkedin.com/in/krish-dokania-56203b217"
+              },
+              {
+                "@type": "Person", 
+                "name": "Adrian Wong",
+                "jobTitle": "CTO & Co-founder",
+                "sameAs": "https://linkedin.com/in/acpwong"
+              }
+            ],
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Glasgow",
+              "addressCountry": "Scotland, UK"
+            },
+            "sameAs": [
+              "https://linkedin.com/company/aetherinc",
+              "https://twitter.com/aetherinc"
+            ]
+          })}
+        </script>
       </head>
       <body className="min-h-screen bg-black text-white overflow-x-hidden">
-        {children}
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   );
