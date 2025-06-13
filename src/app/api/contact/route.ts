@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/database';
-import { sendContactEmail } from '@/lib/email';
+import { sendContactEmail } from '@/lib/contact';
 
 interface ContactFormData {
   name: string;

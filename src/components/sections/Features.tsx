@@ -108,7 +108,7 @@ const useCases: UseCase[] = [
 
 // Feature section props type
 interface FeaturesProps {
-  featuresRef: React.RefObject<HTMLElement | null>;
+  featuresRef: React.RefObject<HTMLElement>;
 }
 
 export default function Features({ featuresRef }: FeaturesProps) {
@@ -117,7 +117,7 @@ export default function Features({ featuresRef }: FeaturesProps) {
   
   return (
     <section 
-      ref={featuresRef} // Keep the ref for scrolling from Navbar
+      ref={featuresRef as React.RefObject<HTMLElement>}
       id="features" 
       className="relative bg-gradient-to-b from-black via-slate-950 to-black py-24 md:py-32 overflow-hidden"
     >

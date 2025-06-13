@@ -13,7 +13,7 @@ import { ShineBorder } from '@/components/magicui/shine-border';
 
 // Waitlist props type
 interface WaitlistProps {
-  waitlistRef: React.RefObject<HTMLElement | null>;
+  waitlistRef: React.RefObject<HTMLElement>;
 }
 
 // Waitlist form data type
@@ -108,7 +108,7 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
   };
   
   return (
-    <section ref={waitlistRef} data-section="waitlist" className="relative bg-black py-24 md:py-32 overflow-hidden">
+    <section ref={waitlistRef as React.RefObject<HTMLElement>} data-section="waitlist" className="relative bg-black py-24 md:py-32 overflow-hidden">
       {/* Background Grid Pattern */}
       <div className="absolute inset-0 z-0 opacity-25">
         <InteractiveGridPattern 

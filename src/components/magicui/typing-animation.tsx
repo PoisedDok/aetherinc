@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion, MotionProps } from "motion/react";
+import { motion, MotionProps } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 
 interface TypingAnimationProps extends MotionProps {
@@ -22,6 +22,9 @@ interface TypingAnimationProps extends MotionProps {
 
   /** If true, typing won't start until the component is scrolled into view (default: false). */
   startOnView?: boolean;
+
+  /** Callback function to be called when typing is complete. */
+  onComplete?: () => void;
 }
 
 /**
@@ -35,6 +38,7 @@ export function TypingAnimation({
   duration = 100,
   as: Component = "div",
   startOnView = false,
+  onComplete,
   ...props
 }: TypingAnimationProps) {
   // We create a motion-enabled version of the specified Component
@@ -106,7 +110,11 @@ export function TypingAnimation({
     }
 
     // If we've finished typing all phrases, do nothing (or reset if you want to loop)
-  }, [started, phrases, phraseIndex, charIndex, duration]);
+    // Call onComplete callback if we've finished all phrases
+    if (onComplete) {
+      onComplete();
+    }
+  }, [started, phrases, phraseIndex, charIndex, duration, onComplete]);
 
   return (
     <MotionComponent

@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+// import type { NextConfig } from "next";
 // Bundle analyzer setup
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
@@ -6,7 +6,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   /* config options here */
   
   images: {
@@ -22,6 +22,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   
+  transpilePackages: ['motion'],
 };
 
 // Export wrapped config

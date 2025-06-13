@@ -13,10 +13,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Prompt is required.' }, { status: 400 });
     }
 
-    // Compose the system prompt and user message as in the frontend
-    const systemPrompt = `You are GURU AI, the helpful assistant representing AetherInc. Your primary goal is to provide accurate and enthusiastic information about AetherInc and its flagship product, the GURU device. ... (rest of the system prompt as in Terminal.tsx) ...\n`;
-    const userMessage = prompt;
-
     const geminiResponse = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
       {
@@ -25,15 +21,18 @@ export async function POST(request: NextRequest) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          contents: [{
-            parts: [{ text: `${systemPrompt}${userMessage}` }]
-          }]
+          contents: [
+            {
+              parts: [{ text: prompt }],
+            },
+          ],
         }),
-      }
+      },
     );
 
     const data = await geminiResponse.json();
-    return NextResponse.json(data);
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    return NextResponse.json({ text, raw: data });
   } catch (error) {
     console.error('Error in Gemini proxy:', error);
     return NextResponse.json({ error: 'Server error processing Gemini request.' }, { status: 500 });

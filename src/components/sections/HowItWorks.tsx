@@ -7,7 +7,7 @@ import { RetroGrid } from '@/components/magicui/retro-grid';
 
 // HowItWorks section props type
 interface HowItWorksProps {
-  innerRef: React.RefObject<HTMLElement | null>;
+  innerRef: React.RefObject<HTMLElement>;
 }
 
 export default function HowItWorks({ innerRef }: HowItWorksProps) {
@@ -102,7 +102,7 @@ export default function HowItWorks({ innerRef }: HowItWorksProps) {
   
   return (
     <section 
-      ref={innerRef}
+      ref={innerRef as React.RefObject<HTMLElement>}
       id="how-it-works"
       className="relative min-h-screen py-16 md:py-24 bg-black overflow-hidden"
     >

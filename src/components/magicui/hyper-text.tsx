@@ -1,7 +1,9 @@
 "use client";
 
+import React from "react";
+
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion, MotionProps } from "motion/react";
+import { AnimatePresence, motion, MotionProps } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 type CharacterSet = string[] | readonly string[];

@@ -11,16 +11,10 @@ import {
   Workflow, 
   Shield, 
   Building,
-  Zap,
-  Target,
   TrendingUp,
-  Users,
   CheckCircle,
   ArrowRight,
-  FileText,
-  Database,
-  Cloud,
-  Lock
+  FileText
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -42,7 +36,6 @@ export default function Services() {
         "Team training & knowledge transfer",
         "Ongoing optimization support"
       ],
-      pricing: "£2,500 - £7,500",
       duration: "2-8 weeks",
       deliverables: [
         "Comprehensive AI strategy report",
@@ -64,7 +57,6 @@ export default function Services() {
         "Real-time monitoring & analytics",
         "Continuous improvement optimization"
       ],
-      pricing: "£3,000 - £15,000",
       duration: "3-12 weeks",
       deliverables: [
         "Automated workflow systems",
@@ -86,7 +78,6 @@ export default function Services() {
         "Performance optimization",
         "24/7 monitoring & support"
       ],
-      pricing: "£5,000 - £25,000",
       duration: "4-16 weeks",
       deliverables: [
         "Fully deployed AI infrastructure",
@@ -100,105 +91,41 @@ export default function Services() {
   const workflowSteps = [
     {
       step: 1,
-      title: "Discovery & Analysis",
-      description: "Deep dive into your current processes and identify AI opportunities",
-      icon: <Target className="h-6 w-6" />,
-      duration: "1-2 weeks"
+      title: "Create a knowledge base",
+      description: "Train an AI agent that understands your ICP, differentiators & market landscape.",
+      icon: <FileText className="h-6 w-6" />,
     },
     {
       step: 2,
-      title: "Strategy & Design",
-      description: "Create comprehensive AI strategy with privacy-first architecture",
-      icon: <FileText className="h-6 w-6" />,
-      duration: "1-3 weeks"
+      title: "Build an agent",
+      description: "Deploy agents using an intuitive chat-based interface – no code required.",
+      icon: <Settings className="h-6 w-6" />,
     },
     {
       step: 3,
-      title: "Development & Integration",
-      description: "Build and integrate AI solutions using our curated tool stack",
-      icon: <Settings className="h-6 w-6" />,
-      duration: "2-8 weeks"
-    },
-    {
-      step: 4,
-      title: "Testing & Optimization",
-      description: "Rigorous testing and performance optimization for production",
+      title: "Test & deploy",
+      description: "Agents run autonomously based on events in your CRM & other tools.",
       icon: <TrendingUp className="h-6 w-6" />,
-      duration: "1-2 weeks"
-    },
-    {
-      step: 5,
-      title: "Deployment & Training",
-      description: "Go-live support with comprehensive team training",
-      icon: <Users className="h-6 w-6" />,
-      duration: "1 week"
-    },
-    {
-      step: 6,
-      title: "Ongoing Support",
-      description: "Continuous monitoring, optimization, and enhancement",
-      icon: <Zap className="h-6 w-6" />,
-      duration: "Ongoing"
     }
   ];
 
-  const industries = [
+  const useCases = [
     {
-      name: "Healthcare",
-      icon: "🏥",
-      challenges: [
-        "HIPAA compliance requirements",
-        "Sensitive patient data processing",
-        "Real-time diagnostic support"
-      ],
-      solutions: [
-        "On-premise AI for medical imaging",
-        "Privacy-preserving patient analytics",
-        "Automated clinical documentation"
-      ]
+      title: "An enterprise AE…",
+      description: "Researches high-value opportunities, identifies decision-makers & enriches CRM data automatically.",
     },
     {
-      name: "Education",
-      icon: "🎓",
-      challenges: [
-        "Personalized learning at scale",
-        "Student data privacy",
-        "Administrative automation"
-      ],
-      solutions: [
-        "Local AI tutoring systems",
-        "Automated grading & feedback",
-        "Student progress analytics"
-      ]
+      title: "A life-sciences sales team…",
+      description: "Runs hyper-focused outbound to biopharma accounts with recent stage-2 trial announcements.",
     },
     {
-      name: "Finance",
-      icon: "💰",
-      challenges: [
-        "Regulatory compliance",
-        "Fraud detection",
-        "Customer data protection"
-      ],
-      solutions: [
-        "Local fraud detection models",
-        "Automated compliance reporting",
-        "Secure customer analytics"
-      ]
+      title: "A marketing agency…",
+      description: "Qualifies inbound leads & writes 11-step sequences referencing similar clients in seconds.",
     },
     {
-      name: "Manufacturing",
-      icon: "🏭",
-      challenges: [
-        "Predictive maintenance",
-        "Quality control automation",
-        "Supply chain optimization"
-      ],
-      solutions: [
-        "Edge AI for equipment monitoring",
-        "Computer vision quality control",
-        "Intelligent inventory management"
-      ]
-    }
+      title: "An insurance company…",
+      description: "Guides strategic investments by monitoring economic, climate & competitor research in real-time.",
+    },
   ];
 
   return (
@@ -247,11 +174,11 @@ export default function Services() {
               variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
               className="relative group"
             >
-              <Card className={`bg-gradient-to-br from-slate-900/80 to-black/60 backdrop-blur-sm border-white/10 hover:border-${service.color}-400/30 transition-all duration-300 h-full`}>
+              <Card className="bg-gradient-to-br from-slate-900/80 to-black/60 backdrop-blur-sm border-white/10 hover:border-gray-500/30 transition-all duration-300 h-full">
                 <div className="p-8">
                   {/* Service Header */}
                   <div className="flex items-center gap-4 mb-6">
-                    <div className={`w-16 h-16 rounded-full bg-gradient-to-br from-${service.color}-400 to-${service.color}-600 flex items-center justify-center text-white shadow-lg shadow-${service.color}-400/25`}>
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-white to-gray-400 flex items-center justify-center text-black shadow-lg shadow-white/10">
                       {service.icon}
                     </div>
                     <div>
@@ -263,11 +190,8 @@ export default function Services() {
                     {service.description}
                   </p>
 
-                  {/* Pricing & Duration */}
+                  {/* Duration */}
                   <div className="flex flex-wrap gap-3 mb-6">
-                    <Badge variant="outline" className={`text-${service.color}-400 border-${service.color}-400/30`}>
-                      {service.pricing}
-                    </Badge>
                     <Badge variant="outline" className="text-gray-400 border-gray-600">
                       {service.duration}
                     </Badge>
@@ -279,7 +203,7 @@ export default function Services() {
                     <div className="space-y-2">
                       {service.features.map((feature, i) => (
                         <div key={i} className="flex items-start gap-2">
-                          <CheckCircle className={`h-4 w-4 text-${service.color}-400 flex-shrink-0 mt-0.5`} />
+                          <CheckCircle className="h-4 w-4 text-gray-400 flex-shrink-0 mt-0.5" />
                           <span className="text-gray-300 text-sm">{feature}</span>
                         </div>
                       ))}
@@ -292,7 +216,7 @@ export default function Services() {
                     <div className="space-y-1">
                       {service.deliverables.map((deliverable, i) => (
                         <div key={i} className="flex items-center gap-2">
-                          <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-gray-400" />
                           <span className="text-gray-300 text-sm">{deliverable}</span>
                         </div>
                       ))}
@@ -302,7 +226,7 @@ export default function Services() {
                   {/* CTA */}
                   <Button 
                     variant="outline" 
-                    className={`w-full border-${service.color}-400/30 text-${service.color}-400 hover:bg-${service.color}-400/10`}
+                    className="w-full border-gray-400/30 text-gray-200 hover:bg-gray-700/20"
                     asChild
                   >
                     <Link href="/contact">
@@ -316,7 +240,7 @@ export default function Services() {
           ))}
         </motion.div>
 
-        {/* Workflow Process */}
+        {/* How It Works */}
         <motion.div
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -334,35 +258,32 @@ export default function Services() {
             className="text-center mb-12"
           >
             <h3 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-              Our Proven Process
+              Build AI agents in minutes – no technical skills required
             </h3>
             <p className="text-gray-300 text-lg">
-              From discovery to deployment - a systematic approach to AI transformation
+              A simple 3-step workflow to go from knowledge to production-ready agents
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {workflowSteps.map((step, index) => (
               <motion.div
                 key={index}
                 variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
                 className="relative"
               >
-                <Card className="bg-black/40 backdrop-blur-sm border-white/10 hover:border-cyan-400/30 transition-all duration-300">
-                  <div className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-white to-gray-600 flex items-center justify-center text-black font-bold">
-                  {step.step}
-                </div>
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400/20 to-purple-600/20 flex items-center justify-center">
+                <Card className="bg-black/40 backdrop-blur-sm border-white/10 hover:border-gray-500/30 transition-all duration-300 text-center">
+                  <div className="p-6 h-full flex flex-col">
+                    <div className="flex flex-col items-center gap-3 mb-4">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-white to-gray-600 flex items-center justify-center text-black font-bold">
+                        {step.step}
+                      </div>
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-white/20 to-gray-600/20 flex items-center justify-center text-gray-300">
                         {step.icon}
                       </div>
                     </div>
                     <h4 className="text-lg font-semibold text-white mb-2">{step.title}</h4>
-                    <p className="text-gray-300 text-sm mb-3">{step.description}</p>
-                    <Badge variant="outline" className="text-xs text-gray-400 border-gray-600">
-                      {step.duration}
-                    </Badge>
+                    <p className="text-gray-300 text-sm mb-1">{step.description}</p>
                   </div>
                 </Card>
               </motion.div>
@@ -370,7 +291,7 @@ export default function Services() {
           </div>
         </motion.div>
 
-        {/* Industry Applications */}
+        {/* Collaborate Section */}
         <motion.div
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -388,52 +309,24 @@ export default function Services() {
             className="text-center mb-12"
           >
             <h3 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-              Industry Solutions
+              Collaborate with AI agents to 10× performance
             </h3>
             <p className="text-gray-300 text-lg">
-              Tailored AI solutions for your specific industry challenges
+              See how teams leverage privacy-first AI to accelerate outcomes
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {industries.map((industry, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {useCases.map((useCase, index) => (
               <motion.div
                 key={index}
                 variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
                 className="relative"
               >
-                <Card className="bg-gradient-to-br from-slate-900/80 to-black/60 backdrop-blur-sm border-white/10 hover:border-cyan-400/30 transition-all duration-300">
-                  <div className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="text-3xl">{industry.icon}</span>
-                      <h4 className="text-xl font-semibold text-white">{industry.name}</h4>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <h5 className="text-white font-medium mb-2">Challenges</h5>
-                        <div className="space-y-1">
-                          {industry.challenges.map((challenge, i) => (
-                            <div key={i} className="flex items-start gap-2">
-                              <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2 flex-shrink-0" />
-                              <span className="text-gray-300 text-sm">{challenge}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <h5 className="text-white font-medium mb-2">Our Solutions</h5>
-                        <div className="space-y-1">
-                          {industry.solutions.map((solution, i) => (
-                            <div key={i} className="flex items-start gap-2">
-                              <CheckCircle className="h-3 w-3 text-green-400 flex-shrink-0 mt-1" />
-                              <span className="text-gray-300 text-sm">{solution}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
+                <Card className="bg-gradient-to-br from-slate-900/80 to-black/60 backdrop-blur-sm border-white/10 hover:border-gray-500/30 transition-all duration-300 h-full">
+                  <div className="p-6 h-full flex flex-col">
+                    <h4 className="text-lg font-semibold text-white mb-3">{useCase.title}</h4>
+                    <p className="text-gray-300 text-sm flex-grow">{useCase.description}</p>
                   </div>
                 </Card>
               </motion.div>
@@ -450,7 +343,7 @@ export default function Services() {
         >
           <Card className="bg-gradient-to-br from-slate-900/80 to-black/60 backdrop-blur-sm border-white/10">
             <div className="p-8">
-              <Building className="h-12 w-12 text-cyan-400 mx-auto mb-4" />
+              <Building className="h-12 w-12 text-gray-300 mx-auto mb-4" />
               <h4 className="text-2xl font-bold text-white mb-4">Ready to Transform Your Business?</h4>
               <p className="text-gray-300 text-lg mb-6">
                 Join forward-thinking companies leveraging privacy-first AI solutions. 

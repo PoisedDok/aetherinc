@@ -35,47 +35,10 @@ export default function InsightsPage() {
           </div>
         </section>
 
-        {/* Key Trends Overview */}
-        <section className="py-16 px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-4 gap-8 mb-16">
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center">
-                <div className="w-12 h-12 bg-gray-600/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <AlertTriangle className="h-6 w-6 text-gray-400" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">AI Outages</h3>
-                <p className="text-gray-400">Major service disruptions</p>
-              </div>
-              
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center">
-                <div className="w-12 h-12 bg-gray-700/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Shield className="h-6 w-6 text-gray-300" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">Data Breaches</h3>
-                <p className="text-gray-400">Security vulnerabilities</p>
-              </div>
-              
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center">
-                <div className="w-12 h-12 bg-gray-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <TrendingUp className="h-6 w-6 text-gray-200" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">Local AI Growth</h3>
-                <p className="text-gray-400">Rising adoption rates</p>
-              </div>
-              
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center">
-                <div className="w-12 h-12 bg-gray-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Globe className="h-6 w-6 text-white" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">Regulation</h3>
-                <p className="text-gray-400">Policy developments</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Removed outdated key trends overview */}
 
         {/* News & Insights Section */}
-        <NewsInsights />
+        <NewsInsights hideHeader />
 
         {/* Privacy First Manifesto */}
         <section className="py-24 px-4 bg-white/5">

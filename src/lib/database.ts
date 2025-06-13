@@ -222,11 +222,23 @@ export async function seedAITools() {
   ]
   
   for (const tool of tools) {
-    await prisma.aiTool.upsert({
-      where: { name: tool.name },
-      update: tool,
-      create: tool
-    })
+    // Check if the tool already exists
+    const existingTool = await prisma.aITool.findFirst({
+      where: { name: tool.name }
+    });
+    
+    if (existingTool) {
+      // Update existing tool
+      await prisma.aITool.update({
+        where: { id: existingTool.id },
+        data: tool
+      });
+    } else {
+      // Create new tool
+      await prisma.aITool.create({
+        data: tool
+      });
+    }
   }
   
   return tools;

@@ -3,8 +3,7 @@
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import LazyMotion from '@/components/LazyMotion';
-import { m, domAnimation } from 'framer-motion';
+import { LazyMotion, m, domAnimation } from 'framer-motion';
 import { Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';

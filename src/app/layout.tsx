@@ -1,9 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "@/components/SessionProvider";
+import dynamic from "next/dynamic";
 
-const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
+const josefinSans = Josefin_Sans({ subsets: ["latin"], display: "swap", variable: "--font-josefin-sans" });
+
+// Avoid rendering on the server to prevent RSC boundary issues
+const FloatingChat = dynamic(() => import("@/components/FloatingChat"), { ssr: false });
 
 export const metadata: Metadata = {
   title: "AetherInc - Privacy-First AI Solutions | GURU & AetherArena",
@@ -82,7 +86,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-GB" className={inter.variable}>
+    <html lang="en-GB" className={josefinSans.variable}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -136,6 +140,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-black text-white overflow-x-hidden">
         <SessionProvider>{children}</SessionProvider>
+        <FloatingChat />
       </body>
     </html>
   );

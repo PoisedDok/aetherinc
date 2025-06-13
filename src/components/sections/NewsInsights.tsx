@@ -23,7 +23,7 @@ interface NewsResponse {
   total: number;
 }
 
-export default function NewsInsights() {
+export default function NewsInsights({ hideHeader = false }: { hideHeader?: boolean } = {}) {
   const [news, setNews] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -65,6 +65,15 @@ export default function NewsInsights() {
       setRefreshing(false);
     }
   };
+
+  // Automatically refresh every 60 seconds
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      refreshNews();
+    }, 60_000); // 1 minute
+    return () => clearInterval(intervalId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -110,30 +119,21 @@ export default function NewsInsights() {
   return (
     <section className="py-20 bg-black">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-gray-300 to-gray-400 bg-clip-text text-transparent">
-            Industry Insights
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-            Real-time AI industry developments, security breaches, and the growing case for local AI solutions.
-          </p>
-          
-          <div className="flex justify-center gap-4">
-            <button
-              onClick={refreshNews}
-              disabled={refreshing}
-              className="inline-flex items-center px-6 py-3 bg-white hover:bg-gray-200 disabled:bg-gray-600 text-black rounded-lg transition-colors font-medium"
-            >
-              <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
-              {refreshing ? 'Refreshing...' : 'Refresh News'}
-            </button>
-          </div>
-        </motion.div>
+        {!hideHeader && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-gray-300 to-gray-400 bg-clip-text text-transparent">
+              Industry Insights
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+              Real-time AI industry developments, security breaches, and the growing case for local AI solutions.
+            </p>
+          </motion.div>
+        )}
 
         {loading ? (
           <div className="flex justify-center items-center py-20">
@@ -148,7 +148,7 @@ export default function NewsInsights() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-gray-900/50 border border-gray-700 rounded-lg p-6 hover:border-white/50 transition-all duration-300 group"
+                className="relative overflow-hidden bg-gradient-to-br from-gray-800/60 to-gray-900/60 border border-gray-700/60 rounded-xl p-6 transition-transform duration-300 group hover:-translate-y-1 hover:shadow-2xl hover:border-white/40"
               >
                 <div className="mb-4">
                   <div className="flex items-center gap-2 mb-3">
@@ -195,14 +195,6 @@ export default function NewsInsights() {
             <p className="text-gray-400 text-lg mb-4">
               No news articles available yet.
             </p>
-            <button
-              onClick={refreshNews}
-              disabled={refreshing}
-              className="inline-flex items-center px-6 py-3 bg-white hover:bg-gray-200 disabled:bg-gray-600 text-black rounded-lg transition-colors font-medium"
-            >
-              <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
-              {refreshing ? 'Loading...' : 'Load News'}
-            </button>
           </div>
         )}
 

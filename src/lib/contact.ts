@@ -1,77 +1,25 @@
 import { Resend } from 'resend';
 
-// Initialize Resend with the API key
+// Initialize Resend client with API key
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-interface EmailOptions {
-  to: string;
-  subject: string;
-  text?: string;
-  html: string;
-  from?: string;
-  replyTo?: string;
-}
-
-interface EmailResult {
-  success: boolean;
-  id?: string;
-  error?: any;
-  }
-
-interface ContactFormData {
+export async function sendContactEmail(data: {
   name: string;
   email: string;
+  company?: string;
   subject: string;
   message: string;
-  company?: string;
   serviceType?: string;
-}
+}) {
+  const { name, email, company, subject, message, serviceType } = data;
 
-/**
- * Send an email using Resend
- */
-export async function sendEmail({
-  to,
-  subject,
-  text,
-  html,
-  from = 'AetherInc <onboarding@resend.dev>',
-  replyTo
-}: EmailOptions): Promise<EmailResult> {
   try {
-    const { data, error } = await resend.emails.send({
-      from,
-      to,
-      subject,
-      text,
-      html,
-      replyTo
-    });
-
-    if (error) {
-      console.error('Email sending failed:', error);
-      return { success: false, error };
-    }
-
-    return { success: true, id: data?.id || '' };
-  } catch (error) {
-    console.error('Email sending failed:', error);
-    return { success: false, error };
-  }
-}
-
-/**
- * Send a contact form email notification to admin and a confirmation to the user
- */
-export async function sendContactFormEmails(formData: ContactFormData): Promise<EmailResult> {
-  const { name, email, subject, message, company, serviceType } = formData;
-  
-  try {
-    // 1. Send notification to admin
-    const adminResult = await sendEmail({
-      to: process.env.ADMIN_EMAIL || 'info@aetherinc.xyz',
-        subject: `Contact Form: ${subject}`,
-        replyTo: email,
+    // Send email to site owner using Resend
+    await resend.emails.send({
+      from: 'AetherInc <info@aetherinc.xyz>',
+      to: 'info@aetherinc.xyz',
+      subject: `Contact Form: ${subject}`,
+      replyTo: email,
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 5px;">
           <h2 style="color: #333;">New Contact Form Submission</h2>
@@ -82,16 +30,17 @@ export async function sendContactFormEmails(formData: ContactFormData): Promise<
           <p><strong>Message:</strong></p>
           <p>${message.replace(/\n/g, '<br />')}</p>
         </div>
-      `
+      `,
     });
     
-    // 2. Send confirmation to user
-    const userResult = await sendEmail({
+    // Send auto-response to the sender
+    await resend.emails.send({
+      from: 'AetherInc <info@aetherinc.xyz>',
       to: email,
       subject: 'Thank you for contacting AetherInc',
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 5px;">
-          <h2 style="color: #333;">Thank you for reaching out!</h2>
+          <h2 style="color: #333;">Thank you for reaching out to AetherInc!</h2>
           <p>Hello ${name},</p>
           <p>We've received your message and will get back to you within 24 hours.</p>
           <p>Here's a summary of your inquiry:</p>
@@ -109,19 +58,12 @@ export async function sendContactFormEmails(formData: ContactFormData): Promise<
             Building the future of local AI
           </p>
         </div>
-      `
+      `,
     });
-
-    if (!adminResult.success || !userResult.success) {
-      return { 
-        success: false, 
-        error: adminResult.success ? userResult.error : adminResult.error 
-      };
-    }
     
     return { success: true };
   } catch (error) {
-    console.error('Contact form email sending failed:', error);
+    console.error('Email sending failed:', error);
     return { success: false, error };
   }
 } 

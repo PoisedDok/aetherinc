@@ -73,11 +73,17 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
   // Check if we're on mobile - client-side only
   useEffect(() => {
     const handleResize = () => {
-      setGridSize(window.innerWidth < 768 ? 15 : 20);
       setWindowSize({
         width: window.innerWidth,
         height: window.innerHeight
       });
+      
+      // Adjust grid size based on screen width
+      if (window.innerWidth < 640) {
+        setGridSize(30);
+      } else {
+        setGridSize(40);
+      }
     };
     
     // Set the initial size
@@ -102,7 +108,7 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [mouseX, mouseY]);
 
   // Parallax animation
   const { scrollYProgress } = useScroll({

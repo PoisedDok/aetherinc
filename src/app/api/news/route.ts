@@ -53,8 +53,8 @@ async function fetchRSSFeed(source: typeof NEWS_SOURCES[0]) {
       if (title && link) {
         items.push({
           title: cleanText(title),
-          content: cleanText(description) || '',
-          excerpt: cleanText(description)?.substring(0, 200) + '...' || '',
+          content: cleanText(description || ''),
+          excerpt: cleanText(description || '').substring(0, Math.min(cleanText(description || '').length, 200)) + (cleanText(description || '').length > 200 ? '...' : ''),
           sourceUrl: link,
           source: source.name,
           category: source.category,

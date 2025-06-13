@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Filter, ExternalLink, Tag, DollarSign } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -41,11 +41,7 @@ export default function AIToolsPage() {
   const [categories, setCategories] = useState<string[]>([]);
   const [types, setTypes] = useState<string[]>([]);
 
-  useEffect(() => {
-    fetchTools();
-  }, [searchQuery, selectedCategory, selectedType]);
-
-  const fetchTools = async () => {
+  const fetchTools = useCallback(async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams();
@@ -67,7 +63,11 @@ export default function AIToolsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [searchQuery, selectedCategory, selectedType]);
+
+  useEffect(() => {
+    fetchTools();
+  }, [fetchTools]);
 
   const getCategoryColor = (category: string) => {
     const colors: { [key: string]: string } = {

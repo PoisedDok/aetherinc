@@ -6,6 +6,9 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
 import Image from "next/image";
 import React from "react";
+import { TextAnimate } from "@/components/magicui/text-animate";
+import { FaUser } from "react-icons/fa";
+import { SiGoogledrive, SiGoogledocs, SiNotion, SiSlack, SiZapier, SiGithub, SiTrello } from "react-icons/si";
 
 // Placeholder for additional workflow visuals
 function Placeholder({ label }: { label: string }) {
@@ -37,47 +40,31 @@ Circle.displayName = "Circle";
 
 // Icons for workflow visuals
 const Icons = {
-  user: () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
-  ),
-  googleDrive: () => (
-    <svg width="40" height="40" viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg">
-      <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da" />
-      <path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47" />
-      <path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335" />
-      <path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d" />
-    </svg>
-  ),
-  googleDocs: () => (
-    <svg width="38" height="50" viewBox="0 0 47 65" xmlns="http://www.w3.org/2000/svg">
-      <rect width="47" height="65" rx="4" fill="#4285F4" />
-      <rect y="50" width="35" height="3" fill="#F1F1F1" />
-      <rect y="44" width="35" height="3" fill="#F1F1F1" />
-      <rect y="38" width="35" height="3" fill="#F1F1F1" />
-      <rect y="32" width="35" height="3" fill="#F1F1F1" />
-    </svg>
-  ),
-  notion: () => (
-    <svg width="38" height="38" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100" height="100" rx="8" fill="#fff" />
-      <path d="M6 4.3l55.3-4.1c6.8-.6 8.5-.2 12.8 2.9l17.7 12.4c2.9 2.1 3.9 2.7 3.9 5v68.2c0 4.3-1.6 6.8-7 7.2L24.5 100c-4.1.2-6-.4-8.2-3.1L3.3 79.9c-2.3-3.1-3.3-5.4-3.3-8.2V11.1C0 7.6 1.6 4.7 6 4.3z" fill="#000"/>
-    </svg>
-  ),
-  slack: () => (
-    <Image src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/slack.svg" alt="slack" width={42} height={42} />
-  ),
-  zapier: () => (
-    <svg width="40" height="12" viewBox="0 0 244 66" xmlns="http://www.w3.org/2000/svg"><path d="M39.0441 45.2253H0V54.789H39.0441V45.2253Z" fill="#FF4F00" /></svg>
+  user: () => <FaUser className="h-6 w-6 text-gray-700" />,
+  googleDrive: () => <SiGoogledrive className="h-6 w-6 text-gray-700" />,
+  googleDocs: () => <SiGoogledocs className="h-6 w-6 text-gray-700" />,
+  notion: () => <SiNotion className="h-6 w-6 text-gray-700" />,
+  slack: () => <SiSlack className="h-6 w-6 text-gray-700" />,
+  zapier: () => <SiZapier className="h-6 w-6 text-gray-700" />,
+  trello: () => <SiTrello className="h-6 w-6 text-gray-700" />,
+  github: () => <SiGithub className="h-6 w-6 text-gray-700" />,
+  aether: () => (
+    <Image src="/Aether.jpeg" alt="Aether Logo" width={60} height={60} className="object-contain rounded-full" />
   ),
 };
 
-const workflows = [
+type WorkflowItem = {
+  id: string;
+  name: string;
+  description: string;
+  Visual: () => JSX.Element;
+};
+
+const workflows: readonly WorkflowItem[] = [
   {
     id: "marketing-approval",
     name: "Marketing Campaign Approval",
+    description: "Seamlessly gather approvals for assets—Aether Hub routes files and notifications across Drive, Docs, Notion, Slack & Zapier.",
     Visual: () => {
       // Create a custom version that doesn't include the section wrapper
       const containerRef = useRef<HTMLDivElement>(null);
@@ -104,12 +91,8 @@ const workflows = [
 
             {/* Center: Aether Hub */}
             <div className="flex flex-col justify-center">
-              <Circle ref={hubRef} className="size-20 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 border-none">
-                <span className="text-center leading-tight text-sm">
-                  <span className="text-white font-extrabold">A</span><span className="text-white/80 font-semibold">ether</span>
-                  <br />
-                  <span className="text-white font-extrabold">I</span><span className="text-white/80 font-semibold">nc</span>
-                </span>
+              <Circle ref={hubRef} className="size-20 p-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 border-none overflow-hidden">
+                <Icons.aether />
               </Circle>
             </div>
 
@@ -193,17 +176,149 @@ const workflows = [
   {
     id: "sales-lead-enrichment",
     name: "Sales Lead Enrichment",
-    Visual: () => <Placeholder label="Sales Lead Enrichment" />,
+    description: "Auto-enrich new leads with research, notes and social context, then deliver them straight to reps in Slack and your CRM.",
+    Visual: () => {
+      const containerRef = useRef<HTMLDivElement>(null);
+      const userRef = useRef<HTMLDivElement>(null);
+      const hubRef = useRef<HTMLDivElement>(null);
+      const slackRef = useRef<HTMLDivElement>(null);
+      const notionRef = useRef<HTMLDivElement>(null);
+      const zapierRef = useRef<HTMLDivElement>(null);
+      const driveRef = useRef<HTMLDivElement>(null);
+
+      const outputs = [slackRef, notionRef, zapierRef, driveRef] as const;
+      return (
+        <div ref={containerRef} className="relative mx-auto flex h-[450px] w-full max-w-5xl items-center justify-center overflow-hidden">
+          <div className="flex w-full flex-row items-stretch justify-between gap-10">
+            <div className="flex flex-col justify-center">
+              <Circle ref={userRef}>
+                <Icons.user />
+              </Circle>
+            </div>
+            <div className="flex flex-col justify-center">
+              <Circle ref={hubRef} className="size-20 p-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 border-none overflow-hidden">
+                <Icons.aether />
+              </Circle>
+            </div>
+            <div className="flex flex-col justify-center gap-4">
+              <Circle ref={slackRef}>
+                <Icons.slack />
+              </Circle>
+              <Circle ref={notionRef}>
+                <Icons.notion />
+              </Circle>
+              <Circle ref={zapierRef}>
+                <Icons.zapier />
+              </Circle>
+              <Circle ref={driveRef}>
+                <Icons.googleDrive />
+              </Circle>
+            </div>
+          </div>
+          {outputs.map((outRef, idx) => (
+            <AnimatedBeam key={idx} containerRef={containerRef} fromRef={hubRef} toRef={outRef} curvature={60 - idx*30} delay={idx*0.15} pathColor="#d1d5db" pathOpacity={1} gradientStartColor="#d1d5db" gradientStopColor="#a855f7" pathWidth={2} />
+          ))}
+          <AnimatedBeam containerRef={containerRef} fromRef={userRef} toRef={hubRef} curvature={25} pathColor="#d1d5db" pathOpacity={1} gradientStartColor="#d1d5db" gradientStopColor="#d1d5db" pathWidth={2} />
+          <AnimatedBeam containerRef={containerRef} fromRef={hubRef} toRef={userRef} curvature={-25} reverse pathColor="#d1d5db" pathOpacity={1} gradientStartColor="#d1d5db" gradientStopColor="#d1d5db" pathWidth={2} />
+        </div>
+      );
+    },
   },
   {
     id: "support-triage",
     name: "Support Ticket Triage",
-    Visual: () => <Placeholder label="Support Ticket Triage" />,
+    description: "Classify incoming tickets, create GitHub issues, surface knowledge-base suggestions and alert the right channel instantly.",
+    Visual: () => {
+      const containerRef = useRef<HTMLDivElement>(null);
+      const userRef = useRef<HTMLDivElement>(null);
+      const hubRef = useRef<HTMLDivElement>(null);
+      const slackRef = useRef<HTMLDivElement>(null);
+      const githubRef = useRef<HTMLDivElement>(null);
+      const notionRef = useRef<HTMLDivElement>(null);
+
+      const outputs = [slackRef, githubRef, notionRef] as const;
+
+      return (
+        <div ref={containerRef} className="relative mx-auto flex h-[450px] w-full max-w-5xl items-center justify-center overflow-hidden">
+          <div className="flex w-full flex-row items-stretch justify-between gap-10">
+            <div className="flex flex-col justify-center">
+              <Circle ref={userRef}>
+                <Icons.user />
+              </Circle>
+            </div>
+            <div className="flex flex-col justify-center">
+              <Circle ref={hubRef} className="size-20 p-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 border-none overflow-hidden">
+                <Icons.aether />
+              </Circle>
+            </div>
+            <div className="flex flex-col justify-center gap-4">
+              <Circle ref={slackRef}>
+                <Icons.slack />
+              </Circle>
+              <Circle ref={githubRef}>
+                <Icons.github />
+              </Circle>
+              <Circle ref={notionRef}>
+                <Icons.notion />
+              </Circle>
+            </div>
+          </div>
+          {outputs.map((outRef, idx) => (
+            <AnimatedBeam key={idx} containerRef={containerRef} fromRef={hubRef} toRef={outRef} curvature={40 - idx*30} delay={idx*0.15} pathColor="#d1d5db" pathOpacity={1} gradientStartColor="#d1d5db" gradientStopColor="#a855f7" pathWidth={2} />
+          ))}
+          <AnimatedBeam containerRef={containerRef} fromRef={userRef} toRef={hubRef} curvature={25} pathColor="#d1d5db" pathOpacity={1} gradientStartColor="#d1d5db" gradientStopColor="#d1d5db" pathWidth={2} />
+          <AnimatedBeam containerRef={containerRef} fromRef={hubRef} toRef={userRef} curvature={-25} reverse pathColor="#d1d5db" pathOpacity={1} gradientStartColor="#d1d5db" gradientStopColor="#d1d5db" pathWidth={2} />
+        </div>
+      );
+    },
   },
   {
     id: "employee-onboarding",
     name: "Employee Onboarding",
-    Visual: () => <Placeholder label="Employee Onboarding" />,
+    description: "Generate personalized onboarding docs, spin up Trello boards and kick off day-one Slack intros for every new hire—automatically.",
+    Visual: () => {
+      const containerRef = useRef<HTMLDivElement>(null);
+      const userRef = useRef<HTMLDivElement>(null);
+      const hubRef = useRef<HTMLDivElement>(null);
+      const docsRef = useRef<HTMLDivElement>(null);
+      const trelloRef = useRef<HTMLDivElement>(null);
+      const slackRef = useRef<HTMLDivElement>(null);
+
+      const outputs = [docsRef, trelloRef, slackRef] as const;
+
+      return (
+        <div ref={containerRef} className="relative mx-auto flex h-[450px] w-full max-w-5xl items-center justify-center overflow-hidden">
+          <div className="flex w-full flex-row items-stretch justify-between gap-10">
+            <div className="flex flex-col justify-center">
+              <Circle ref={userRef}>
+                <Icons.user />
+              </Circle>
+            </div>
+            <div className="flex flex-col justify-center">
+              <Circle ref={hubRef} className="size-20 p-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 border-none overflow-hidden">
+                <Icons.aether />
+              </Circle>
+            </div>
+            <div className="flex flex-col justify-center gap-4">
+              <Circle ref={docsRef}>
+                <Icons.googleDocs />
+              </Circle>
+              <Circle ref={trelloRef}>
+                <Icons.trello />
+              </Circle>
+              <Circle ref={slackRef}>
+                <Icons.slack />
+              </Circle>
+            </div>
+          </div>
+          {outputs.map((outRef, idx) => (
+            <AnimatedBeam key={idx} containerRef={containerRef} fromRef={hubRef} toRef={outRef} curvature={40 - idx*30} delay={idx*0.15} pathColor="#d1d5db" pathOpacity={1} gradientStartColor="#d1d5db" gradientStopColor="#a855f7" pathWidth={2} />
+          ))}
+          <AnimatedBeam containerRef={containerRef} fromRef={userRef} toRef={hubRef} curvature={25} pathColor="#d1d5db" pathOpacity={1} gradientStartColor="#d1d5db" gradientStopColor="#d1d5db" pathWidth={2} />
+          <AnimatedBeam containerRef={containerRef} fromRef={hubRef} toRef={userRef} curvature={-25} reverse pathColor="#d1d5db" pathOpacity={1} gradientStartColor="#d1d5db" gradientStopColor="#d1d5db" pathWidth={2} />
+        </div>
+      );
+    },
   },
 ] as const;
 
@@ -228,8 +343,14 @@ export default function WorkflowsCarousel({ className }: { className?: string })
             <ArrowLeft size={18} />
           </button>
 
-          <div className="whitespace-nowrap rounded-md bg-gray-800/30 px-6 py-2 text-sm font-semibold text-white shadow-inner shadow-black/40">
+          <div className="whitespace-nowrap rounded-md bg-gray-800/30 px-6 py-2 shadow-inner shadow-black/40">
+            <TextAnimate
+              animation="slideLeft"
+              by="character"
+              className="text-lg md:text-xl font-semibold text-white"
+            >
             {current.name}
+            </TextAnimate>
           </div>
 
           <button
@@ -240,6 +361,11 @@ export default function WorkflowsCarousel({ className }: { className?: string })
             <ArrowRight size={18} />
           </button>
         </div>
+
+        {/* Description */}
+        <p className="max-w-xl text-center text-gray-400 text-sm leading-relaxed -mt-2">
+          {current.description}
+        </p>
 
         {/* Visual (borderless) */}
         <div className="w-full">

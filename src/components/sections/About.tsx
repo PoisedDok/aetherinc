@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 
 interface AboutProps {
-  aboutRef: React.RefObject<HTMLElement | null>;
+  aboutRef: React.RefObject<HTMLElement>;
 }
 
 export default function About({ aboutRef }: AboutProps) {
@@ -84,7 +84,7 @@ export default function About({ aboutRef }: AboutProps) {
 
   return (
     <section 
-      ref={aboutRef}
+      ref={aboutRef as React.RefObject<HTMLElement>}
       className="relative bg-gradient-to-b from-black via-gray-950 to-black py-24 md:py-32 overflow-hidden"
     >
       {/* Background Elements */}
