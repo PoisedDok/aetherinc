@@ -4,7 +4,6 @@ import React from 'react';
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import ProductVision from "@/components/sections/ProductVision"
-import { InteractiveGridPattern } from '@/components/magicui/interactive-grid-pattern';
 import { ShineBorder } from '@/components/magicui/shine-border';
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -24,11 +23,6 @@ export default function ProductsPage() {
         <section className="relative pt-32 pb-24 px-4 bg-transparent overflow-hidden">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-30">
-            <InteractiveGridPattern 
-              className="w-full h-full" 
-              dotColor="rgba(255, 255, 255, 0.06)"
-              size={20}
-            />
           </div>
 
           {/* Gradient overlay removed to allow Jarvis background to show through */}
@@ -54,11 +48,10 @@ export default function ProductsPage() {
             </motion.div>
 
               <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-                Revolutionary <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">AI Solutions</span>
+                Smart AI <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">Without&nbsp;The&nbsp;Cloud</span>
               </h1>
               <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                Revolutionary AI solutions that prioritize your privacy without compromising on performance. 
-                Experience the future of local artificial intelligence.
+                Your personal AI that keeps your data private. No internet needed. No monthly fees.
               </p>
           </div>
         </section>
@@ -67,11 +60,6 @@ export default function ProductsPage() {
         <section className="relative py-24 px-4 bg-transparent">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-25">
-            <InteractiveGridPattern 
-              className="w-full h-full" 
-              dotColor="rgba(255, 255, 255, 0.05)"
-              size={24}
-            />
           </div>
 
           {/* Gradient overlay removed to allow Jarvis background to show through */}
@@ -95,33 +83,32 @@ export default function ProductsPage() {
                 </div>
                 <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">GURU</span>
-                  <br />AI Assistant
+                  <br />Smart&nbsp;Helper
                 </h2>
                 <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-                  Your personal AI assistant that respects your privacy. GURU processes everything locally on your device, 
-                  ensuring your conversations, documents, and data never leave your control.
+                  Ask questions, get help with work, or create content—all while keeping your information private.
                 </p>
                 
                 <div className="space-y-4 mb-8">
                   <div className="flex items-center gap-3">
                     <CheckCircle className="h-5 w-5 text-white/80" />
-                    <span className="text-gray-300">Complete offline operation</span>
+                    <span className="text-gray-300">Works 100% offline</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle className="h-5 w-5 text-white/80" />
-                    <span className="text-gray-300">67 TOPS NVIDIA Jetson Orin processing</span>
+                    <span className="text-gray-300">Super fast responses</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle className="h-5 w-5 text-white/80" />
-                    <span className="text-gray-300">Enterprise-grade security</span>
+                    <span className="text-gray-300">Your data stays private</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle className="h-5 w-5 text-white/80" />
-                    <span className="text-gray-300">Custom AI workflows</span>
+                    <span className="text-gray-300">Easy to use</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle className="h-5 w-5 text-white/80" />
-                    <span className="text-gray-300">Zero cloud dependency</span>
+                    <span className="text-gray-300">No internet required</span>
                   </div>
                 </div>
                 
@@ -191,7 +178,7 @@ export default function ProductsPage() {
                       <Cpu className="h-6 w-6 text-white/80" />
                     </div>
                     <h4 className="text-lg font-semibold mb-2 text-white">Processing Power</h4>
-                    <p className="text-gray-400">NVIDIA Jetson Orin<br />67 TOPS AI Performance</p>
+                    <p className="text-gray-400">Powerful brain<br />Fast responses</p>
                   </div>
                   
                   <div className="text-center">
@@ -199,7 +186,7 @@ export default function ProductsPage() {
                       <Shield className="h-6 w-6 text-white/80" />
                     </div>
                     <h4 className="text-lg font-semibold mb-2 text-white">Security</h4>
-                    <p className="text-gray-400">Hardware encryption<br />Zero cloud dependency</p>
+                    <p className="text-gray-400">Built-in protection<br />Works offline</p>
                   </div>
                   
                   <div className="text-center">
@@ -207,7 +194,7 @@ export default function ProductsPage() {
                       <Zap className="h-6 w-6 text-white/80" />
                     </div>
                     <h4 className="text-lg font-semibold mb-2 text-white">Performance</h4>
-                    <p className="text-gray-400">Real-time processing<br />Sub-second response</p>
+                    <p className="text-gray-400">Instant answers<br />No waiting</p>
                   </div>
                 </div>
               </Card>
@@ -219,11 +206,6 @@ export default function ProductsPage() {
         <section className="relative py-24 px-4 bg-transparent">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-25">
-            <InteractiveGridPattern 
-              className="w-full h-full" 
-              dotColor="rgba(255, 255, 255, 0.07)"
-              size={18}
-            />
           </div>
 
           {/* Gradient overlay removed to allow Jarvis background to show through */}
@@ -244,11 +226,10 @@ export default function ProductsPage() {
               </div>
               <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">AetherArena</span>
-                <br />Enterprise Platform
+                <br />For&nbsp;Business
               </h2>
               <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                A self-improving enterprise platform architecture that scales AI capabilities 
-                across your organization while maintaining complete data sovereignty.
+                Manage all your team's AI helpers from one place. Keep company data safe.
               </p>
             </div>
 
@@ -362,11 +343,6 @@ export default function ProductsPage() {
         <section className="relative py-24 px-4 bg-transparent overflow-hidden">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-25">
-            <InteractiveGridPattern 
-              className="w-full h-full" 
-              dotColor="rgba(255, 255, 255, 0.07)"
-              size={18}
-            />
           </div>
 
           {/* Gradient overlay removed to allow Jarvis background to show through */}

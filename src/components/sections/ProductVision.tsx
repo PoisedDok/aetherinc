@@ -24,7 +24,6 @@ export default function ProductVision() {
       tagline: "Your Personal AI Assistant",
       description: "Iron Man's Jarvis reimagined for the real world. A physical AI companion that processes everything locally.",
       category: "Consumer Hardware",
-      price: "£2,999",
       availability: "Pre-order Q3 2025",
       icon: <Smartphone className="h-8 w-8" />,
       color: "gray",
@@ -60,7 +59,6 @@ export default function ProductVision() {
       tagline: "Self-Improving AI Platform",
       description: "Brain-like architecture that learns and adapts. Enterprise-grade AI platform for serious computing power.",
       category: "Enterprise Software",
-      price: "From £15,000/year",
       availability: "Beta Q2 2025",
       icon: <Server className="h-8 w-8" />,
       color: "slate",
@@ -163,9 +161,6 @@ export default function ProductVision() {
 
                   {/* Pricing & Availability */}
                   <div className="flex flex-wrap gap-3 mb-6">
-                    <Badge variant="outline" className={`text-${product.color}-400 border-${product.color}-400/30`}>
-                      {product.price}
-                    </Badge>
                     <Badge variant="outline" className="text-gray-400 border-gray-600">
                       {product.availability}
                     </Badge>

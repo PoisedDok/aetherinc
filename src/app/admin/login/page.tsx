@@ -53,15 +53,15 @@ function LoginForm() {
 
   if (status === 'loading') {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+      <div className="min-h-screen text-white flex items-center justify-center relative z-20">
         <Loader2 className="h-8 w-8 animate-spin text-cyan-400" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
-      <Card className="w-full max-w-md p-8 bg-gray-900 border-gray-800">
+    <div className="min-h-screen text-white flex items-center justify-center relative z-20">
+      <Card className="w-full max-w-md p-8 bg-transparent border border-white/20">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-2">
             <Shield className="h-12 w-12 text-cyan-400" />
@@ -89,7 +89,7 @@ function LoginForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-gray-800 border-gray-700"
+                className="bg-transparent border-white/20"
               />
             </div>
 
@@ -104,7 +104,7 @@ function LoginForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="bg-gray-800 border-gray-700"
+                className="bg-transparent border-white/20"
               />
             </div>
 
@@ -133,7 +133,7 @@ function LoginForm() {
 export default function AdminLogin() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+      <div className="min-h-screen text-white flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-cyan-400" />
       </div>
     }>

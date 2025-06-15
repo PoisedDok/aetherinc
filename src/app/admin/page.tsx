@@ -21,7 +21,7 @@ export default function AdminPage() {
 
   if (status === "loading") {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+      <div className="min-h-screen text-white flex items-center justify-center relative z-20">
         <Loader2 className="h-8 w-8 animate-spin text-cyan-400" />
         </div>
     );
@@ -29,7 +29,7 @@ export default function AdminPage() {
 
   if (status === "unauthenticated" || session?.user?.role !== 'ADMIN') {
     return (
-      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
+      <div className="min-h-screen text-white flex flex-col items-center justify-center relative z-20">
         <ShieldX className="h-16 w-16 text-red-500 mb-4" />
         <h1 className="text-2xl font-bold mb-2">Access Denied</h1>
         <p className="text-gray-400 mb-6">You do not have permission to view this page.</p>
@@ -41,8 +41,8 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <header className="border-b border-gray-800 px-4 py-3 flex justify-between items-center sticky top-0 bg-black z-10">
+    <div className="min-h-screen text-white relative z-20">
+      <header className="border-b border-white/10 px-4 py-3 flex justify-between items-center sticky top-0 z-10">
         <div className="flex items-center space-x-2">
           <h1 className="text-xl font-semibold">Aether Inc. Admin</h1>
             </div>

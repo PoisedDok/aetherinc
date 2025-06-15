@@ -5,7 +5,6 @@ import { motion, useInView } from 'framer-motion';
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { InteractiveGridPattern } from '@/components/magicui/interactive-grid-pattern';
 import { ShineBorder } from '@/components/magicui/shine-border';
 import { Linkedin, ExternalLink, MapPin, GraduationCap, Sparkles } from 'lucide-react';
 
@@ -51,19 +50,13 @@ export default function AboutFounders() {
     <section className="relative bg-transparent py-24 md:py-32 overflow-hidden">
       {/* Background Grid Pattern */}
       <div className="absolute inset-0 z-0 opacity-30">
-        <InteractiveGridPattern 
-          className="w-full h-full" 
-          dotColor="rgba(255, 255, 255, 0.06)"
-          size={20}
-        />
+        {/* Additional pattern */}
+        <div className="absolute inset-0 z-[1] opacity-20">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_70%_50%_at_50%_50%,#000_60%,transparent_100%)]" />
+        </div>
       </div>
 
       {/* Gradient overlay removed to allow Jarvis background to show through */}
-
-      {/* Additional pattern */}
-      <div className="absolute inset-0 z-[1] opacity-20">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_70%_50%_at_50%_50%,#000_60%,transparent_100%)]" />
-      </div>
 
       <div ref={sectionRef} className="container mx-auto px-4 relative z-10">
         {/* Section Header */}

@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { RetroGrid } from '@/components/magicui/retro-grid';
-import { InteractiveGridPattern } from '@/components/magicui/interactive-grid-pattern';
 import { Button } from '@/components/ui/button';
 
 export default function ComingSoon() {
@@ -19,13 +18,6 @@ export default function ComingSoon() {
           angle={-10}
           lightLineColor="rgba(255, 255, 255, 0.05)"
           darkLineColor="rgba(255, 255, 255, 0.03)"
-        />
-      </div>
-      <div className="absolute inset-0 z-0 opacity-40">
-        <InteractiveGridPattern 
-          className="h-full w-full"
-          dotColor="rgba(255, 255, 255, 0.08)"
-          size={24}
         />
       </div>
       

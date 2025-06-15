@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 interface JarvisBackgroundProps {
   className?: string;
@@ -313,7 +314,7 @@ export default function JarvisBackground({ className = "" }: JarvisBackgroundPro
   return (
     <canvas 
       ref={canvasRef} 
-      className={`fixed inset-0 z-10 ${className}`}
+      className={`fixed inset-0 z-0 ${className}`}
       style={{ 
         pointerEvents: 'none', // Allow clicking through
       }}

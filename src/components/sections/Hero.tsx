@@ -3,7 +3,6 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform, useMotionValue, useInView } from 'framer-motion';
-import { InteractiveGridPattern } from '@/components/magicui/interactive-grid-pattern';
 import { MorphingText } from '@/components/magicui/morphing-text';
 import { ShineBorder } from '@/components/magicui/shine-border';
 import { BentoGrid, BentoGridItem } from '@/components/magicui/bento-grid';
@@ -144,11 +143,6 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
           y: gridY
         }}
       >
-        <InteractiveGridPattern 
-          className="w-full h-full" 
-          dotColor="rgba(255, 255, 255, 0.08)"
-          size={gridSize}
-        />
       </motion.div>
 
       {/* Hero Content */}

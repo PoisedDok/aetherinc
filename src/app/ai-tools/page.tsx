@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { Search, Filter, ExternalLink, Tag, DollarSign } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { InteractiveGridPattern } from '@/components/magicui/interactive-grid-pattern';
 
 interface AITool {
   id: string;
@@ -94,11 +93,7 @@ export default function AIToolsPage() {
       <div className="relative">
         {/* Background Grid Pattern */}
         <div className="fixed inset-0 z-0 opacity-30">
-          <InteractiveGridPattern 
-            className="w-full h-full" 
-            dotColor="rgba(255, 255, 255, 0.06)"
-            size={20}
-          />
+          {/* Background Grid Pattern */}
         </div>
 
         {/* Gradient overlay removed to allow Jarvis background to show through */}

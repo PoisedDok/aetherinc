@@ -3,7 +3,6 @@
 import Services from "@/components/sections/Services";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { InteractiveGridPattern } from '@/components/magicui/interactive-grid-pattern';
 
 export default function ServicesPage() {
   return (
@@ -12,14 +11,8 @@ export default function ServicesPage() {
       <div className="relative">
         {/* Background Grid Pattern */}
         <div className="fixed inset-0 z-0 opacity-30">
-          <InteractiveGridPattern 
-            className="w-full h-full" 
-            dotColor="rgba(255, 255, 255, 0.06)"
-            size={20}
-          />
+          {/* Gradient overlay removed to allow Jarvis background to show through */}
         </div>
-
-        {/* Gradient overlay removed to allow Jarvis background to show through */}
 
         {/* Additional pattern */}
         <div className="fixed inset-0 z-[1] opacity-20">

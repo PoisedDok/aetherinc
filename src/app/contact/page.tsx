@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
-import { InteractiveGridPattern } from '@/components/magicui/interactive-grid-pattern';
 import { ShineBorder } from '@/components/magicui/shine-border';
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -87,11 +86,6 @@ export default function ContactPage() {
         <section className="relative py-24 px-4 bg-transparent overflow-hidden">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-30">
-            <InteractiveGridPattern 
-              className="w-full h-full" 
-              dotColor="rgba(255, 255, 255, 0.06)"
-              size={20}
-            />
           </div>
 
           {/* Gradient overlay removed to allow Jarvis background to show through */}
@@ -147,11 +141,6 @@ export default function ContactPage() {
         <section className="relative py-24 px-4 bg-transparent">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-25">
-            <InteractiveGridPattern 
-              className="w-full h-full" 
-              dotColor="rgba(255, 255, 255, 0.05)"
-              size={24}
-            />
           </div>
 
           {/* Gradient overlay removed for transparency */}
@@ -378,11 +367,6 @@ export default function ContactPage() {
         <section className="relative py-24 px-4 bg-transparent">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-25">
-            <InteractiveGridPattern 
-              className="w-full h-full" 
-              dotColor="rgba(255, 255, 255, 0.07)"
-              size={18}
-            />
           </div>
 
           {/* Gradient overlay */}
@@ -458,11 +442,6 @@ export default function ContactPage() {
         <section className="relative py-24 px-4 bg-transparent overflow-hidden">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-25">
-            <InteractiveGridPattern 
-              className="w-full h-full" 
-              dotColor="rgba(255, 255, 255, 0.07)"
-              size={18}
-            />
           </div>
 
           {/* Gradient overlay */}

@@ -229,7 +229,7 @@ const AIToolsManager = () => {
   };
 
   return (
-    <Card className="bg-gray-900 border-gray-800 relative">
+    <Card className="bg-transparent border border-white/10 relative">
       <CardHeader className="flex flex-row items-center justify-between gap-4">
         <CardTitle>Manage AI Tools</CardTitle>
         <button
@@ -278,7 +278,7 @@ const AIToolsManager = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredTools.map((tool: any) => (
-              <div key={tool.id} className="bg-gray-800/60 border border-gray-700 rounded-lg p-4">
+              <div key={tool.id} className="bg-transparent border border-white/10 rounded-lg p-4">
                 <div className="flex items-start justify-between mb-2">
                   <h4 className="font-semibold text-white">{tool.name}</h4>
                   <div className="flex gap-2 text-sm">
@@ -323,7 +323,7 @@ const AIToolsManager = () => {
       {/* Modal */}
       {showForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="bg-gray-900 border border-gray-700 rounded-lg w-full max-w-lg p-6">
+          <div className="bg-transparent border border-white/20 rounded-lg w-full max-w-lg p-6 backdrop-blur-sm">
             <h3 className="text-xl font-semibold mb-4 text-white">
               {formData.id ? 'Edit Tool' : 'Add New Tool'}
             </h3>
@@ -364,7 +364,7 @@ const WaitlistManager = () => {
   }, []);
 
   return (
-    <Card className="bg-gray-900 border-gray-800">
+    <Card className="bg-transparent border border-white/10">
       <CardHeader className="flex flex-row items-center justify-between gap-4">
         <CardTitle>Waitlist Entries</CardTitle>
         <button
@@ -442,7 +442,7 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-6">
        <div className="grid gap-4 md:grid-cols-2">
-        <Card className="bg-gray-900 border-gray-800">
+        <Card className="bg-transparent border border-white/10">
           <CardHeader>
             <CardTitle>Waitlist</CardTitle>
           </CardHeader>
@@ -451,7 +451,7 @@ export default function AdminDashboard() {
             <p className="text-xs text-gray-400">Total signups</p>
           </CardContent>
         </Card>
-        <Card className="bg-gray-900 border-gray-800">
+        <Card className="bg-transparent border border-white/10">
           <CardHeader>
             <CardTitle>AI Tools</CardTitle>
           </CardHeader>
