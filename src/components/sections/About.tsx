@@ -85,7 +85,7 @@ export default function About({ aboutRef }: AboutProps) {
   return (
     <section 
       ref={aboutRef as React.RefObject<HTMLElement>}
-      className="relative bg-gradient-to-b from-black via-gray-950 to-black py-24 md:py-32 overflow-hidden"
+      className="relative bg-transparent py-24 md:py-32 overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-5">
@@ -103,7 +103,7 @@ export default function About({ aboutRef }: AboutProps) {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <Badge variant="outline" className="text-white/90 border-white/20 px-6 py-2 text-sm font-medium backdrop-blur-sm bg-black/30 mb-6">
+          <Badge variant="outline" className="text-white/90 border-white/20 px-6 py-2 text-sm font-medium mb-6">
             Meet the Visionaries
           </Badge>
           <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">
@@ -126,7 +126,7 @@ export default function About({ aboutRef }: AboutProps) {
             >
               {/* Profile Image & Quick Info */}
               <div className="lg:w-1/3">
-                <Card className="p-6 bg-black/40 border-white/10 backdrop-blur-sm">
+                <Card className="p-6 border-white/10">
                   <div className="relative mb-6">
                     <div className="w-48 h-48 mx-auto rounded-full bg-gradient-to-br from-gray-700 via-gray-600 to-gray-800 p-1">
                       <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
@@ -187,7 +187,7 @@ export default function About({ aboutRef }: AboutProps) {
               {/* Detailed Information */}
               <div className="lg:w-2/3 space-y-8">
                 {/* Quote */}
-                <Card className="p-6 bg-gradient-to-r from-gray-600/10 to-gray-800/10 border-white/10">
+                <Card className="p-6 border-white/10">
                   <div className="text-lg italic text-gray-200 leading-relaxed">
                     "{founder.quote}"
                   </div>
@@ -250,7 +250,7 @@ export default function About({ aboutRef }: AboutProps) {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-16 text-center"
         >
-          <Card className="p-8 bg-black/40 border-white/10 backdrop-blur-sm max-w-2xl mx-auto">
+          <Card className="p-8 border-white/10 max-w-2xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Building className="h-6 w-6 text-cyan-400" />
               <h3 className="text-2xl font-bold">Officially Registered</h3>

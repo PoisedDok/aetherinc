@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { InteractiveGridPattern } from '@/components/magicui/interactive-grid-pattern';
 import { ShineBorder } from '@/components/magicui/shine-border';
 
 // Waitlist props type
@@ -108,23 +107,8 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
   };
   
   return (
-    <section ref={waitlistRef as React.RefObject<HTMLElement>} data-section="waitlist" className="relative bg-black py-24 md:py-32 overflow-hidden">
-      {/* Background Grid Pattern */}
-      <div className="absolute inset-0 z-0 opacity-25">
-        <InteractiveGridPattern 
-          className="w-full h-full" 
-          dotColor="rgba(255, 255, 255, 0.07)"
-          size={18}
-        />
-      </div>
-
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-950/30 to-black z-[1]" />
-      
-      {/* Additional pattern */}
-      <div className="absolute inset-0 z-[1] opacity-20">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_60%,transparent_100%)]" />
-      </div>
+    <section ref={waitlistRef as React.RefObject<HTMLElement>} data-section="waitlist" className="relative py-24 md:py-32 overflow-hidden">
+      {/* Background layers removed to allow Jarvis background to show through */}
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
@@ -248,45 +232,45 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
                     />
                   </div>
                   
-                  <div className="relative">
-                    <ShineBorder 
-                      className="absolute inset-0 rounded-lg opacity-80" 
-                      borderWidth={1}
-                      shineColor={["rgba(255, 255, 255, 0.2)", "rgba(255, 255, 255, 0.6)"]}
-                      duration={10}
-                    />
+                  <div className="pt-2">
                     <Button
                       type="submit"
+                      className="w-full bg-white hover:bg-gray-100 text-black font-semibold py-6 rounded-lg transition-all duration-300 text-base h-auto transform hover:scale-[1.02] flex items-center justify-center gap-2"
                       disabled={formState === 'submitting'}
-                      className="relative w-full bg-white hover:bg-gray-100 text-black font-semibold py-3 px-6 rounded-lg transition-all duration-300 text-base transform hover:scale-[1.02] shadow-lg"
                     >
                       {formState === 'submitting' ? (
                         <>
-                          <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                            className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full mr-2"
-                          />
-                          Joining Waitlist...
+                          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-black"></div>
+                          <span>Processing...</span>
                         </>
                       ) : (
                         <>
-                          <Sparkles className="w-4 h-4 mr-2" />
-                          Join the Waitlist
-                          <ArrowRight className="w-4 h-4 ml-2" />
+                          <span>Join Waitlist</span>
+                          <ArrowRight className="w-5 h-5" />
                         </>
                       )}
                     </Button>
+                    
+                    <p className="text-center text-gray-500 text-xs mt-4">
+                      By joining, you agree to receive updates about our products and services.
+                      <br />We respect your privacy and will never share your information.
+                    </p>
                   </div>
                 </div>
               </form>
-              
-              <div className="mt-6 text-center">
-                <p className="text-gray-500 text-xs">
-                  By joining, you agree to receive updates about GURU and AetherInc. Unsubscribe anytime.
-                </p>
-              </div>
             </Card>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="mt-8 text-center"
+          >
+            <p className="text-gray-400 text-sm">
+              <Sparkles className="inline-block w-4 h-4 mr-1 text-yellow-400" />
+              <span className="font-medium">Limited availability</span> — Only 1000 devices in first batch
+            </p>
           </motion.div>
         </div>
       </div>

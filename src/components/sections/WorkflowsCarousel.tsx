@@ -28,7 +28,7 @@ const Circle = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "z-10 flex size-14 items-center justify-center rounded-full border bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]",
+        "z-10 flex size-20 items-center justify-center rounded-full border bg-white p-4 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]",
         className,
       )}
     >
@@ -40,16 +40,16 @@ Circle.displayName = "Circle";
 
 // Icons for workflow visuals
 const Icons = {
-  user: () => <FaUser className="h-6 w-6 text-gray-700" />,
-  googleDrive: () => <SiGoogledrive className="h-6 w-6 text-gray-700" />,
-  googleDocs: () => <SiGoogledocs className="h-6 w-6 text-gray-700" />,
-  notion: () => <SiNotion className="h-6 w-6 text-gray-700" />,
-  slack: () => <SiSlack className="h-6 w-6 text-gray-700" />,
-  zapier: () => <SiZapier className="h-6 w-6 text-gray-700" />,
-  trello: () => <SiTrello className="h-6 w-6 text-gray-700" />,
-  github: () => <SiGithub className="h-6 w-6 text-gray-700" />,
+  user: () => <FaUser className="h-8 w-8 text-gray-700" />,
+  googleDrive: () => <SiGoogledrive className="h-8 w-8 text-gray-700" />,
+  googleDocs: () => <SiGoogledocs className="h-8 w-8 text-gray-700" />,
+  notion: () => <SiNotion className="h-8 w-8 text-gray-700" />,
+  slack: () => <SiSlack className="h-8 w-8 text-gray-700" />,
+  zapier: () => <SiZapier className="h-8 w-8 text-gray-700" />,
+  trello: () => <SiTrello className="h-8 w-8 text-gray-700" />,
+  github: () => <SiGithub className="h-8 w-8 text-gray-700" />,
   aether: () => (
-    <Image src="/Aether.jpeg" alt="Aether Logo" width={60} height={60} className="object-contain rounded-full" />
+    <Image src="/Aether.jpeg" alt="Aether Logo" width={84} height={84} className="object-contain rounded-full" />
   ),
 };
 
@@ -79,9 +79,9 @@ const workflows: readonly WorkflowItem[] = [
       return (
         <div
           ref={containerRef}
-          className="relative mx-auto flex h-[450px] w-full max-w-5xl items-center justify-center overflow-hidden"
+          className="relative mx-auto flex h-[630px] w-full max-w-5xl items-center justify-center overflow-hidden"
         >
-          <div className="flex w-full flex-row items-stretch justify-between gap-10">
+          <div className="flex w-full flex-row items-stretch justify-between gap-14">
             {/* Left: User */}
             <div className="flex flex-col justify-center">
               <Circle ref={userRef}>
@@ -91,7 +91,7 @@ const workflows: readonly WorkflowItem[] = [
 
             {/* Center: Aether Hub */}
             <div className="flex flex-col justify-center">
-              <Circle ref={hubRef} className="size-20 p-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 border-none overflow-hidden">
+              <Circle ref={hubRef} className="size-28 p-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 border-none overflow-hidden">
                 <Icons.aether />
               </Circle>
             </div>
@@ -188,15 +188,15 @@ const workflows: readonly WorkflowItem[] = [
 
       const outputs = [slackRef, notionRef, zapierRef, driveRef] as const;
       return (
-        <div ref={containerRef} className="relative mx-auto flex h-[450px] w-full max-w-5xl items-center justify-center overflow-hidden">
-          <div className="flex w-full flex-row items-stretch justify-between gap-10">
+        <div ref={containerRef} className="relative mx-auto flex h-[630px] w-full max-w-5xl items-center justify-center overflow-hidden">
+          <div className="flex w-full flex-row items-stretch justify-between gap-14">
             <div className="flex flex-col justify-center">
               <Circle ref={userRef}>
                 <Icons.user />
               </Circle>
             </div>
             <div className="flex flex-col justify-center">
-              <Circle ref={hubRef} className="size-20 p-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 border-none overflow-hidden">
+              <Circle ref={hubRef} className="size-28 p-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 border-none overflow-hidden">
                 <Icons.aether />
               </Circle>
             </div>
@@ -239,15 +239,15 @@ const workflows: readonly WorkflowItem[] = [
       const outputs = [slackRef, githubRef, notionRef] as const;
 
       return (
-        <div ref={containerRef} className="relative mx-auto flex h-[450px] w-full max-w-5xl items-center justify-center overflow-hidden">
-          <div className="flex w-full flex-row items-stretch justify-between gap-10">
+        <div ref={containerRef} className="relative mx-auto flex h-[630px] w-full max-w-5xl items-center justify-center overflow-hidden">
+          <div className="flex w-full flex-row items-stretch justify-between gap-14">
             <div className="flex flex-col justify-center">
               <Circle ref={userRef}>
                 <Icons.user />
               </Circle>
             </div>
             <div className="flex flex-col justify-center">
-              <Circle ref={hubRef} className="size-20 p-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 border-none overflow-hidden">
+              <Circle ref={hubRef} className="size-28 p-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 border-none overflow-hidden">
                 <Icons.aether />
               </Circle>
             </div>
@@ -287,15 +287,15 @@ const workflows: readonly WorkflowItem[] = [
       const outputs = [docsRef, trelloRef, slackRef] as const;
 
       return (
-        <div ref={containerRef} className="relative mx-auto flex h-[450px] w-full max-w-5xl items-center justify-center overflow-hidden">
-          <div className="flex w-full flex-row items-stretch justify-between gap-10">
+        <div ref={containerRef} className="relative mx-auto flex h-[630px] w-full max-w-5xl items-center justify-center overflow-hidden">
+          <div className="flex w-full flex-row items-stretch justify-between gap-14">
             <div className="flex flex-col justify-center">
               <Circle ref={userRef}>
                 <Icons.user />
               </Circle>
             </div>
             <div className="flex flex-col justify-center">
-              <Circle ref={hubRef} className="size-20 p-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 border-none overflow-hidden">
+              <Circle ref={hubRef} className="size-28 p-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 border-none overflow-hidden">
                 <Icons.aether />
               </Circle>
             </div>
@@ -320,58 +320,99 @@ const workflows: readonly WorkflowItem[] = [
       );
     },
   },
+  {
+    id: "document-processing",
+    name: "Document Processing",
+    description: "Extract key data from documents, generate summaries and route to the right systems automatically.",
+    Visual: () => {
+      const containerRef = useRef<HTMLDivElement>(null);
+      const userRef = useRef<HTMLDivElement>(null);
+      const hubRef = useRef<HTMLDivElement>(null);
+      const driveRef = useRef<HTMLDivElement>(null);
+      const notionRef = useRef<HTMLDivElement>(null);
+      const trelloRef = useRef<HTMLDivElement>(null);
+
+      const outputs = [driveRef, notionRef, trelloRef] as const;
+
+      return (
+        <div ref={containerRef} className="relative mx-auto flex h-[630px] w-full max-w-5xl items-center justify-center overflow-hidden">
+          <div className="flex w-full flex-row items-stretch justify-between gap-14">
+            <div className="flex flex-col justify-center">
+              <Circle ref={userRef}>
+                <Icons.user />
+              </Circle>
+            </div>
+            <div className="flex flex-col justify-center">
+              <Circle ref={hubRef} className="size-28 p-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 border-none overflow-hidden">
+                <Icons.aether />
+              </Circle>
+            </div>
+            <div className="flex flex-col justify-center gap-4">
+              <Circle ref={driveRef}>
+                <Icons.googleDrive />
+              </Circle>
+              <Circle ref={notionRef}>
+                <Icons.notion />
+              </Circle>
+              <Circle ref={trelloRef}>
+                <Icons.trello />
+              </Circle>
+            </div>
+          </div>
+          {outputs.map((outRef, idx) => (
+            <AnimatedBeam key={idx} containerRef={containerRef} fromRef={hubRef} toRef={outRef} curvature={40 - idx*40} delay={idx*0.15} pathColor="#d1d5db" pathOpacity={1} gradientStartColor="#d1d5db" gradientStopColor="#a855f7" pathWidth={2} />
+          ))}
+          <AnimatedBeam containerRef={containerRef} fromRef={userRef} toRef={hubRef} curvature={25} pathColor="#d1d5db" pathOpacity={1} gradientStartColor="#d1d5db" gradientStopColor="#d1d5db" pathWidth={2} />
+          <AnimatedBeam containerRef={containerRef} fromRef={hubRef} toRef={userRef} curvature={-25} reverse pathColor="#d1d5db" pathOpacity={1} gradientStartColor="#d1d5db" gradientStopColor="#d1d5db" pathWidth={2} />
+        </div>
+      );
+    },
+  },
 ] as const;
 
 export default function WorkflowsCarousel({ className }: { className?: string }) {
   const [index, setIndex] = useState(0);
   const total = workflows.length;
-  const current = workflows[index];
-
   const next = () => setIndex((i) => (i + 1) % total);
   const prev = () => setIndex((i) => (i - 1 + total) % total);
+  const currentWorkflow = workflows[index];
 
   return (
-    <section className={cn("w-full py-20", className)}>
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-6 px-6">
-        {/* Tile bar */}
-        <div className="flex items-center gap-4">
-          <button
-            aria-label="Previous workflow"
-            onClick={prev}
-            className="rounded-full border border-gray-700/40 p-2 text-gray-400 transition hover:bg-gray-800 hover:text-white"
-          >
-            <ArrowLeft size={18} />
-          </button>
-
-          <div className="whitespace-nowrap rounded-md bg-gray-800/30 px-6 py-2 shadow-inner shadow-black/40">
-            <TextAnimate
-              animation="slideLeft"
-              by="character"
-              className="text-lg md:text-xl font-semibold text-white"
-            >
-            {current.name}
+    <div className={cn("space-y-10", className)}>
+      {/* Carousel Controls */}
+      <div className="flex items-center justify-between">
+        <div className="space-y-2">
+          <h3 className="text-3xl font-bold text-white">
+            <TextAnimate>
+              {currentWorkflow.name}
             </TextAnimate>
-          </div>
-
-          <button
-            aria-label="Next workflow"
-            onClick={next}
-            className="rounded-full border border-gray-700/40 p-2 text-gray-400 transition hover:bg-gray-800 hover:text-white"
-          >
-            <ArrowRight size={18} />
-          </button>
+          </h3>
+          <p className="text-xl text-gray-300 max-w-2xl">
+            {currentWorkflow.description}
+          </p>
         </div>
-
-        {/* Description */}
-        <p className="max-w-xl text-center text-gray-400 text-sm leading-relaxed -mt-2">
-          {current.description}
-        </p>
-
-        {/* Visual (borderless) */}
-        <div className="w-full">
-          <current.Visual />
+        <div className="flex items-center gap-2">
+          <button
+            onClick={prev}
+            className="rounded-full bg-white/5 p-3 hover:bg-white/10 transition"
+            aria-label="Previous workflow"
+          >
+            <ArrowLeft className="h-6 w-6 text-white/80" />
+          </button>
+          <button
+            onClick={next}
+            className="rounded-full bg-white/5 p-3 hover:bg-white/10 transition"
+            aria-label="Next workflow"
+          >
+            <ArrowRight className="h-6 w-6 text-white/80" />
+          </button>
         </div>
       </div>
-    </section>
+
+      {/* Carousel Content */}
+      <div className="relative h-full w-full overflow-hidden rounded-xl">
+        <currentWorkflow.Visual />
+      </div>
+    </div>
   );
 } 

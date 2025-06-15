@@ -9,6 +9,11 @@ const josefinSans = Josefin_Sans({ subsets: ["latin"], display: "swap", variable
 // Avoid rendering on the server to prevent RSC boundary issues
 const FloatingChat = dynamic(() => import("@/components/FloatingChat"), { ssr: false });
 
+// Dynamically load JarvisBackground (client-side only)
+const JarvisBackground = dynamic(() => import("@/components/JarvisBackground"), {
+  ssr: false,
+});
+
 export const metadata: Metadata = {
   title: "AetherInc - Privacy-First AI Solutions | GURU & AetherArena",
   description: "Scottish AI startup building the future of privacy-first AI. GURU personal AI assistant and AetherArena self-improving platform. Local AI, no cloud dependency.",
@@ -96,49 +101,55 @@ export default function RootLayout({
         <meta name="application-name" content="AetherInc" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "AetherInc Limited",
-            "alternateName": "AetherInc",
-            "url": "https://aetherinc.com",
-            "logo": "https://aetherinc.com/logo.png",
-            "description": "Scottish AI startup building privacy-first AI solutions including GURU personal assistant and AetherArena platform",
-            "foundingDate": "2025-06-10",
-            "foundingLocation": {
-              "@type": "Place",
-              "name": "Glasgow, Scotland"
-            },
-            "legalName": "AetherInc Limited",
-            "taxID": "SC851680",
-            "founder": [
-              {
-                "@type": "Person",
-                "name": "Krish Dokania",
-                "jobTitle": "CEO & Founder",
-                "sameAs": "https://linkedin.com/in/krish-dokania-56203b217"
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "AetherInc Limited",
+              "alternateName": "AetherInc",
+              "url": "https://aetherinc.xyz",
+              "logo": "https://aetherinc.xyz/logo.png",
+              "description": "Scottish AI startup building privacy-first AI solutions including GURU personal assistant and AetherArena platform",
+              "foundingDate": "2025-06-10",
+              "foundingLocation": {
+                "@type": "Place",
+                "name": "Glasgow, Scotland"
               },
-              {
-                "@type": "Person", 
-                "name": "Adrian Wong",
-                "jobTitle": "CTO & Co-founder",
-                "sameAs": "https://linkedin.com/in/acpwong"
-              }
-            ],
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Glasgow",
-              "addressCountry": "Scotland, UK"
-            },
-            "sameAs": [
-              "https://linkedin.com/company/aetherinc",
-              "https://twitter.com/aetherinc"
-            ]
-          })}
-        </script>
+              "legalName": "AetherInc Limited",
+              "taxID": "SC851680",
+              "founder": [
+                {
+                  "@type": "Person",
+                  "name": "Krish Dokania",
+                  "jobTitle": "CEO & Founder",
+                  "sameAs": "https://linkedin.com/in/krish-dokania-56203b217"
+                },
+                {
+                  "@type": "Person",
+                  "name": "Adrian Wong",
+                  "jobTitle": "CTO & Co-founder",
+                  "sameAs": "https://linkedin.com/in/acpwong"
+                }
+              ],
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Glasgow",
+                "addressCountry": "Scotland, UK"
+              },
+              "sameAs": [
+                "https://linkedin.com/company/aetherinc",
+                "https://twitter.com/aetherinc"
+              ]
+            })
+          }}
+        />
       </head>
-      <body className="min-h-screen bg-black text-white overflow-x-hidden">
+      <body className="min-h-screen text-white overflow-x-hidden">
+        {/* Global background */}
+        <JarvisBackground />
+
         <SessionProvider>{children}</SessionProvider>
         <FloatingChat />
       </body>

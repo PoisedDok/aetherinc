@@ -117,7 +117,7 @@ export default function NewsInsights({ hideHeader = false }: { hideHeader?: bool
   };
 
   return (
-    <section className="py-20 bg-black">
+    <section className="py-20 bg-transparent">
       <div className="container mx-auto px-4">
         {!hideHeader && (
           <motion.div
@@ -148,7 +148,7 @@ export default function NewsInsights({ hideHeader = false }: { hideHeader?: bool
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="relative overflow-hidden bg-gradient-to-br from-gray-800/60 to-gray-900/60 border border-gray-700/60 rounded-xl p-6 transition-transform duration-300 group hover:-translate-y-1 hover:shadow-2xl hover:border-white/40"
+                className="relative overflow-hidden border border-gray-700/60 rounded-xl p-6 transition-transform duration-300 group hover:-translate-y-1 hover:shadow-2xl hover:border-white/40"
               >
                 <div className="mb-4">
                   <div className="flex items-center gap-2 mb-3">
@@ -204,7 +204,7 @@ export default function NewsInsights({ hideHeader = false }: { hideHeader?: bool
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.8 }}
-          className="mt-16 bg-gradient-to-r from-gray-800/20 to-gray-900/20 border border-gray-700/20 rounded-lg p-8 text-center"
+          className="mt-16 border border-gray-700/20 rounded-lg p-8 text-center"
         >
           <h3 className="text-2xl font-bold mb-4 text-white flex items-center justify-center gap-2">
             <Shield className="w-6 h-6 text-gray-300" />

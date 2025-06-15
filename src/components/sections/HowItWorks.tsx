@@ -104,7 +104,7 @@ export default function HowItWorks({ innerRef }: HowItWorksProps) {
     <section 
       ref={innerRef as React.RefObject<HTMLElement>}
       id="how-it-works"
-      className="relative min-h-screen py-16 md:py-24 bg-black overflow-hidden"
+      className="relative min-h-screen py-16 md:py-24 overflow-hidden"
     >
       {/* Background */}
       <div className="absolute inset-0 z-0">
@@ -149,7 +149,7 @@ export default function HowItWorks({ innerRef }: HowItWorksProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-16 rounded-xl overflow-hidden border border-white/10 shadow-glow-subtle bg-black/50 backdrop-blur-sm"
+            className="mb-16 rounded-xl overflow-hidden border border-white/10 shadow-glow-subtle bg-black/20 backdrop-blur-sm"
           >
             <div className="relative">
               {/* Video */}

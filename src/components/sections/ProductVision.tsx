@@ -96,7 +96,7 @@ export default function ProductVision() {
 
 
   return (
-    <section className="relative bg-gradient-to-b from-black via-gray-950 to-black py-24 md:py-32 overflow-hidden">
+    <section className="relative bg-transparent py-24 md:py-32 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:3rem_3rem]" />
@@ -141,7 +141,7 @@ export default function ProductVision() {
               variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
               className="relative group"
             >
-              <Card className={`bg-gradient-to-br from-slate-900/80 to-black/60 backdrop-blur-sm border-white/10 hover:border-${product.color}-400/30 transition-all duration-300 h-full`}>
+              <Card className={`bg-transparent border-white/10 hover:border-${product.color}-400/30 transition-all duration-300 h-full`}>
                 <div className="p-8">
                   {/* Product Header */}
                   <div className="flex items-center gap-4 mb-6">
@@ -210,7 +210,7 @@ export default function ProductVision() {
           transition={{ duration: 0.7, delay: 0.6 }}
           className="max-w-4xl mx-auto mt-20 text-center"
         >
-          <Card className="bg-gradient-to-br from-slate-900/80 to-black/60 backdrop-blur-sm border-white/10">
+          <Card className="bg-transparent border-white/10">
             <div className="p-8">
               <BrainCircuit className="h-12 w-12 text-cyan-400 mx-auto mb-4" />
               <h4 className="text-2xl font-bold text-white mb-4">Our Vision</h4>

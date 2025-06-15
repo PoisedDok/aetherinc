@@ -63,7 +63,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-black text-white overflow-hidden pt-16 pb-8">
+    <footer className="relative bg-transparent text-white overflow-hidden pt-16 pb-8">
       {/* Background elements */}
       <div className="absolute inset-0 z-0">
         <RetroGrid 

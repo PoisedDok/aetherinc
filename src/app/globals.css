@@ -134,7 +134,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-black text-white font-sans;
+    @apply bg-transparent text-white font-sans;
   }
 }
 
@@ -224,6 +224,15 @@
 @keyframes shine-border {
   to {
     background-position: 300% 300%;
+  }
+}
+
+@keyframes flowAnimation {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
   }
 }
 
@@ -383,13 +392,16 @@
 /* Add smooth scrolling */
 html {
   scroll-behavior: smooth;
+  /* Improve readability site-wide */
+  font-size: clamp(12.5px, 1.05vw, 13.5px); /* Scales between mobile & desktop */
+  letter-spacing: 0.015em; /* Slight extra tracking so characters aren't cramped */
 }
 
 /* Base styles for the page */
 body {
-  @apply bg-black text-white overflow-x-hidden;
-  background: radial-gradient(ellipse at top, #111111, #050505);
-  background-attachment: fixed;
+  @apply text-white overflow-x-hidden;
+  /* Removing the background color and gradient to allow Jarvis background to show through */
+  background: transparent;
 }
 
 /* Glass effect */
@@ -422,6 +434,27 @@ body {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    /* Removed background to allow Jarvis background to show through */
   }
+}
+
+/* Accessibility Typography Overrides */
+@layer utilities {
+  /* Bump default small text up slightly for readability */
+  .text-sm {
+    font-size: 0.9375rem; /* 15px */
+    line-height: 1.5rem;  /* 24px */
+  }
+  @screen md {
+    .text-sm {
+      font-size: 1rem;   /* 16px */
+      line-height: 1.75rem; /* 28px */
+    }
+  }
+}
+
+.connection-line {
+  stroke-dasharray: 10;
+  animation: flowAnimation 3s linear infinite;
 }

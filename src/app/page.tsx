@@ -42,14 +42,16 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen text-white relative">
+      {/* Global JarvisBackground is now included via RootLayout */}
+      
       <ScrollProgress />
       <BackToTop />
       <Navbar 
         waitlistRef={waitlistRef}
         scrollToSection={scrollToSection}
       />
-      <main className="flex-grow pt-28">
+      <main className="flex-grow pt-28 relative z-10">
         <CleanHero 
           scrollToSection={scrollToSection}
           visionRef={visionRef}

@@ -2,7 +2,6 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
-import { InteractiveGridPattern } from '@/components/magicui/interactive-grid-pattern';
 import { MorphingText } from '@/components/magicui/morphing-text';
 import { ShineBorder } from '@/components/magicui/shine-border';
 
@@ -17,8 +16,8 @@ interface CleanHeroProps {
 }
 
 const morphingTexts = [
-  "Privacy-First AI.",
-  "Local Processing."
+  "Join The Race",
+  "We Got you!"
 ];
 
 export default function CleanHero({ scrollToSection, visionRef, waitlistRef }: CleanHeroProps) {
@@ -78,34 +77,12 @@ export default function CleanHero({ scrollToSection, visionRef, waitlistRef }: C
   return (
     <section 
       ref={heroRef}
-      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black"
+      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-gray-950/90 z-[1]" />
+      {/* All background elements removed to allow Jarvis background to show through */}
       
-      {/* Interactive Grid Background */}
-      <motion.div 
-        className="absolute inset-0 z-0"
-        style={{ 
-          opacity: heroOpacity,
-          x: gridX,
-          y: gridY
-        }}
-      >
-        <InteractiveGridPattern 
-          className="w-full h-full" 
-          dotColor="rgba(255, 255, 255, 0.08)"
-          size={gridSize}
-        />
-      </motion.div>
-
-      {/* Additional pattern overlay */}
-      <div className="absolute inset-0 z-[1] opacity-30">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]" />
-      </div>
-
       {/* Hero Content */}
-      <motion.div 
+      <motion.div
         className="container relative mx-auto z-10 text-center px-4 sm:px-6 max-w-5xl"
         style={{ y: heroY }}
       >
@@ -150,15 +127,14 @@ export default function CleanHero({ scrollToSection, visionRef, waitlistRef }: C
         </motion.div>
 
         {/* Vision Statement */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mb-12 max-w-3xl mx-auto"
         >
           <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-            Pioneering the future of artificial intelligence with complete privacy and local processing. 
-            We believe AI should be accessible, secure, and truly yours.
+            Meet the on-device AI that runs <strong>100% offline</strong>. No clouds, no snooping—just blazing-fast help that stays on your computer.
           </p>
           <div className="mt-4 text-gray-500 text-sm">
             Founded in Glasgow, Scotland • Registered Company SC851680
@@ -189,7 +165,7 @@ export default function CleanHero({ scrollToSection, visionRef, waitlistRef }: C
             </Button>
           </div>
 
-          <div className="relative rounded-full">
+          <div className="relative overflow-hidden rounded-full">
             <ShineBorder 
               className="absolute inset-0" 
               borderWidth={1}

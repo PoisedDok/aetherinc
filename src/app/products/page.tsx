@@ -12,15 +12,16 @@ import { Card } from "@/components/ui/card"
 import { ArrowRight, ArrowLeft, Brain, Cpu, Shield, Zap, CheckCircle, Star, Sparkles } from "lucide-react"
 import Link from "next/link"
 import ReviewsMarquee from "@/components/sections/ReviewsMarquee";
+import { motion } from 'framer-motion';
 
 export default function ProductsPage() {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-transparent text-white">
       <Navbar />
       
-      <main className="pt-28">
-        {/* Page Header */}
-        <section className="relative py-24 px-4 bg-black overflow-hidden">
+      <main>
+        {/* Hero Section */}
+        <section className="relative pt-32 pb-24 px-4 bg-transparent overflow-hidden">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-30">
             <InteractiveGridPattern 
@@ -30,45 +31,27 @@ export default function ProductsPage() {
             />
           </div>
 
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-950/40 to-black z-[1]" />
+          {/* Gradient overlay removed to allow Jarvis background to show through */}
 
-          {/* Additional pattern */}
-          <div className="absolute inset-0 z-[1] opacity-20">
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_70%_50%_at_50%_50%,#000_60%,transparent_100%)]" />
-          </div>
-
-          <div className="max-w-7xl mx-auto relative z-10">
-            <div className="flex items-center gap-4 mb-8">
+          <div className="max-w-5xl mx-auto text-center relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-6 inline-block"
+            >
               <div className="relative">
-                <ShineBorder 
-                  className="absolute inset-0 rounded-lg" 
-                  borderWidth={1}
-                  shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.3)"]}
-                  duration={8}
-                />
-                <Button asChild variant="ghost" size="sm" className="relative text-gray-400 hover:text-white bg-black/20 border border-white/10 backdrop-blur-sm">
-                  <Link href="/">
-                    <ArrowLeft className="h-4 w-4 mr-2" />
-                    Back to Home
-                  </Link>
-                </Button>
-              </div>
-            </div>
-            
-            <div className="text-center">
-              <div className="relative inline-block mb-6">
                 <ShineBorder 
                   className="absolute inset-0 rounded-full" 
                   borderWidth={1}
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
-                  duration={10}
+                  duration={12}
                 />
-                <Badge variant="outline" className="relative text-white/90 border-white/20 px-6 py-2 text-sm font-medium backdrop-blur-sm bg-black/30">
-                  <Sparkles className="w-4 h-4 mr-2" />
+                <Badge variant="outline" className="relative text-white/90 border-white/20 px-6 py-2 text-sm font-medium backdrop-blur-sm bg-transparent">
                   Our Products
                 </Badge>
               </div>
+            </motion.div>
 
               <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
                 Revolutionary <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">AI Solutions</span>
@@ -77,12 +60,11 @@ export default function ProductsPage() {
                 Revolutionary AI solutions that prioritize your privacy without compromising on performance. 
                 Experience the future of local artificial intelligence.
               </p>
-            </div>
           </div>
         </section>
 
         {/* GURU Product Section */}
-        <section className="relative py-24 px-4 bg-black">
+        <section className="relative py-24 px-4 bg-transparent">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-25">
             <InteractiveGridPattern 
@@ -92,8 +74,7 @@ export default function ProductsPage() {
             />
           </div>
 
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-950/30 to-black z-[1]" />
+          {/* Gradient overlay removed to allow Jarvis background to show through */}
 
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
@@ -106,7 +87,7 @@ export default function ProductsPage() {
                       shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                       duration={12}
                     />
-                    <Badge variant="outline" className="relative text-white/90 border-white/20 px-4 py-2 text-sm font-medium backdrop-blur-sm bg-black/30">
+                    <Badge variant="outline" className="relative text-white/90 border-white/20 px-4 py-2 text-sm font-medium backdrop-blur-sm bg-transparent">
                       <Brain className="h-4 w-4 mr-2" />
                       Flagship Product
                     </Badge>
@@ -164,7 +145,7 @@ export default function ProductsPage() {
                       shineColor={["rgba(255, 255, 255, 0.15)", "rgba(255, 255, 255, 0.4)"]}
                       duration={14}
                     />
-                    <Button variant="outline" size="lg" className="relative border-white/30 text-white hover:bg-white/10 bg-black/30 backdrop-blur-sm px-8 py-6 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300">
+                    <Button variant="outline" size="lg" className="relative border-white/30 text-white hover:bg-white/10 bg-transparent px-8 py-6 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300">
                       Schedule Demo
                     </Button>
                   </div>
@@ -178,8 +159,8 @@ export default function ProductsPage() {
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                   duration={16}
                 />
-                <Card className="relative bg-black/60 backdrop-blur-sm border-white/10 p-8 hover:bg-black/80 transition-all duration-300 group-hover:scale-[1.02]">
-                  <div className="aspect-square bg-black/30 rounded-xl flex items-center justify-center">
+                <Card className="relative bg-transparent border-white/10 p-8 hover:bg-white/10 transition-all duration-300 group-hover:scale-[1.02]">
+                  <div className="aspect-square bg-transparent rounded-xl flex items-center justify-center">
                     <div className="text-center">
                       <Brain className="h-20 w-20 text-white/80 mx-auto mb-6" />
                       <div className="text-3xl font-bold text-white mb-3">GURU</div>
@@ -202,7 +183,7 @@ export default function ProductsPage() {
                 shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                 duration={18}
               />
-              <Card className="relative bg-black/60 backdrop-blur-sm border-white/10 p-8 hover:bg-black/80 transition-all duration-300">
+              <Card className="relative bg-transparent border-white/10 p-8 hover:bg-white/10 transition-all duration-300">
                 <h3 className="text-2xl font-bold mb-6 text-center text-white">Technical Specifications</h3>
                 <div className="grid md:grid-cols-3 gap-8">
                   <div className="text-center">
@@ -235,7 +216,7 @@ export default function ProductsPage() {
         </section>
 
         {/* AetherArena Section */}
-        <section className="relative py-24 px-4 bg-black">
+        <section className="relative py-24 px-4 bg-transparent">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-25">
             <InteractiveGridPattern 
@@ -245,8 +226,7 @@ export default function ProductsPage() {
             />
           </div>
 
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-950/30 to-black z-[1]" />
+          {/* Gradient overlay removed to allow Jarvis background to show through */}
 
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="text-center mb-16">
@@ -257,7 +237,7 @@ export default function ProductsPage() {
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                   duration={12}
                 />
-                <Badge variant="outline" className="relative text-white/90 border-white/20 px-4 py-2 text-sm font-medium backdrop-blur-sm bg-black/30">
+                <Badge variant="outline" className="relative text-white/90 border-white/20 px-4 py-2 text-sm font-medium backdrop-blur-sm bg-transparent">
                   <Star className="h-4 w-4 mr-2" />
                   Enterprise Platform
                 </Badge>
@@ -280,7 +260,7 @@ export default function ProductsPage() {
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                   duration={14}
                 />
-                <Card className="relative bg-black/60 backdrop-blur-sm border-white/10 p-8 hover:bg-black/80 transition-all duration-300 group-hover:scale-[1.02]">
+                <Card className="relative bg-transparent border-white/10 p-8 hover:bg-white/10 transition-all duration-300 group-hover:scale-[1.02]">
                   <h3 className="text-2xl font-bold mb-4 text-white">Enterprise Features</h3>
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
@@ -314,7 +294,7 @@ export default function ProductsPage() {
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                   duration={16}
                 />
-                <Card className="relative bg-black/60 backdrop-blur-sm border-white/10 p-8 hover:bg-black/80 transition-all duration-300 group-hover:scale-[1.02]">
+                <Card className="relative bg-transparent border-white/10 p-8 hover:bg-white/10 transition-all duration-300 group-hover:scale-[1.02]">
                   <h3 className="text-2xl font-bold mb-4 text-white">Self-Improving Architecture</h3>
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
@@ -363,7 +343,7 @@ export default function ProductsPage() {
                     shineColor={["rgba(255, 255, 255, 0.15)", "rgba(255, 255, 255, 0.4)"]}
                     duration={14}
                   />
-                  <Button variant="outline" size="lg" className="relative border-white/30 text-white hover:bg-white/10 bg-black/30 backdrop-blur-sm px-8 py-6 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300">
+                  <Button variant="outline" size="lg" className="relative border-white/30 text-white hover:bg-white/10 bg-transparent px-8 py-6 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300">
                     Contact Sales
                   </Button>
                 </div>
@@ -379,7 +359,7 @@ export default function ProductsPage() {
         <ReviewsMarquee />
 
         {/* CTA Section */}
-        <section className="relative py-24 px-4 bg-black overflow-hidden">
+        <section className="relative py-24 px-4 bg-transparent overflow-hidden">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-25">
             <InteractiveGridPattern 
@@ -389,8 +369,7 @@ export default function ProductsPage() {
             />
           </div>
 
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-950/30 to-black z-[1]" />
+          {/* Gradient overlay removed to allow Jarvis background to show through */}
 
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
@@ -421,7 +400,7 @@ export default function ProductsPage() {
                   shineColor={["rgba(255, 255, 255, 0.15)", "rgba(255, 255, 255, 0.4)"]}
                   duration={14}
                 />
-                <Button asChild variant="outline" size="lg" className="relative border-white/30 text-white hover:bg-white/10 bg-black/30 backdrop-blur-sm px-8 py-6 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300">
+                <Button asChild variant="outline" size="lg" className="relative border-white/30 text-white hover:bg-white/10 bg-transparent px-8 py-6 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300">
                   <Link href="/services">
                     View Services
                   </Link>

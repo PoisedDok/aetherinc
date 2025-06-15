@@ -79,12 +79,12 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-transparent text-white">
       <Navbar />
       
       <main className="pt-28">
         {/* Page Header */}
-        <section className="relative py-24 px-4 bg-black overflow-hidden">
+        <section className="relative py-24 px-4 bg-transparent overflow-hidden">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-30">
             <InteractiveGridPattern 
@@ -94,8 +94,7 @@ export default function ContactPage() {
             />
           </div>
 
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-950/40 to-black z-[1]" />
+          {/* Gradient overlay removed to allow Jarvis background to show through */}
 
           {/* Additional pattern */}
           <div className="absolute inset-0 z-[1] opacity-20">
@@ -111,7 +110,7 @@ export default function ContactPage() {
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.3)"]}
                   duration={8}
                 />
-                <Button asChild variant="ghost" size="sm" className="relative text-gray-400 hover:text-white bg-black/20 border border-white/10 backdrop-blur-sm">
+                <Button asChild variant="ghost" size="sm" className="relative text-gray-400 hover:text-white border border-white/10">
                   <Link href="/">
                     <ArrowLeft className="h-4 w-4 mr-2" />
                     Back to Home
@@ -128,7 +127,7 @@ export default function ContactPage() {
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                   duration={10}
                 />
-                <Badge variant="outline" className="relative text-white/90 border-white/20 px-6 py-2 text-sm font-medium backdrop-blur-sm bg-black/30">
+                <Badge variant="outline" className="relative text-white/90 border-white/20 px-6 py-2 text-sm font-medium">
                   <Sparkles className="w-4 h-4 mr-2" />
                   Contact Us
                 </Badge>
@@ -145,7 +144,7 @@ export default function ContactPage() {
         </section>
 
         {/* Contact Options */}
-        <section className="relative py-24 px-4 bg-black">
+        <section className="relative py-24 px-4 bg-transparent">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-25">
             <InteractiveGridPattern 
@@ -155,8 +154,7 @@ export default function ContactPage() {
             />
           </div>
 
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-950/30 to-black z-[1]" />
+          {/* Gradient overlay removed for transparency */}
 
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="grid lg:grid-cols-2 gap-12 items-start">
@@ -168,7 +166,7 @@ export default function ContactPage() {
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                   duration={12}
                 />
-                <Card className="relative bg-black/60 backdrop-blur-sm border-white/10 p-8 hover:bg-black/80 transition-all duration-300">
+                <Card className="relative border-white/10 p-8 transition-all duration-300">
                   <h2 className="text-2xl font-bold mb-6 text-white">Send us a Message</h2>
                   <form className="space-y-6" onSubmit={handleSubmit}>
                     <div className="grid md:grid-cols-2 gap-4">
@@ -179,7 +177,7 @@ export default function ContactPage() {
                           name="firstName"
                           value={formState.firstName}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 bg-black/50 border border-white/20 rounded-lg focus:border-white/40 focus:outline-none text-white placeholder-gray-500"
+                          className="w-full px-4 py-3 border border-white/20 rounded-lg focus:border-white/40 focus:outline-none text-white placeholder-gray-500"
                           placeholder="Enter your first name"
                         />
                       </div>
@@ -190,7 +188,7 @@ export default function ContactPage() {
                           name="lastName"
                           value={formState.lastName}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 bg-black/50 border border-white/20 rounded-lg focus:border-white/40 focus:outline-none text-white placeholder-gray-500"
+                          className="w-full px-4 py-3 border border-white/20 rounded-lg focus:border-white/40 focus:outline-none text-white placeholder-gray-500"
                           placeholder="Enter your last name"
                         />
                       </div>
@@ -203,7 +201,7 @@ export default function ContactPage() {
                         name="email"
                         value={formState.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-black/50 border border-white/20 rounded-lg focus:border-white/40 focus:outline-none text-white placeholder-gray-500"
+                        className="w-full px-4 py-3 border border-white/20 rounded-lg focus:border-white/40 focus:outline-none text-white placeholder-gray-500"
                         placeholder="your.email@company.com"
                       />
                     </div>
@@ -215,7 +213,7 @@ export default function ContactPage() {
                         name="company"
                         value={formState.company}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-black/50 border border-white/20 rounded-lg focus:border-white/40 focus:outline-none text-white placeholder-gray-500"
+                        className="w-full px-4 py-3 border border-white/20 rounded-lg focus:border-white/40 focus:outline-none text-white placeholder-gray-500"
                         placeholder="Your company name"
                       />
                     </div>
@@ -226,7 +224,7 @@ export default function ContactPage() {
                         name="interest"
                         value={formState.interest}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-black/50 border border-white/20 rounded-lg focus:border-white/40 focus:outline-none text-white"
+                        className="w-full px-4 py-3 border border-white/20 rounded-lg focus:border-white/40 focus:outline-none text-white"
                       >
                         <option value="" className="bg-black">Select your interest</option>
                         <option value="guru" className="bg-black">GURU AI Assistant</option>
@@ -244,7 +242,7 @@ export default function ContactPage() {
                         name="message"
                         value={formState.message}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-black/50 border border-white/20 rounded-lg focus:border-white/40 focus:outline-none resize-none text-white placeholder-gray-500"
+                        className="w-full px-4 py-3 border border-white/20 rounded-lg focus:border-white/40 focus:outline-none resize-none text-white placeholder-gray-500"
                         placeholder="Tell us about your AI needs and how we can help..."
                       />
                     </div>
@@ -273,7 +271,7 @@ export default function ContactPage() {
                     shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                     duration={14}
                   />
-                  <Card className="relative bg-black/60 backdrop-blur-sm border-white/10 p-8 hover:bg-black/80 transition-all duration-300">
+                  <Card className="relative border-white/10 p-8 transition-all duration-300">
                     <h2 className="text-2xl font-bold mb-6 text-white">Contact Information</h2>
                     <div className="space-y-6">
                       <div className="flex gap-4">
@@ -317,7 +315,7 @@ export default function ContactPage() {
                     shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                     duration={16}
                   />
-                  <Card className="relative bg-black/60 backdrop-blur-sm border-white/10 p-8 hover:bg-black/80 transition-all duration-300">
+                  <Card className="relative border-white/10 p-8 transition-all duration-300">
                     <h3 className="text-xl font-bold mb-4 text-white">Quick Actions</h3>
                     <div className="space-y-4">
                       <div className="relative">
@@ -361,7 +359,7 @@ export default function ContactPage() {
                     shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                     duration={18}
                   />
-                  <Card className="relative bg-black/60 backdrop-blur-sm border-white/10 p-6 hover:bg-black/80 transition-all duration-300">
+                  <Card className="relative border-white/10 p-6 transition-all duration-300">
                     <h3 className="text-lg font-bold mb-4 text-white">Company Details</h3>
                     <div className="text-sm text-gray-400 space-y-2">
                       <p><strong className="text-gray-300">Company:</strong> AetherInc Limited</p>
@@ -377,7 +375,7 @@ export default function ContactPage() {
         </section>
 
         {/* FAQ Section */}
-        <section className="relative py-24 px-4 bg-black">
+        <section className="relative py-24 px-4 bg-transparent">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-25">
             <InteractiveGridPattern 
@@ -408,7 +406,7 @@ export default function ContactPage() {
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                   duration={12}
                 />
-                <Card className="relative bg-black/60 backdrop-blur-sm border-white/10 p-6 hover:bg-black/80 transition-all duration-300">
+                <Card className="relative border-white/10 p-6 transition-all duration-300">
                   <h3 className="text-lg font-semibold mb-3 text-white">How quickly can you respond to inquiries?</h3>
                   <p className="text-gray-400">We typically respond to all inquiries within 24 hours during business days. For urgent matters, please mention "URGENT" in your subject line.</p>
                 </Card>
@@ -421,7 +419,7 @@ export default function ContactPage() {
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                   duration={14}
                 />
-                <Card className="relative bg-black/60 backdrop-blur-sm border-white/10 p-6 hover:bg-black/80 transition-all duration-300">
+                <Card className="relative border-white/10 p-6 transition-all duration-300">
                   <h3 className="text-lg font-semibold mb-3 text-white">Do you offer free consultations?</h3>
                   <p className="text-gray-400">Yes! We offer a complimentary 30-minute consultation to discuss your AI needs and how our privacy-first solutions can benefit your business.</p>
                 </Card>
@@ -434,7 +432,7 @@ export default function ContactPage() {
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                   duration={16}
                 />
-                <Card className="relative bg-black/60 backdrop-blur-sm border-white/10 p-6 hover:bg-black/80 transition-all duration-300">
+                <Card className="relative border-white/10 p-6 transition-all duration-300">
                   <h3 className="text-lg font-semibold mb-3 text-white">What makes AetherInc different from other AI companies?</h3>
                   <p className="text-gray-400">Our privacy-first approach ensures all AI processing happens locally on your devices. Your data never leaves your control, providing enterprise-grade security with cutting-edge AI capabilities.</p>
                 </Card>
@@ -447,7 +445,7 @@ export default function ContactPage() {
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                   duration={18}
                 />
-                <Card className="relative bg-black/60 backdrop-blur-sm border-white/10 p-6 hover:bg-black/80 transition-all duration-300">
+                <Card className="relative border-white/10 p-6 transition-all duration-300">
                   <h3 className="text-lg font-semibold mb-3 text-white">Can I schedule a product demonstration?</h3>
                   <p className="text-gray-400">Absolutely! We'd love to show you GURU and AetherArena in action. Use the contact form above or click "Schedule Demo" to book a personalized demonstration.</p>
                 </Card>
@@ -457,7 +455,7 @@ export default function ContactPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="relative py-24 px-4 bg-black overflow-hidden">
+        <section className="relative py-24 px-4 bg-transparent overflow-hidden">
           {/* Background Grid Pattern */}
           <div className="absolute inset-0 z-0 opacity-25">
             <InteractiveGridPattern 

@@ -4,9 +4,7 @@ import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { InteractiveGridPattern } from '@/components/magicui/interactive-grid-pattern';
 import { ShineBorder } from '@/components/magicui/shine-border';
-import { RetroGrid } from '@/components/magicui/retro-grid';
 import { Shield, Heart, Globe, Users, Lightbulb, Target } from 'lucide-react';
 
 export default function CompanyVision() {
@@ -53,23 +51,8 @@ export default function CompanyVision() {
   ];
 
   return (
-    <section className="relative bg-black py-24 md:py-32 overflow-hidden">
-      {/* Background Grid Pattern */}
-      <div className="absolute inset-0 z-0 opacity-40">
-        <InteractiveGridPattern 
-          className="w-full h-full" 
-          dotColor="rgba(255, 255, 255, 0.05)"
-          size={24}
-        />
-      </div>
-
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-950/50 to-black z-[1]" />
-
-      {/* Additional subtle pattern */}
-      <div className="absolute inset-0 z-[1] opacity-20">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:8rem_8rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_110%)]" />
-      </div>
+    <section className="relative py-24 md:py-32 overflow-hidden">
+      {/* Background layers removed to allow Jarvis background to show through */}
 
       <div ref={sectionRef} className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
@@ -95,8 +78,7 @@ export default function CompanyVision() {
             Redefining AI for <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">Everyone</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            At AetherInc, we're not just building another AI company. We're crafting the future 
-            where artificial intelligence serves humanity with complete privacy, accessibility, and purpose.
+            We build friendly AI that works for humans—not the other way around. Everything runs on your own device, so your data never leaves your hands.
           </p>
         </motion.div>
 
@@ -157,7 +139,7 @@ export default function CompanyVision() {
               shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.5)"]}
               duration={20}
             />
-            <Card className="relative p-8 md:p-12 bg-black/60 border-white/10 backdrop-blur-sm">
+            <Card className="relative p-8 md:p-12 bg-transparent border-white/10 backdrop-blur-sm">
               <div className="relative z-10">
                 <h3 className="text-3xl md:text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-white">
                   Born from Inspiration

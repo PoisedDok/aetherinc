@@ -88,7 +88,7 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
                 key={item.href}
                 variant="ghost"
                 asChild
-                className="text-xs text-white/70 hover:text-white transition-colors px-3 py-1"
+                className="text-sm text-white/80 hover:text-white transition-colors px-4 py-2"
               >
                 <Link href={item.href}>
                   {item.label}
@@ -100,7 +100,7 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
             <Button
               variant="ghost"
               asChild
-              className="text-xs text-white/70 hover:text-white transition-colors px-3 py-1"
+              className="text-sm text-white/80 hover:text-white transition-colors px-4 py-2"
             >
               <Link href="/admin">
                 <Shield className="h-3 w-3 mr-1" />
@@ -122,7 +122,7 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
           >
             <Button
               variant="ghost"
-              className="text-xs text-white/70 hover:text-white"
+              className="text-sm text-white/80 hover:text-white"
             >
               Menu
             </Button>
@@ -152,7 +152,7 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
                 }
               }}
               className={cn(
-                "relative font-semibold px-4 py-1.5 rounded-full transition-all duration-300 text-xs",
+                "relative font-semibold px-5 py-2 rounded-full transition-all duration-300 text-sm",
                 isScrolled
                   ? "bg-white text-black hover:bg-white/90"
                   : "bg-white/10 text-white hover:bg-white/20"

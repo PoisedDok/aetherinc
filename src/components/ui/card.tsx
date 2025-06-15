@@ -1,18 +1,39 @@
-import * as React from "react"
+"use client";
 
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { usePathname } from "next/navigation";
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+import { cn } from "@/lib/utils";
+import { MagicCard } from "@/components/magicui/magic-card";
+
+function BaseCard({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card"
       className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
+        "bg-transparent text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
         className
       )}
       {...props}
     />
-  )
+  );
+}
+
+function Card({ className, ...props }: React.ComponentProps<"div">) {
+  const pathname = usePathname();
+
+  // Keep default card styling for AI Tools pages to avoid heavy hover effects
+  const isAiTools = pathname?.startsWith("/ai-tools");
+
+  if (isAiTools) {
+    return <BaseCard className={className} {...props} />;
+  }
+
+  return (
+    <MagicCard className={className}>
+      <BaseCard className="bg-transparent border-none shadow-none p-0" {...props} />
+    </MagicCard>
+  );
 }
 
 function CardHeader({ className, ...props }: React.ComponentProps<"div">) {

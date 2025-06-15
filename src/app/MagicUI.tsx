@@ -85,7 +85,7 @@ export function BentoCard({
       className={cn(
         "relative rounded-xl border p-6 overflow-hidden",
         "hover:shadow-md transition-shadow duration-300",
-        "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800",
+        "bg-transparent backdrop-blur-sm border-gray-200/20 dark:border-gray-800/20",
         "group hover:cursor-pointer min-h-[200px]",
         className
       )}

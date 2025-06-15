@@ -19,7 +19,7 @@ export const TweetCard = ({ tweet, className, ...props }: TweetProps) => {
   return (
     <Card
       className={cn(
-        "w-full max-w-lg rounded-2xl border-border/20 bg-background/50 p-6 backdrop-blur-sm",
+        "w-full max-w-lg rounded-2xl border-border/20 bg-transparent backdrop-blur-sm",
         className,
       )}
       {...props}

@@ -48,7 +48,7 @@ export default function AboutFounders() {
   ];
 
   return (
-    <section className="relative bg-black py-24 md:py-32 overflow-hidden">
+    <section className="relative bg-transparent py-24 md:py-32 overflow-hidden">
       {/* Background Grid Pattern */}
       <div className="absolute inset-0 z-0 opacity-30">
         <InteractiveGridPattern 
@@ -58,8 +58,7 @@ export default function AboutFounders() {
         />
       </div>
 
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-950/40 to-black z-[1]" />
+      {/* Gradient overlay removed to allow Jarvis background to show through */}
 
       {/* Additional pattern */}
       <div className="absolute inset-0 z-[1] opacity-20">
