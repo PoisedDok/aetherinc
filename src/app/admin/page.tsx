@@ -1,18 +1,22 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { 
-  BarChart3, Globe, LogOut, Loader2, ShieldX
+  BarChart3, Globe, LogOut, Loader2, ShieldX, Users, FileText
 } from 'lucide-react';
 import AdminDashboard from '@/components/sections/AdminDashboard';
+import AnalyticsDashboard from '@/components/sections/AnalyticsDashboard';
+
+type ActiveView = 'dashboard' | 'analytics' | 'waitlist' | 'news';
 
 export default function AdminPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [activeView, setActiveView] = useState<ActiveView>('dashboard');
 
   const handleLogout = async () => {
     await signOut({ redirect: false });
@@ -23,7 +27,7 @@ export default function AdminPage() {
     return (
       <div className="min-h-screen text-white flex items-center justify-center relative z-20">
         <Loader2 className="h-8 w-8 animate-spin text-cyan-400" />
-        </div>
+      </div>
     );
   }
 
@@ -40,12 +44,23 @@ export default function AdminPage() {
     );
   }
 
+  const renderActiveView = () => {
+    switch(activeView) {
+      case 'dashboard':
+        return <AdminDashboard />;
+      case 'analytics':
+        return <AnalyticsDashboard />;
+      default:
+        return <AdminDashboard />;
+    }
+  };
+
   return (
     <div className="min-h-screen text-white relative z-20">
       <header className="border-b border-white/10 px-4 py-3 flex justify-between items-center sticky top-0 z-10">
         <div className="flex items-center space-x-2">
           <h1 className="text-xl font-semibold">Aether Inc. Admin</h1>
-            </div>
+        </div>
         <div className="flex items-center gap-4">
           <span className="text-sm text-gray-400 hidden sm:inline">
             Welcome, {session.user.name || session.user.email}
@@ -58,7 +73,7 @@ export default function AdminPage() {
           >
             <LogOut className="h-4 w-4 mr-2" />
             Logout
-            </Button>
+          </Button>
         </div>
       </header>
 
@@ -66,12 +81,21 @@ export default function AdminPage() {
         <aside className="w-64 border-r border-gray-800 min-h-[calc(100vh-57px)] p-4 sticky top-[57px]">
           <nav className="space-y-1">
             <Button 
-              variant="ghost" 
+              variant={activeView === 'dashboard' ? 'default' : 'ghost'}
               className="w-full justify-start"
+              onClick={() => setActiveView('dashboard')}
             >
               <BarChart3 className="h-4 w-4 mr-2" />
               Dashboard
-              </Button>
+            </Button>
+            <Button 
+              variant={activeView === 'analytics' ? 'default' : 'ghost'}
+              className="w-full justify-start"
+              onClick={() => setActiveView('analytics')}
+            >
+              <BarChart3 className="h-4 w-4 mr-2" />
+              Analytics
+            </Button>
           </nav>
 
           <div className="pt-8 pb-4">
@@ -80,11 +104,11 @@ export default function AdminPage() {
               <Globe className="h-4 w-4 mr-2" />
               Website
             </Link>
-                      </div>
+          </div>
         </aside>
 
         <main className="flex-1 p-6">
-          <AdminDashboard />
+          {renderActiveView()}
         </main>
       </div>
     </div>

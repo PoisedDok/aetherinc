@@ -3,6 +3,7 @@ import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "@/components/SessionProvider";
 import dynamic from "next/dynamic";
+import { validateEnv } from '@/lib/env';
 
 const josefinSans = Josefin_Sans({ subsets: ["latin"], display: "swap", variable: "--font-josefin-sans" });
 
@@ -13,6 +14,16 @@ const FloatingChat = dynamic(() => import("@/components/FloatingChat"), { ssr: f
 const JarvisBackground = dynamic(() => import("@/components/JarvisBackground"), {
   ssr: false,
 });
+
+// Dynamically load AnalyticsProvider (client-side only)
+const AnalyticsProvider = dynamic(() => import("@/components/layout/AnalyticsProvider"), {
+  ssr: false,
+});
+
+// Validate environment variables on server
+if (typeof window === 'undefined') {
+  validateEnv();
+}
 
 export const metadata: Metadata = {
   title: "AetherInc - Privacy-First AI Solutions | GURU & AetherArena",
@@ -150,7 +161,11 @@ export default function RootLayout({
         {/* Global background */}
         <JarvisBackground />
 
-        <SessionProvider>{children}</SessionProvider>
+        <SessionProvider>
+          <AnalyticsProvider>
+            {children}
+          </AnalyticsProvider>
+        </SessionProvider>
         <FloatingChat />
       </body>
     </html>

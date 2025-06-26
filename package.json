@@ -8,16 +8,23 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "start:llama": "node scripts/run_llama_server.cjs",
+    "start:llama:alt": "cross-env LLAMA_CPP_PORT=8090 node scripts/run_llama_server.cjs",
+    "format": "prettier . --write",
     "prisma:studio": "prisma studio",
     "db:push": "dotenv -e .env.local -- prisma db push",
-    "db:seed": "dotenv -e .env.local -- node scripts/seed.js",
+    "db:seed": "dotenv -e .env.local -- node scripts/seed.mjs",
     "setup": "node setup.js",
     "analyze": "cross-env ANALYZE=true next build",
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate"
   },
+  "prisma": {
+    "seed": "node prisma/seed.cjs"
+  },
   "dependencies": {
     "@next/bundle-analyzer": "^15.3.1",
+    "@prisma/adapter-pg": "^6.9.0",
     "@prisma/client": "^5.22.0",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-dialog": "^1.1.2",
@@ -40,6 +47,7 @@
     "next": "14.2.4",
     "next-auth": "^4.24.11",
     "nodemailer": "^6.10.1",
+    "pg": "^8.16.0",
     "react": "^18.2.0",
     "react-calendar": "^5.1.0",
     "react-dom": "^18.2.0",

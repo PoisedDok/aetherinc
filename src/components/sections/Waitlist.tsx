@@ -9,6 +9,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { ShineBorder } from '@/components/magicui/shine-border';
+import { useAnalyticsTracking } from '@/lib/hooks/useAnalyticsTracking';
+import { TrackedButton } from '@/components/ui/tracked-button';
 
 // Waitlist props type
 interface WaitlistProps {
@@ -28,6 +30,7 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
   const titleRef = useRef(null);
   const formRef = useRef<HTMLFormElement>(null);
   const isInView = useInView(titleRef, { once: true, margin: "-100px" });
+  const { trackEvent } = useAnalyticsTracking();
   
   // Form state
   const [formData, setFormData] = useState<FormData>({
@@ -58,17 +61,20 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
     if (!formData.email || !formData.email.includes('@')) {
       setErrorMessage('Please enter a valid email address');
       setFormState('error');
+      trackEvent('waitlist_error', { elementName: 'Email validation error' })();
       return;
     }
     
     if (!formData.name.trim()) {
       setErrorMessage('Please enter your name');
       setFormState('error');
+      trackEvent('waitlist_error', { elementName: 'Name validation error' })();
       return;
     }
     
     try {
       setFormState('submitting');
+      trackEvent('waitlist_submission_start', { elementName: 'Waitlist form submission started' })();
       
       const response = await fetch('/api/waitlist', {
         method: 'POST',
@@ -86,6 +92,7 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
       
       // Successfully joined waitlist
       setFormState('success');
+      trackEvent('waitlist_submission_success', { elementName: 'Waitlist form submission successful' })();
       setFormData({
         name: '',
         email: '',
@@ -103,6 +110,7 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
       console.error('Waitlist error:', error);
       setErrorMessage(error instanceof Error ? error.message : 'An unexpected error occurred');
       setFormState('error');
+      trackEvent('waitlist_submission_error', { elementName: `Waitlist form error: ${error instanceof Error ? error.message : 'Unknown error'}` })();
     }
   };
   
@@ -233,10 +241,12 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
                   </div>
                   
                   <div className="pt-2">
-                    <Button
+                    <TrackedButton
                       type="submit"
                       className="w-full bg-white hover:bg-gray-100 text-black font-semibold py-6 rounded-lg transition-all duration-300 text-base h-auto transform hover:scale-[1.02] flex items-center justify-center gap-2"
                       disabled={formState === 'submitting'}
+                      trackingId="waitlist_join_button"
+                      trackingName="Waitlist Join Button"
                     >
                       {formState === 'submitting' ? (
                         <>
@@ -249,7 +259,7 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
                           <ArrowRight className="w-5 h-5" />
                         </>
                       )}
-                    </Button>
+                    </TrackedButton>
                     
                     <p className="text-center text-gray-500 text-xs mt-4">
                       By joining, you agree to receive updates about our products and services.

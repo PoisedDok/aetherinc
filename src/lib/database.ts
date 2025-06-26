@@ -1,16 +1,17 @@
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 
+// Prevent multiple instances of Prisma Client in development mode
 declare global {
-  var prisma: PrismaClient | undefined
+  var prisma: PrismaClient | undefined;
 }
 
-export const prisma = globalThis.prisma || new PrismaClient()
+export const prisma = global.prisma || new PrismaClient()
+
+// In development, attach Prisma to global to prevent multiple instances
+if (process.env.NODE_ENV !== 'production') global.prisma = prisma
+
 export const db = prisma
-
-if (process.env.NODE_ENV !== 'production') {
-  globalThis.prisma = prisma
-}
 
 // Seed initial data
 export async function seedDatabase() {

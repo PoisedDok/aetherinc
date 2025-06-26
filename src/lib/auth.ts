@@ -28,6 +28,18 @@ declare module "next-auth/jwt" {
   }
 }
 
+// NextAuth configuration with hardcoded fallback secret
+// NextAuth secret must be set in environment variables for security
+const secret = process.env.NEXTAUTH_SECRET;
+if (!secret && process.env.NODE_ENV === 'production') {
+  throw new Error("NEXTAUTH_SECRET environment variable is required in production");
+} else if (!secret) {
+  console.warn("WARNING: NEXTAUTH_SECRET is not set. Using a temporary secret for development only.");
+  // Only for development - still more secure than a static string in the repo
+  const crypto = require('crypto');
+  process.env.NEXTAUTH_SECRET = crypto.randomBytes(32).toString('hex');
+}
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -75,7 +87,8 @@ export const authOptions: NextAuthOptions = {
     signIn: '/admin/login',
     error: '/admin/login',
   },
-  debug: process.env.NODE_ENV === 'development',
+  // Only enable debug mode with explicit environment variable
+  debug: process.env.NEXTAUTH_DEBUG === 'true',
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -96,5 +109,5 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
-  secret: process.env.NEXTAUTH_SECRET || "fallback-secret-do-not-use-in-production",
+  secret,
 }; 

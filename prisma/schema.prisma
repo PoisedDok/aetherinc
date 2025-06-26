@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -96,4 +96,17 @@ model Analytics {
   
   @@unique([page, date])
   @@map("analytics")
+}
+
+model AnalyticsEvent {
+  id          String   @id @default(cuid())
+  eventType   String   // 'click', 'hover', 'submit', etc.
+  elementId   String   // Button/element identifier
+  elementName String?  // Human-readable name
+  page        String   // Page where event occurred
+  count       Int      @default(0)
+  date        DateTime @default(now())
+  
+  @@unique([eventType, elementId, page, date])
+  @@map("analytics_events")
 } 

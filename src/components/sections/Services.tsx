@@ -4,455 +4,518 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, BrainCircuit, Lock, Gauge, Workflow, Users } from "lucide-react";
+import { 
+  Mail, 
+  Calculator, 
+  Users, 
+  Shield, 
+  Cloud, 
+  Zap, 
+  CheckCircle, 
+  ArrowRight,
+  Database,
+  MessageSquare,
+  DollarSign,
+  Clock,
+  TrendingUp,
+  Lock,
+  Cpu,
+  Bot
+} from "lucide-react";
 import HeroVideoDialog from "@/components/magicui/hero-video-dialog";
-import { BentoGrid, BentoCard, BentoGridItem } from "@/components/magicui/bento-grid";
+import { BentoGrid, BentoCard } from "@/components/magicui/bento-grid";
+import { ShineBorder } from "@/components/magicui/shine-border";
 import WorkflowsCarousel from "./WorkflowsCarousel";
-import { AnimatedBeam } from "@/components/magicui/animated-beam";
 import Link from "next/link";
 
 export default function Services() {
-  /* Data */
-  const problems = [
+  /* Quick Wins Data */
+  const quickWins = [
     {
-      title: "Data overload",
-      description:
-        "Modern organisations generate mountains of data, but extracting insight at speed feels impossible without the right tools.",
-      icon: BrainCircuit,
+      icon: Mail,
+      title: "AI Email Agent",
+      subtitle: "Intelligent Email Automation",
+      description: "Deploy an AI agent that handles customer emails, support tickets, and internal communications 24/7. Automatically categorizes, responds, and escalates based on your business rules.",
+      features: [
+        "Auto-respond to 80% of customer inquiries",
+        "Smart email categorization and routing",
+        "Context-aware responses using company knowledge",
+        "Seamless handoff to human agents when needed"
+      ],
+      roi: "Save 15-20 hours/week per team member",
+      timeToValue: "Deploy in 2-3 days",
+      gradient: "from-blue-500/20 to-cyan-500/20",
+      borderGradient: "from-blue-500/50 to-cyan-500/50"
     },
     {
-      title: "Slow decision making",
-      description:
-        "Disconnected systems and manual processes keep teams waiting for answers, stalling growth and innovation.",
-      icon: Gauge,
+      icon: Calculator,
+      title: "Smart Financial Hub",
+      subtitle: "Invoice & Cost Intelligence",
+      description: "Connect to your company databases, ERP systems, and financial tools to get real-time cost estimates, invoice processing, and financial insights through a single AI-powered admin interface.",
+      features: [
+        "Automated invoice processing and approval workflows",
+        "Real-time cost estimation based on company algorithms",
+        "Integration with stocks, inventory, and pricing data",
+        "Unified dashboard for all financial operations"
+      ],
+      roi: "Reduce processing time by 75%",
+      timeToValue: "Live in 1-2 weeks",
+      gradient: "from-emerald-500/20 to-teal-500/20",
+      borderGradient: "from-emerald-500/50 to-teal-500/50"
     },
     {
-      title: "Data-security concerns",
-      description:
-        "Cloud AI often requires shipping sensitive data to third-party servers. Our privacy-first stack keeps everything on-premise.",
+      icon: Users,
+      title: "Meeting Intelligence",
+      subtitle: "Automated Meeting Analysis",
+      description: "Transform every meeting into actionable insights. Our AI attends meetings, generates summaries, extracts action items, and automatically updates project management tools.",
+      features: [
+        "Real-time meeting transcription and analysis",
+        "Automatic action item extraction and assignment",
+        "Meeting summaries sent to stakeholders instantly",
+        "Integration with project management tools"
+      ],
+      roi: "Reclaim 5-8 hours/week per manager",
+      timeToValue: "Start using today",
+      gradient: "from-purple-500/20 to-pink-500/20",
+      borderGradient: "from-purple-500/50 to-pink-500/50"
+    }
+  ];
+
+  const deploymentOptions = [
+    {
       icon: Lock,
+      title: "Private Cloud",
+      description: "Complete on-premise deployment with full data sovereignty",
+      features: ["Your infrastructure", "Zero data sharing", "Custom security protocols"],
+      ideal: "Enterprise & regulated industries"
     },
+    {
+      icon: Shield,
+      title: "Hybrid Setup",
+      description: "Best of both worlds - sensitive data stays local, AI processing in secure cloud",
+      features: ["Selective data processing", "Enhanced performance", "Scalable architecture"],
+      ideal: "Growing businesses"
+    },
+    {
+      icon: Cloud,
+      title: "Managed Cloud",
+      description: "Fully managed AI automation with enterprise-grade security",
+      features: ["Zero maintenance", "Auto-scaling", "24/7 monitoring"],
+      ideal: "Fast deployment needs"
+    }
   ];
 
-  const solutionsData = [
+  const businessImpact = [
     {
-      Icon: BrainCircuit,
-      name: "Advanced AI algorithms",
-      description:
-        "Proprietary models fine-tuned on-device deliver answers in milliseconds without exposing raw data to the cloud.",
-      href: "/contact",
-      cta: "Learn more",
-      background: (
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-blue-500/20 opacity-50" />
-      ),
+      metric: "80%",
+      label: "Reduction in manual tasks",
+      icon: Clock
     },
     {
-      Icon: Lock,
-      name: "Secure data handling",
-      description:
-        "Zero-trust architecture, on-prem deployment and encryption-in-use ensure your information never leaves your walls.",
-      href: "/contact",
-      cta: "Learn more",
-      background: (
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 opacity-50" />
-      ),
+      metric: "2-5x",
+      label: "Faster decision making",
+      icon: Zap
     },
     {
-      Icon: Workflow,
-      name: "Seamless integration",
-      description:
-        "APIs and pre-built connectors slot directly into your existing stack so you can deploy in days, not months.",
-      href: "/contact",
-      cta: "Learn more",
-      background: (
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-teal-500/20 opacity-50" />
-      ),
+      metric: "90%",
+      label: "Accuracy in data processing",
+      icon: CheckCircle
     },
     {
-      Icon: Users,
-      name: "Customisable workflows",
-      description:
-        "Drag-and-drop builder lets any employee automate processes—from lead enrichment to compliance checks—without code.",
-      href: "/contact",
-      cta: "Learn more",
-      background: (
-        <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-emerald-500/20 opacity-50" />
-      ),
-    },
-  ];
-
-  const howItWorks = [
-    {
-      step: "1. Connect",
-      text: "Securely link your data sources and tools with out-of-the-box connectors.",
-    },
-    {
-      step: "2. Automate",
-      text: "Design AI-powered flows in a chat-like interface—no engineering needed.",
-    },
-    {
-      step: "3. Measure & improve",
-      text: "Track KPIs in real-time and iterate with one-click deployment.",
-    },
-  ];
-
-  const howWeWork = [
-    {
-      step: "Listen",
-      text: "We start by understanding your unique challenges, processes and goals.",
-    },
-    {
-      step: "Invent",
-      text: "Our team crafts custom AI solutions tailored to your specific needs.",
-    },
-    {
-      step: "Personalize",
-      text: "We fine-tune every workflow to integrate seamlessly with your existing systems.",
-    },
-  ];
-
-  const features = [
-    {
-      title: "AI-powered admin",
-      text: "Delegate repetitive configuration and maintenance tasks to smart agents that learn your preferences.",
-    },
-    {
-      title: "Natural-language processing",
-      text: "Query data or trigger workflows by simply asking—no SQL or scripting required.",
-    },
-    {
-      title: "Data-driven company insights",
-      text: "Surface trends, risks and opportunities automatically across every department.",
-    },
-    {
-      title: "Automated reporting",
-      text: "Generate audit-ready documents and dashboards on a schedule or when events occur.",
-    },
-  ];
-
-  const faqs = [
-    {
-      q: "Is my data ever sent to the cloud?",
-      a: "No. All processing happens locally or on your private infrastructure, guaranteeing full sovereignty.",
-    },
-    {
-      q: "Do I need in-house AI expertise?",
-      a: "Our drag-and-drop tools and managed support mean anyone can build and maintain workflows without writing code.",
-    },
-    {
-      q: "How quickly can we see ROI?",
-      a: "Most clients automate at least one critical workflow within the first 30 days, freeing teams for higher-value work.",
-    },
+      metric: "24/7",
+      label: "Automated operations",
+      icon: TrendingUp
+    }
   ];
 
   /* Animation helper */
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0 },
+    visible: { opacity: 1, y: 0 }
   };
 
-  const howItWorksContainerRef = React.useRef<HTMLDivElement>(null);
-  const platformRefs = [
-    React.useRef<HTMLDivElement>(null),
-    React.useRef<HTMLDivElement>(null),
-    React.useRef<HTMLDivElement>(null)
-  ];
-  const approachRefs = [
-    React.useRef<HTMLDivElement>(null),
-    React.useRef<HTMLDivElement>(null),
-    React.useRef<HTMLDivElement>(null)
-  ];
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
 
-  // State to control beam rendering after elements are mounted
-  const [showBeams, setShowBeams] = React.useState(false);
+  // New shine animation for important elements
+interface ShineEffectProps {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}
 
-  React.useEffect(() => {
-    // Wait for refs to be populated
-    const timer = setTimeout(() => {
-      setShowBeams(true);
-    }, 1500); // Increased delay to ensure elements are fully rendered
-    
-    return () => clearTimeout(timer);
-  }, []);
+const ShineEffect: React.FC<ShineEffectProps> = ({ children, className = "", delay = 0 }) => {
+  return (
+    <div className={`relative overflow-hidden ${className}`}>
+      <motion.div
+        className="absolute inset-0 w-full h-full"
+        initial={{ x: '-100%', opacity: 0.5 }}
+        animate={{ 
+          x: '200%', 
+          opacity: 0.8,
+          transition: { 
+            repeat: Infinity, 
+            duration: 2.5, 
+            ease: "easeInOut",
+            delay,
+            repeatDelay: 7
+          }
+        }}
+        style={{
+          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+          zIndex: 2
+        }}
+      />
+      {children}
+    </div>
+  );
+};
 
   return (
     <section className="relative w-full text-white overflow-hidden">
-      <div className="container mx-auto px-4 py-20 space-y-32">
-        {/* Hero */}
+      <div className="container mx-auto px-4 py-20 space-y-24">
+        
+        {/* Hero Section */}
         <motion.div 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={fadeUp}
-          className="text-center max-w-4xl mx-auto space-y-6"
+          className="text-center max-w-5xl mx-auto space-y-8"
         >
-          <h2 className="text-4xl md:text-6xl font-bold">
-            Automate your workflows with AI - AetherInc
-          </h2>
-          <p className="text-lg md:text-xl text-gray-300">
-            No matter what problem you have, our AI solutions can help you solve it.
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-transparent border border-white/20 text-sm font-medium">
+          <Zap className="w-4 h-4 text-amber-400" />
+          Quick Wins for Enterprise Automation
+        </div>
+          
+          <ShineEffect delay={0.5}>
+            <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
+              Transform Your Business
+              <br />
+              <span className="text-4xl md:text-6xl">in Days, Not Months</span>
+            </h1>
+          </ShineEffect>
+          
+          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            Stop waiting for digital transformation. Deploy AI agents that solve your biggest pain points immediately - from email automation to financial intelligence.
           </p>
-          <HeroVideoDialog
-            className="mx-auto max-w-4xl mt-10"
-            animationStyle="from-center"
-            videoSrc="https://www.example.com/dummy-video"
-            thumbnailSrc="https://www.example.com/dummy-thumbnail.png"
-            thumbnailAlt="Dummy Video Thumbnail"
-          />
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
+            <ShineEffect>
+              <Button asChild size="lg" className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-white/90 via-gray-200/90 to-gray-400/90 text-black hover:from-white hover:via-white hover:to-gray-300 shadow-lg shadow-white/10">
+                <Link href="/contact" className="flex items-center gap-2">
+                  Get Your Quick Win Demo
+                  <ArrowRight className="w-4 h-4 text-blue-600" />
+                </Link>
+              </Button>
+            </ShineEffect>
+            <Button asChild variant="outline" size="lg" className="px-8 py-4 text-lg font-semibold border-white/20 hover:bg-white/10 hover:border-white/40 transition-all duration-300">
+              <Link href="/ai-tools" className="flex items-center gap-2">
+                Explore AI Tools
+                <ArrowRight className="w-4 h-4 text-purple-400" />
+              </Link>
+            </Button>
+          </div>
         </motion.div>
 
-        {/* Problems */}
-        <div className="space-y-8">
-          <motion.h3
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeUp}
-            className="text-center text-3xl md:text-4xl font-bold"
-          >
-            Problems
-          </motion.h3>
+        {/* Business Impact Metrics */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={staggerContainer}
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto"
+        >
+          {businessImpact.map((item, index) => (
+            <motion.div
+              key={index}
+              variants={fadeUp}
+              className="text-center space-y-3 group"
+            >
+              <div className="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center border border-white/20 shadow-lg shadow-white/5 group-hover:scale-110 transition-transform duration-300">
+                <item.icon className={`w-8 h-8 ${
+                  index === 0 ? "text-rose-400" : 
+                  index === 1 ? "text-amber-400" : 
+                  index === 2 ? "text-emerald-400" :
+                  "text-sky-400"
+                }`} />
+              </div>
+              <ShineEffect delay={index * 0.3}>
+                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">{item.metric}</div>
+              </ShineEffect>
+              <div className="text-sm text-gray-400">{item.label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
 
+        {/* Quick Wins Section */}
+        <div className="space-y-12">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            variants={fadeUp}
+            className="text-center space-y-4"
           >
-            {problems.map((p, i) => (
-              <motion.div key={i} variants={fadeUp}>
-                <Card className="h-full bg-transparent border-white/10 p-8 text-center space-y-4">
-                  <div className="mx-auto w-12 h-12 flex items-center justify-center rounded-full bg-white text-black">
-                    <p.icon className="w-6 h-6" />
+            <ShineEffect>
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
+                Your <span>Quick Wins</span>
+              </h2>
+            </ShineEffect>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Three game-changing AI solutions that deliver immediate ROI for any business
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={staggerContainer}
+            className="space-y-12"
+          >
+            {quickWins.map((win, index) => (
+              <motion.div
+                key={index}
+                variants={fadeUp}
+                className="relative group"
+              >
+                <ShineBorder 
+                  className="absolute inset-0 rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-300" 
+                  borderWidth={1}
+                  shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
+                  duration={16}
+                />
+                <div className="relative overflow-hidden rounded-2xl bg-transparent border border-white/10 hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-white/5 hover:bg-white/10 group-hover:scale-[1.02]">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+                  
+                  <div className="relative p-8 md:p-12">
+                    <div className="grid md:grid-cols-2 gap-8 items-center">
+                      <div className="space-y-6">
+                        <div className="flex items-center gap-4">
+                          <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center shadow-lg shadow-white/5">
+                            <win.icon className={`w-8 h-8 ${
+                              index === 0 ? "text-sky-400" : 
+                              index === 1 ? "text-emerald-400" : 
+                              "text-violet-400"
+                            }`} />
+                          </div>
+                          <div>
+                            <ShineEffect delay={index * 0.3}>
+                              <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">{win.title}</h3>
+                            </ShineEffect>
+                            <p className="text-gray-300 font-medium">{win.subtitle}</p>
+                          </div>
+                        </div>
+                        
+                        <p className="text-lg text-gray-200 leading-relaxed">
+                          {win.description}
+                        </p>
+                        
+                        <div className="flex flex-col sm:flex-row gap-4">
+                          <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-transparent border border-white/10">
+                            <TrendingUp className="w-4 h-4 text-emerald-400" />
+                            <span className="text-sm font-medium text-gray-100">{win.roi}</span>
+                          </div>
+                          <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-transparent border border-white/10">
+                            <Clock className="w-4 h-4 text-indigo-400" />
+                            <span className="text-sm font-medium text-gray-100">{win.timeToValue}</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-4">
+                        <h4 className="text-lg font-semibold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent mb-4">Key Capabilities:</h4>
+                        <div className="space-y-3">
+                          {win.features.map((feature, featureIndex) => (
+                            <div key={featureIndex} className="flex items-start gap-3">
+                              <CheckCircle className="w-5 h-5 text-cyan-300 mt-0.5 flex-shrink-0" />
+                              <span className="text-gray-200">{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+                        
+                        <ShineEffect delay={index * 0.3 + 0.3}>
+                          <Button 
+                            asChild 
+                            className="w-full mt-6 bg-gradient-to-r from-white/90 via-gray-200/90 to-gray-400/90 hover:from-white hover:via-white hover:to-gray-300 text-black font-semibold shadow-lg shadow-white/10"
+                          >
+                            <Link href="/contact" className="flex items-center justify-center gap-2">
+                              Get Started <ArrowRight className="w-4 h-4 text-cyan-400" />
+                            </Link>
+                          </Button>
+                        </ShineEffect>
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-semibold">{p.title}</h3>
-                  <p className="text-gray-300 text-base leading-relaxed">{p.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Interactive Workflow Demonstrations */}
+        <div className="space-y-12">
+          <motion.div
+          initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeUp}
+            className="text-center space-y-4"
+          >
+            <ShineEffect delay={0.2}>
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
+                See It <span>In Action</span>
+              </h2>
+            </ShineEffect>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Interactive workflow demonstrations showing exactly how your business processes get automated
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={fadeUp}
+          >
+            <WorkflowsCarousel />
+          </motion.div>
+        </div>
+
+        {/* Deployment Options */}
+        <div className="space-y-12">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeUp}
+            className="text-center space-y-4"
+          >
+            <ShineEffect delay={0.3}>
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
+                Deploy <span>Your Way</span>
+              </h2>
+            </ShineEffect>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              From completely private to fully managed - choose the deployment that fits your security and operational needs
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={staggerContainer}
+            className="grid md:grid-cols-3 gap-8"
+          >
+            {deploymentOptions.map((option, index) => (
+              <motion.div
+                key={index}
+                variants={fadeUp}
+                className="relative group"
+              >
+                <ShineBorder 
+                  className="absolute inset-0 rounded-xl opacity-60 group-hover:opacity-100 transition-opacity duration-300" 
+                  borderWidth={1}
+                  shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
+                  duration={18}
+                />
+                <Card className="relative h-full p-8 bg-transparent border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg shadow-white/5 hover:bg-white/10 group-hover:scale-[1.02]">
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-4">
+                                              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 shadow-lg shadow-white/5">
+                          <option.icon className={`w-6 h-6 ${
+                            index === 0 ? "text-violet-400" : 
+                            index === 1 ? "text-sky-400" : 
+                            "text-amber-400"
+                          }`} />
+                        </div>
+                      <ShineEffect delay={index * 0.2}>
+                        <h3 className="text-xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">{option.title}</h3>
+                      </ShineEffect>
+                    </div>
+                    
+                    <p className="text-gray-300 leading-relaxed">{option.description}</p>
+                    
+                    <div className="space-y-2">
+                      {option.features.map((feature, featureIndex) => (
+                        <div key={featureIndex} className="flex items-center gap-2">
+                          <CheckCircle className="w-4 h-4 text-cyan-300" />
+                          <span className="text-sm text-gray-200">{feature}</span>
+                        </div>
+                      ))}
+                      </div>
+              
+                    <div className="pt-4 border-t border-white/10">
+                      <div className="text-sm text-gray-300 font-medium">Ideal for: <span className="text-white">{option.ideal}</span></div>
+                    </div>
+                  </div>
                 </Card>
               </motion.div>
             ))}
           </motion.div>
         </div>
 
-        {/* Solutions - Now using BentoGrid */}
-        <div className="space-y-8">
-          <motion.h3
+        {/* CTA Section */}
+        <motion.div
           initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             variants={fadeUp}
-            className="text-center text-3xl md:text-4xl font-bold"
-          >
-            Our Solutions
-          </motion.h3>
-
-          <BentoGrid className="md:grid-cols-2 xl:grid-cols-4 gap-6">
-            {solutionsData.map((solution) => (
-              <BentoCard key={solution.name} {...solution} />
-            ))}
-          </BentoGrid>
+          className="text-center space-y-8 pt-12"
+        >
+          <div className="max-w-3xl mx-auto space-y-6">
+            <ShineEffect delay={0.4} className="mb-4">
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
+                Ready to See Your <span>Quick Win</span>?
+              </h2>
+            </ShineEffect>
+            <p className="text-xl text-gray-300">
+              Book a 30-minute demo and see how AI can transform your specific business processes. 
+              We'll show you exactly how to implement your first automation this week.
+            </p>
         </div>
 
-        {/* How it works */}
-        <div className="space-y-16">
-          <motion.h3
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeUp}
-            className="text-center text-3xl md:text-4xl font-bold"
-          >
-            How it works
-          </motion.h3>
-
-          <div className="relative">
-            <div ref={howItWorksContainerRef} className="grid grid-cols-1 md:grid-cols-2 gap-12 min-h-[840px]">
-              {/* Left column: How it works */}
-              <div className="space-y-24">
-                <h4 className="text-2xl font-semibold text-white/90 border-b border-white/10 pb-2">
-                  The Platform
-                </h4>
-                {howItWorks.map((step, idx) => (
-              <motion.div
-                    key={idx}
-                    variants={fadeUp}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                    className="flex items-start gap-6"
-                    ref={platformRefs[idx]}
-                  >
-                    <div className="flex flex-col items-center">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center border border-white/10">
-                        <span className="text-2xl font-bold">{step.step.split('.')[0]}</span>
-                      </div>
-                      <div className="h-16 w-0.5 bg-gradient-to-b from-white/10 to-transparent mt-2 hidden md:block"></div>
-                    </div>
-                    <div>
-                      <span className="text-2xl font-bold text-white/90 block mb-3">
-                        {step.step}
-                      </span>
-                      <p className="text-gray-300 text-lg leading-relaxed max-w-md">
-                        {step.text}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-                      </div>
-              
-              {/* Right column: How we work */}
-              <div className="space-y-24">
-                <h4 className="text-2xl font-semibold text-white/90 border-b border-white/10 pb-2">
-                  Our Approach
-                </h4>
-                {howWeWork.map((step, idx) => (
-                  <motion.div
-                    key={idx}
-                    variants={fadeUp}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                    className="flex items-start gap-6"
-                    ref={approachRefs[idx]}
-                  >
-                    <div className="flex flex-col items-center">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center border border-white/10">
-                        <span className="text-2xl font-bold">{idx + 1}</span>
-                      </div>
-                      <div className="h-16 w-0.5 bg-gradient-to-b from-white/10 to-transparent mt-2 hidden md:block"></div>
-                    </div>
-                    <div>
-                      <span className="text-2xl font-bold text-white/80 block mb-3">
-                        {step.step}
-                      </span>
-                      <p className="text-gray-300 text-lg leading-relaxed max-w-md">
-                        {step.text}
-                      </p>
-                  </div>
-              </motion.div>
-            ))}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <ShineEffect delay={0.5}>
+              <Button asChild size="lg" className="px-10 py-5 text-lg font-semibold bg-gradient-to-r from-white/90 via-gray-200/90 to-gray-400/90 hover:from-white hover:via-white hover:to-gray-300 text-black shadow-lg shadow-white/10">
+                <Link href="/contact" className="flex items-center gap-2">
+                  Schedule Your Demo
+                  <ArrowRight className="w-5 h-5 text-blue-600" />
+                </Link>
+              </Button>
+            </ShineEffect>
+            <Button asChild variant="outline" size="lg" className="px-10 py-5 text-lg font-semibold border-white/20 hover:bg-white/10 hover:border-white/40 transition-all duration-300">
+              <Link href="/ai-tools" className="flex items-center gap-2">
+                Browse AI Tools
+                <ArrowRight className="w-5 h-5 text-purple-400" />
+              </Link>
+            </Button>
           </div>
+          
+          <div className="flex items-center justify-center gap-8 pt-8 text-sm text-gray-400">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-emerald-400" />
+              No long-term contracts
             </div>
-
-            {/* Animated beams connecting the steps - positioned absolutely */}
-            {showBeams && (
-              <div className="absolute inset-0 pointer-events-none">
-                <svg className="absolute inset-0 w-full h-full">
-                  <defs>
-                    <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#ff4d4d" stopOpacity="0.2" />
-                      <stop offset="50%" stopColor="#ff0000" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="#ff4d4d" stopOpacity="0.2" />
-                    </linearGradient>
-                  </defs>
-                  
-                  {/* First connection - adjusted Y positions */}
-                  <path 
-                    d="M140,180 C300,180 500,180 700,180" 
-                    stroke="url(#redGradient)" 
-                    strokeWidth="3" 
-                    fill="none"
-                    className="connection-line"
-                  />
-                  
-                  {/* Second connection - adjusted Y positions */}
-                  <path 
-                    d="M140,380 C300,380 500,380 700,380" 
-                    stroke="url(#redGradient)" 
-                    strokeWidth="3" 
-                    fill="none"
-                    className="connection-line"
-                  />
-                  
-                  {/* Third connection - adjusted Y positions */}
-                  <path 
-                    d="M140,580 C300,580 500,580 700,580" 
-                    stroke="url(#redGradient)" 
-                    strokeWidth="3" 
-                    fill="none"
-                    className="connection-line"
-                  />
-                </svg>
-              </div>
-            )}
-          </div>
-
-          <div className="mt-16">
-            <WorkflowsCarousel />
-          </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-amber-400" />
+              Results in days
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-sky-400" />
+              Your data stays secure
         </div>
-
-        {/* Features (moved above testimonials) */}
-        <div className="space-y-8">
-          <motion.h3
-          initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeUp}
-            className="text-center text-3xl md:text-4xl font-bold"
-          >
-            Platform Features
-          </motion.h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((f, i) => (
-              <Card key={i} className="p-6 bg-transparent border-white/10 space-y-3 text-center">
-                <h4 className="text-lg font-semibold">{f.title}</h4>
-                <p className="text-gray-300 text-base leading-relaxed">{f.text}</p>
-                </Card>
-            ))}
           </div>
-        </div>
-
-        {/* Testimonials */}
-        <div className="space-y-8">
-          <motion.h3
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeUp}
-            className="text-center text-3xl md:text-4xl font-bold"
-          >
-            What our customers are saying
-          </motion.h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <Card key={i} className="p-6 bg-transparent border-white/10 space-y-4">
-                <p className="text-gray-300 text-base leading-relaxed">
-                  "AetherInc cut our reporting time by 80% and gave our analysts space to innovate."
-                </p>
-                <p className="text-sm text-gray-500">— TechOps Lead, Fortune 500</p>
-                </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* FAQ */}
-        <div className="space-y-8">
-          <motion.h3
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeUp}
-            className="text-center text-3xl md:text-4xl font-bold"
-          >
-            Frequently asked questions
-          </motion.h3>
-          <div className="max-w-3xl mx-auto space-y-4">
-            {faqs.map((faq, i) => (
-              <details key={i} className="bg-transparent border border-white/10 rounded-lg p-4">
-                <summary className="cursor-pointer text-lg font-medium" >{faq.q}</summary>
-                <p className="mt-2 text-gray-300 text-base leading-relaxed">{faq.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="text-center pt-16">
-          <Button asChild className="px-8 py-4 text-base font-semibold">
-            <Link href="/contact">Schedule a Consultation</Link>
-                </Button>
-              </div>
+        </motion.div>
       </div>
     </section>
   );

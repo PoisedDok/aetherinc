@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/database';
+import { prisma } from '@/lib/database';
 import { sendContactEmail } from '@/lib/contact';
+import { ApiError, ErrorType } from '@/lib/errorHandler';
+import { withSecureErrorHandler } from '@/app/api/errorHandler';
 
 interface ContactFormData {
   name: string;
@@ -12,25 +15,29 @@ interface ContactFormData {
   serviceType?: string;
 }
 
-export async function POST(request: NextRequest) {
+export const POST = withSecureErrorHandler(async (request: NextRequest) => {
   try {
     const data: ContactFormData = await request.json();
     
     // Validate required fields
     if (!data.name || !data.email || !data.subject || !data.message) {
-      return NextResponse.json(
-        { success: false, message: 'Missing required fields: name, email, subject, message' },
-        { status: 400 }
-      );
+      const missingFields = [];
+      if (!data.name) missingFields.push('name');
+      if (!data.email) missingFields.push('email');
+      if (!data.subject) missingFields.push('subject');
+      if (!data.message) missingFields.push('message');
+      
+      throw new ApiError('Missing required fields', ErrorType.VALIDATION, {
+        missingFields
+      });
     }
     
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
-      return NextResponse.json(
-        { success: false, message: 'Invalid email format' },
-        { status: 400 }
-      );
+      throw new ApiError('Invalid email format', ErrorType.VALIDATION, {
+        email: data.email
+      });
     }
     
     // Create contact inquiry in database
@@ -62,10 +69,8 @@ export async function POST(request: NextRequest) {
       // Still return success since we saved to database
     }
     
-    // Log analytics event
-    await logAnalyticsEvent('page_view', {
-      page: 'contact',
-      action: 'contact_form_submitted',
+    // Log analytics event instead of adding a synthetic page view so the dashboard reflects real data only.
+    await logContactFormEvent({
       serviceType: data.serviceType,
       company: data.company,
       hasPhone: !!data.phone
@@ -78,13 +83,10 @@ export async function POST(request: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Error processing contact form:', error);
-    return NextResponse.json(
-      { success: false, message: 'Failed to submit inquiry. Please try again.' },
-      { status: 500 }
-    );
+    // Let the error handler deal with this
+    throw error;
   }
-}
+});
 
 export async function GET(request: NextRequest) {
   try {
@@ -127,51 +129,49 @@ export async function GET(request: NextRequest) {
   }
 }
 
-async function logAnalyticsEvent(page: string, data: Record<string, unknown>) {
+// Log contact form submission as an AnalyticsEvent record so it shows up under "Events" in the dashboard
+async function logContactFormEvent(_extra: Record<string, unknown>) {
   try {
-    // Increment page views in Analytics table
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
-    const existingRecord = await db.analytics.findUnique({
+
+    const eventType = 'form_submit';
+    const elementId = 'contact_form';
+    const page = 'contact';
+
+    // Use `any` cast to avoid type issues until the Prisma client types regenerate.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const analyticsEventClient: any = (prisma as any).analyticsEvent;
+
+    const existing = await analyticsEventClient.findUnique({
       where: {
-        page_date: {
+        eventType_elementId_page_date: {
+          eventType,
+          elementId,
           page,
-          date: today
-        }
-      }
-    });
-    
-    if (existingRecord) {
-      await db.analytics.update({
-        where: {
-          page_date: {
-            page,
-            date: today
-          }
+          date: today,
         },
-        data: {
-          pageViews: existingRecord.pageViews + 1,
-          visitors: JSON.stringify({
-            ...JSON.parse(existingRecord.visitors),
-            [new Date().toISOString()]: data
-          })
-        }
+      },
+    });
+
+    if (existing) {
+      await analyticsEventClient.update({
+        where: { id: existing.id },
+        data: { count: existing.count + 1 },
       });
     } else {
-      await db.analytics.create({
+      await analyticsEventClient.create({
         data: {
+          eventType,
+          elementId,
+          elementName: 'Contact Form',
           page,
-          pageViews: 1,
-          uniqueViews: 1,
+          count: 1,
           date: today,
-          visitors: JSON.stringify({
-            [new Date().toISOString()]: data
-          })
-        }
+        },
       });
     }
   } catch (error) {
-    console.error('Failed to log analytics event:', error);
+    console.error('Failed to log contact form analytics event:', error);
   }
 } 
