@@ -7,17 +7,49 @@
 DOCKER="/Applications/Docker.app/Contents/Resources/bin/docker"
 DOCKER_COMPOSE="/Applications/Docker.app/Contents/Resources/bin/docker compose"
 
+# Stop any running containers
+echo "🛑 Stopping existing containers..."
+$DOCKER_COMPOSE -f docker-compose.prod.yml down || echo "No containers to stop"
+
 # Build the Docker image for production
 echo "🏗️ Building Docker image for production..."
 $DOCKER_COMPOSE -f docker-compose.prod.yml build
 
+# Check if build succeeded
+if [ $? -ne 0 ]; then
+  echo "❌ Build failed! Exiting."
+  exit 1
+fi
+
+# Get the name of the web service image
+IMAGE_NAME=$($DOCKER images --format "{{.Repository}}:{{.Tag}}" | grep "aetherinc_web" | head -1)
+if [ -z "$IMAGE_NAME" ]; then
+  echo "❌ Could not find built image. Looking for any recent builds..."
+  IMAGE_NAME=$($DOCKER images --format "{{.Repository}}:{{.Tag}}" | grep "web" | head -1)
+  
+  if [ -z "$IMAGE_NAME" ]; then
+    echo "❌ No suitable image found. Exiting."
+    exit 1
+  fi
+fi
+
+echo "✅ Found image: $IMAGE_NAME"
+
 # Tag the image
 echo "🏷️ Tagging Docker image..."
-$DOCKER tag aetherinc_web:latest aetherinc:production
+$DOCKER tag "$IMAGE_NAME" aetherinc:production
 
 # Save the image to a compressed tarball
 echo "📦 Saving Docker image to a compressed tarball..."
 $DOCKER save aetherinc:production | gzip > aetherinc-production.tar.gz
+
+# Verify the tarball was created
+if [ ! -f aetherinc-production.tar.gz ]; then
+  echo "❌ Failed to create Docker image tarball!"
+  exit 1
+fi
+
+echo "✅ Docker image saved to aetherinc-production.tar.gz ($(du -h aetherinc-production.tar.gz | cut -f1))"
 
 # Make sure .gitattributes includes LFS configuration for the Docker image
 if [ ! -f ".gitattributes" ] || ! grep -q "*.tar.gz filter=lfs" .gitattributes; then
@@ -44,6 +76,7 @@ echo "📤 Adding Docker image to Git..."
 git add aetherinc-production.tar.gz
 git add docker-compose.prod.yml
 git add scripts/ec2-deploy.sh
+git add .gitattributes 2>/dev/null || true
 
 # Commit the changes
 echo "💾 Committing changes..."
