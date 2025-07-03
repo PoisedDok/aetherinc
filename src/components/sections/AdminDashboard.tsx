@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Loader2, Users, Settings } from 'lucide-react';
+import { Loader2, Users, Settings, Mail } from 'lucide-react';
 
 // Real API functions for fetching data
 const fetchAnalytics = async () => {
@@ -22,6 +22,7 @@ const fetchAnalytics = async () => {
       waitlistCount: result.data.totalWaitlist,
       // newsArticleCount: result.data.totalNews,
       aiToolCount: result.data.totalTools,
+      contactFormsCount: result.data.totalContactForms,
       recentSignups: result.data.recentSignups
     };
   } catch (error) {
@@ -30,6 +31,7 @@ const fetchAnalytics = async () => {
       waitlistCount: 0,
       // newsArticleCount: 0,
       aiToolCount: 0,
+      contactFormsCount: 0,
       recentSignups: 0
     };
   }
@@ -88,6 +90,25 @@ const fetchAITools = async () => {
     return result.data || [];
   } catch (error) {
     console.error('Error fetching AI tools:', error);
+    return [];
+  }
+};
+
+const fetchContactForms = async () => {
+  try {
+    const response = await fetch('/api/contact');
+    if (!response.ok) {
+      throw new Error('Failed to fetch contact form submissions');
+    }
+    
+    const result = await response.json();
+    if (!result.success) {
+      throw new Error(result.message || 'Failed to fetch contact form submissions');
+    }
+    
+    return result.inquiries || [];
+  } catch (error) {
+    console.error('Error fetching contact forms:', error);
     return [];
   }
 };
@@ -421,6 +442,139 @@ const WaitlistManager = () => {
   );
 }
 
+const ContactFormsManager = () => {
+  const [contactForms, setContactForms] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedStatus, setSelectedStatus] = useState('all');
+
+  useEffect(() => {
+    const loadContactForms = async () => {
+      setIsLoading(true);
+      const data = await fetchContactForms();
+      setContactForms(data);
+      setIsLoading(false);
+    };
+    loadContactForms();
+  }, []);
+
+  // Filter contact forms by status
+  const filteredForms = selectedStatus === 'all' 
+    ? contactForms 
+    : contactForms.filter(form => form.status === selectedStatus);
+
+  const getStatusBadgeClass = (status: string) => {
+    switch (status) {
+      case 'NEW': return 'bg-blue-500/20 text-blue-300 border-blue-500/40';
+      case 'RESPONDED': return 'bg-green-500/20 text-green-300 border-green-500/40';
+      case 'CLOSED': return 'bg-gray-500/20 text-gray-300 border-gray-500/40';
+      default: return 'bg-gray-500/20 text-gray-300 border-gray-500/40';
+    }
+  };
+
+  const updateContactFormStatus = async (id: string, status: string) => {
+    try {
+      const response = await fetch(`/api/contact/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update status');
+      }
+
+      // Update local state
+      setContactForms(prev => 
+        prev.map(form => form.id === id ? { ...form, status } : form)
+      );
+      
+    } catch (error) {
+      console.error('Error updating contact form status:', error);
+      alert('Failed to update status. Please try again.');
+    }
+  };
+
+  return (
+    <Card className="bg-transparent border border-white/10">
+      <CardHeader className="flex flex-row items-center justify-between gap-4">
+        <CardTitle>Contact Form Submissions</CardTitle>
+        <select
+          value={selectedStatus}
+          onChange={(e) => setSelectedStatus(e.target.value)}
+          className="px-3 py-1 bg-gray-800 border border-gray-700 rounded text-sm text-white"
+        >
+          <option value="all">All Statuses</option>
+          <option value="NEW">New</option>
+          <option value="RESPONDED">Responded</option>
+          <option value="CLOSED">Closed</option>
+        </select>
+      </CardHeader>
+      <CardContent>
+        {isLoading ? (
+          <div className="flex justify-center py-8">
+            <Loader2 className="animate-spin h-6 w-6" />
+          </div>
+        ) : filteredForms.length > 0 ? (
+          <div className="space-y-4">
+            {filteredForms.map((form) => (
+              <div key={form.id} className="p-4 border border-white/10 rounded-lg bg-black/20">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold">{form.name}</span>
+                    <span className="text-gray-400 text-sm">({form.email})</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className={`px-2 py-0.5 rounded-full text-xs border ${getStatusBadgeClass(form.status)}`}>
+                      {form.status}
+                    </span>
+                    <span className="text-gray-400 text-xs">
+                      {new Date(form.createdAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                </div>
+                
+                {form.company && (
+                  <div className="text-sm text-gray-300 mb-2">
+                    <strong>Company:</strong> {form.company}
+                  </div>
+                )}
+                
+                {form.serviceType && (
+                  <div className="text-sm text-gray-300 mb-2">
+                    <strong>Interest:</strong> {form.serviceType}
+                  </div>
+                )}
+                
+                <div className="text-sm mb-4 border-l-2 border-gray-700 pl-3 py-1">
+                  {form.message}
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <select
+                    value={form.status}
+                    onChange={(e) => updateContactFormStatus(form.id, e.target.value)}
+                    className="px-2 py-1 text-xs bg-gray-800 border border-gray-700 rounded"
+                  >
+                    <option value="NEW">Mark as New</option>
+                    <option value="RESPONDED">Mark as Responded</option>
+                    <option value="CLOSED">Mark as Closed</option>
+                  </select>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-center text-gray-400 py-8">
+            No contact form submissions found.
+          </p>
+        )}
+      </CardContent>
+    </Card>
+  );
+};
+
 export default function AdminDashboard() {
   const [analytics, setAnalytics] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -441,7 +595,7 @@ export default function AdminDashboard() {
   
   return (
     <div className="space-y-6">
-       <div className="grid gap-4 md:grid-cols-2">
+       <div className="grid gap-4 md:grid-cols-3">
         <Card className="bg-transparent border border-white/10">
           <CardHeader>
             <CardTitle>Waitlist</CardTitle>
@@ -460,18 +614,31 @@ export default function AdminDashboard() {
             <p className="text-xs text-gray-400">Total tools listed</p>
           </CardContent>
         </Card>
+        <Card className="bg-transparent border border-white/10">
+          <CardHeader>
+            <CardTitle>Contact Forms</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold">{analytics.contactFormsCount || '...'}</div>
+            <p className="text-xs text-gray-400">Total inquiries</p>
+          </CardContent>
+        </Card>
       </div>
       
       <Tabs defaultValue="waitlist" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 bg-gray-900">
+        <TabsList className="grid w-full grid-cols-3 bg-gray-900">
           <TabsTrigger value="waitlist"><Users className="w-4 h-4 mr-2"/>Waitlist</TabsTrigger>
           <TabsTrigger value="ai-tools"><Settings className="w-4 h-4 mr-2"/>AI Tools</TabsTrigger>
+          <TabsTrigger value="contact-forms"><Mail className="w-4 h-4 mr-2"/>Contact Forms</TabsTrigger>
         </TabsList>
         <TabsContent value="waitlist" className="mt-4">
           <WaitlistManager />
         </TabsContent>
         <TabsContent value="ai-tools" className="mt-4">
-            <AIToolsManager/>
+          <AIToolsManager />
+        </TabsContent>
+        <TabsContent value="contact-forms" className="mt-4">
+          <ContactFormsManager />
         </TabsContent>
       </Tabs>
     </div>

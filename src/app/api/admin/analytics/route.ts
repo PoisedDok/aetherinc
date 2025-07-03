@@ -57,6 +57,9 @@ export async function GET(request: Request) {
     // Get total news articles count
     const totalNews = await prisma.newsArticle.count();
     
+    // Get total contact forms count
+    const totalContactForms = await prisma.contactForm.count();
+    
     // Get recent signups (last 7 days)
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
@@ -183,6 +186,7 @@ export async function GET(request: Request) {
       totalWaitlist,
       totalTools,
       totalNews,
+      totalContactForms,
       recentSignups,
       pageViews: {
         total: totalPageViews,
