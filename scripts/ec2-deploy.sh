@@ -7,41 +7,18 @@
 DOCKER="/Applications/Docker.app/Contents/Resources/bin/docker"
 DOCKER_COMPOSE="/Applications/Docker.app/Contents/Resources/bin/docker compose"
 
-# Stop any running containers
-echo "🛑 Stopping existing containers..."
-$DOCKER_COMPOSE -f docker-compose.prod.yml down || echo "No containers to stop"
+# Ensure buildx builder exists and is used
+if ! $DOCKER buildx inspect multiarch-builder >/dev/null 2>&1; then
+  echo "🛠️  Creating multiarch buildx builder (multiarch-builder)..."
+  $DOCKER buildx create --name multiarch-builder --use
+else
+  echo "🏗️  Using existing buildx builder (multiarch-builder)"
+  $DOCKER buildx use multiarch-builder
+fi
 
 # Build the Docker image for production
-echo "🏗️ Building Docker image for production..."
-$DOCKER_COMPOSE -f docker-compose.prod.yml build
-
-# Check if build succeeded
-if [ $? -ne 0 ]; then
-  echo "❌ Build failed! Exiting."
-  exit 1
-fi
-
-# Get the name of the web service image
-IMAGE_NAME=$($DOCKER images --format "{{.Repository}}:{{.Tag}}" | grep "aetherinc_web" | head -1)
-if [ -z "$IMAGE_NAME" ]; then
-  echo "❌ Could not find built image. Looking for any recent builds..."
-  IMAGE_NAME=$($DOCKER images --format "{{.Repository}}:{{.Tag}}" | grep "web" | head -1)
-  
-  if [ -z "$IMAGE_NAME" ]; then
-    echo "❌ No suitable image found. Exiting."
-    exit 1
-  fi
-fi
-
-echo "✅ Found image: $IMAGE_NAME"
-
-# Tag the image
-echo "🏷️ Tagging Docker image..."
-$DOCKER tag "$IMAGE_NAME" aetherinc:production
-
-# Save the image to a compressed tarball
-echo "📦 Saving Docker image to a compressed tarball..."
-$DOCKER save aetherinc:production | gzip > aetherinc-production.tar.gz
+echo "🏗️ Building cross-platform Docker image (linux/amd64)..."
+$DOCKER buildx build --platform linux/amd64 -t aetherinc:production --load -f Dockerfile .
 
 # Verify the tarball was created
 if [ ! -f aetherinc-production.tar.gz ]; then

@@ -8,6 +8,8 @@ services:
       - NODE_ENV=production
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/aether?schema=public
       - NEXTAUTH_URL=${NEXTAUTH_URL:-https://aetherinc.xyz}
+    ports:
+      - "3000:3000"
     depends_on:
       - db
     restart: unless-stopped
@@ -34,20 +36,6 @@ services:
       timeout: 5s
       retries: 5
       
-  # Nginx as reverse proxy
-  nginx:
-    image: nginx:alpine
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/ssl:/etc/nginx/ssl:ro
-      - ./nginx/www:/var/www/html
-    depends_on:
-      - web
-    restart: unless-stopped
-
 volumes:
   postgres_data:
     driver: local 
