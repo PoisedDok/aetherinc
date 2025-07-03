@@ -3,17 +3,21 @@
 # EC2 Deployment script for AetherInc
 # This script helps build and deploy the Docker image to an EC2 instance
 
+# Set the Docker path for Mac
+DOCKER="/Applications/Docker.app/Contents/Resources/bin/docker"
+DOCKER_COMPOSE="/Applications/Docker.app/Contents/Resources/bin/docker compose"
+
 # Build the Docker image for production
 echo "🏗️ Building Docker image for production..."
-docker compose -f docker-compose.prod.yml build
+$DOCKER_COMPOSE -f docker-compose.prod.yml build
 
 # Tag the image
 echo "🏷️ Tagging Docker image..."
-docker tag aetherinc_web:latest aetherinc:production
+$DOCKER tag aetherinc_web:latest aetherinc:production
 
 # Save the image to a compressed tarball
 echo "📦 Saving Docker image to a compressed tarball..."
-docker save aetherinc:production | gzip > aetherinc-production.tar.gz
+$DOCKER save aetherinc:production | gzip > aetherinc-production.tar.gz
 
 # Make sure .gitattributes includes LFS configuration for the Docker image
 if [ ! -f ".gitattributes" ] || ! grep -q "*.tar.gz filter=lfs" .gitattributes; then
