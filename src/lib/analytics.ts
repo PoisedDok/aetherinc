@@ -124,30 +124,30 @@ export const setupEventTracking = (): void => {
 // Analytics provider component
 export const initAnalytics = (): void => {
   if (typeof window === 'undefined') return;
-  
-  // Check if analytics are explicitly disabled
+
+  // Respect global disable flag
   if (process.env.NEXT_PUBLIC_ANALYTICS_DISABLED === 'true') {
     console.info('[Analytics] Analytics are disabled by configuration');
     return;
   }
-  
+
+  // Require cookie consent
+  const consent = localStorage.getItem('aether_cookie_consent');
+  if (consent !== 'accepted') {
+    console.info('[Analytics] Waiting for cookie consent…');
+    return;
+  }
+
   console.info('[Analytics] Initializing analytics');
-  
-  // Track initial page view
+
   trackPageView();
-  
-  // Set up event tracking
   setupEventTracking();
-  
-  // Track page views on route changes for SPA
-  const handleRouteChange = () => {
-    trackPageView();
-  };
-  
-  // Listen for Next.js route changes
+
+  const handleRouteChange = () => trackPageView();
+
   if ('next' in window) {
     const router = (window as any).next.router;
-    if (router && router.events) {
+    if (router?.events) {
       router.events.on('routeChangeComplete', handleRouteChange);
     }
   }

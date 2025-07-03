@@ -10,8 +10,8 @@ const DEFAULT_MAX_REQUESTS = 10;
 
 // Path-specific rate limits
 const PATH_RATE_LIMITS: Record<string, { windowSize: number; maxRequests: number }> = {
-  '/api/auth': { windowSize: 60, maxRequests: 5 },       // Stricter limits for auth
-  '/admin/login': { windowSize: 60, maxRequests: 5 },    // Stricter limits for login
+  '/api/auth': { windowSize: 60, maxRequests: 20 },      // Allow 20 auth attempts per minute
+  '/admin/login': { windowSize: 60, maxRequests: 20 },   // Allow 20 login attempts per minute
   '/api/contact': { windowSize: 60, maxRequests: 3 },    // Very strict for contact form (prevent spam)
   '/api/waitlist': { windowSize: 60, maxRequests: 3 },   // Very strict for waitlist (prevent spam)
 };

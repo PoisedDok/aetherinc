@@ -36,9 +36,9 @@ ENV NEXT_TELEMETRY_DISABLED 1
 ENV SKIP_TRANSFORM_CSS=true
 # Required environment variables for build
 ENV DATABASE_URL="postgresql://postgres:postgres@db:5432/aether?schema=public"
-ENV NEXTAUTH_URL="http://localhost:3000"
+ENV NEXTAUTH_URL="https://aetherinc.xyz"
 ENV NEXTAUTH_SECRET="temp_build_secret_not_for_production"
-ENV NEXT_PUBLIC_API_URL="http://localhost:3000"
+ENV NEXT_PUBLIC_API_URL="https://aetherinc.xyz"
 ENV ANALYTICS_ENABLED=true
 ENV CONTACT_FORM_ENABLED=true
 

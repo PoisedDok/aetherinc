@@ -67,6 +67,13 @@ export default function FloatingChat() {
         )}
       </button>
 
+      {/* Hint label when chat closed */}
+      {!open && (
+        <div className="fixed bottom-24 right-6 z-[60] px-3 py-1 bg-green-600 text-white text-xs rounded-full shadow-lg animate-bounce">
+          Ask&nbsp;Guru
+        </div>
+      )}
+
       {/* Chat Window */}
       {open && (
         <div

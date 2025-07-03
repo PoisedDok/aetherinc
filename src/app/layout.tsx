@@ -6,6 +6,8 @@ import { SessionProvider } from "@/components/SessionProvider";
 import dynamic from "next/dynamic";
 import { validateEnv } from '@/lib/env';
 
+const CookieConsentBanner = dynamic(() => import('@/components/CookieConsentBanner'), { ssr: false });
+
 const josefinSans = Josefin_Sans({ subsets: ["latin"], display: "swap", variable: "--font-josefin-sans" });
 
 // Avoid rendering on the server to prevent RSC boundary issues
@@ -145,6 +147,7 @@ export default function RootLayout({
           <AnalyticsProvider>
             <div className="container-responsive responsive-padding">
               {children}
+              <CookieConsentBanner />
             </div>
           </AnalyticsProvider>
           <FloatingChat />
