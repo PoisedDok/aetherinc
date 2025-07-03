@@ -137,7 +137,7 @@ export default function AboutPage() {
                       <Users className="h-6 w-6 text-white/80" />
                     </div>
                     <h3 className="text-lg font-semibold mb-2 text-white">Team</h3>
-                    <p className="text-gray-400">Sole Founder</p>
+                    <p className="text-gray-400">Solo Founder</p>
                   </Card>
                 </div>
               </div>
