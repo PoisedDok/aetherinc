@@ -10,7 +10,6 @@ import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { ArrowRight, ArrowLeft, Brain, Cpu, Shield, Zap, CheckCircle, Star, Sparkles } from "lucide-react"
 import Link from "next/link"
-import ReviewsMarquee from "@/components/sections/ReviewsMarquee";
 import { motion } from 'framer-motion';
 
 export default function ProductsPage() {
@@ -517,9 +516,6 @@ export default function ProductsPage() {
             </motion.div>
           </div>
         </section>
-
-        {/* Reviews Section - Consistent with other pages */}
-        <ReviewsMarquee />
 
         {/* Product Vision Section */}
         <ProductVision />
