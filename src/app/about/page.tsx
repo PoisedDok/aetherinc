@@ -66,8 +66,8 @@ export default function AboutPage() {
                   About <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">AetherInc</span>
                 </h1>
                 <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                  From a small town in India to the tech hub of Glasgow, discover the passionate 
-                  journey behind AetherInc's mission to revolutionize AI with privacy-first solutions.
+                Inspired by “aether,” the limitless fabric of space, we build AetherArena so you can harness powerful,
+                on-device AI with absolute privacy, self-learning AI universe—no cloud, no limits.
                 </p>
               </div>
             </div>
@@ -137,7 +137,7 @@ export default function AboutPage() {
                       <Users className="h-6 w-6 text-white/80" />
                     </div>
                     <h3 className="text-lg font-semibold mb-2 text-white">Team</h3>
-                    <p className="text-gray-400">2 Co-founders</p>
+                    <p className="text-gray-400">Sole Founder</p>
                   </Card>
                 </div>
               </div>

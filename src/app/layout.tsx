@@ -147,8 +147,8 @@ export default function RootLayout({
               {children}
             </div>
           </AnalyticsProvider>
+          <FloatingChat />
         </SessionProvider>
-        <FloatingChat />
       </body>
     </html>
   );

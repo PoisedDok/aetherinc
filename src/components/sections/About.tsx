@@ -35,10 +35,10 @@ export default function About({ aboutRef }: AboutProps) {
       linkedin: "https://linkedin.com/in/krish-dokania-56203b217/",
       quote: "From watching Iron Man to building our own Jarvis - sometimes the biggest dreams start with the simplest inspirations.",
       achievements: [
-        "Founded AetherInc at age 21",
+        "Robotics Engineer",
         "Selected for Business Bloom program",
         "Software Engineer at Glasgow University",
-        "Secured startup funding"
+        "Secured startup Grant"
       ],
       skills: [
         "Software Engineering",
@@ -73,13 +73,13 @@ export default function About({ aboutRef }: AboutProps) {
           className="text-center mb-16"
         >
           <Badge variant="outline" className="text-white/90 border-white/20 px-6 py-2 text-sm font-medium mb-6">
-            Meet the Visionaries
+            Meet the Visionary
           </Badge>
           <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">
-            The Minds Behind AetherInc
+            The Mind Behind AetherInc
           </h2>
           <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
-            Two brilliant minds from Glasgow University, united by a shared vision to make AI accessible, private, and revolutionary
+            A single relentless founder on a mission to bring privacy-first AI to everyone.
           </p>
         </motion.div>
 

@@ -98,11 +98,11 @@ export default function ProductsPage() {
 
             <ShineEffect delay={0.5}>
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                Smart AI <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">Without&nbsp;The&nbsp;Cloud</span>
+                Local AI <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">Under&nbsp;Your&nbsp;Control</span>
               </h1>
             </ShineEffect>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              Your personal AI that keeps your data private. No internet needed. No monthly fees.
+              AI that respects your privacy. Everything runs locally on your hardware. You own it completely.
             </p>
           </div>
         </section>
@@ -134,11 +134,11 @@ export default function ProductsPage() {
                 <ShineEffect>
                   <h2 className="text-4xl md:text-5xl font-bold mb-6">
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">GURU</span>
-                    <br />Smart&nbsp;Helper
+                    <br />Hardware&nbsp;Companion
                   </h2>
                 </ShineEffect>
                 <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-                  Ask questions, get help with work, or create content—all while keeping your information private.
+                  A specialized device like a Mac mini M4, designed for powerful local AI processing.
                 </p>
                 
                 <div className="space-y-4 mb-8">
@@ -209,7 +209,7 @@ export default function ProductsPage() {
                     <div className="text-center">
                       <Brain className="h-20 w-20 text-cyan-400 mx-auto mb-6" />
                       <div className="text-3xl font-bold text-white mb-3">GURU</div>
-                      <div className="text-gray-400 mb-6">Privacy-First AI Assistant</div>
+                      <div className="text-gray-400 mb-6">AI Hardware Device</div>
                       <div className="flex items-center justify-center gap-2 text-sm text-gray-300">
                         <Cpu className="h-4 w-4 text-yellow-400" />
                         NVIDIA Jetson Orin
@@ -291,11 +291,11 @@ export default function ProductsPage() {
               <ShineEffect delay={0.3}>
                 <h2 className="text-4xl md:text-5xl font-bold mb-6">
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">AetherArena</span>
-                  <br />For&nbsp;Business
+                  <br />AI&nbsp;+&nbsp;OS
                 </h2>
               </ShineEffect>
               <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                Manage all your team's AI helpers from one place. Keep company data safe.
+                A floating chat terminal with full device control, running entirely on your hardware. Install on any device or server.
               </p>
             </div>
 
@@ -321,24 +321,24 @@ export default function ProductsPage() {
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
                       <CheckCircle className="h-5 w-5 text-purple-400" />
-                      <span className="text-gray-300">Multi-device orchestration</span>
+                      <span className="text-gray-300">Modular service architecture</span>
                     </div>
                     {/* Rest of the enterprise features */}
                     <div className="flex items-center gap-3">
                       <CheckCircle className="h-5 w-5 text-cyan-400" />
-                      <span className="text-gray-300">Central management console</span>
+                      <span className="text-gray-300">Terminal with full device control</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <CheckCircle className="h-5 w-5 text-green-400" />
-                      <span className="text-gray-300">Role-based access control</span>
+                      <span className="text-gray-300">Custom agent deployment</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <CheckCircle className="h-5 w-5 text-yellow-400" />
-                      <span className="text-gray-300">Enterprise-grade encryption</span>
+                      <span className="text-gray-300">100% local processing</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <CheckCircle className="h-5 w-5 text-rose-400" />
-                      <span className="text-gray-300">Compliance and audit trails</span>
+                      <span className="text-gray-300">Personalized AI adaptation</span>
                     </div>
                   </div>
                 </Card>
@@ -483,10 +483,10 @@ export default function ProductsPage() {
                 <Card className="relative bg-transparent border-white/10 p-8 hover:bg-white/10 transition-all duration-300 group-hover:scale-[1.02]">
                   <div className="text-center">
                     <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Zap className="h-8 w-8 text-amber-400" />
+                      <Zap className="h-8 w-8 text-yellow-400" />
                     </div>
                     <h3 className="text-2xl font-bold mb-2 text-white">AetherPro</h3>
-                    <p className="text-gray-400 mb-4">Professional-grade AI computing for developers</p>
+                    <p className="text-gray-400 mb-4">Enhanced AetherArena with specialized modules for developers</p>
                     <Badge className="bg-white/10 text-white border-white/20 hover:bg-white/20">Q4 2025</Badge>
                   </div>
                 </Card>

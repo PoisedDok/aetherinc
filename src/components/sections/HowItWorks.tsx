@@ -130,7 +130,7 @@ export default function HowItWorks({ innerRef }: HowItWorksProps) {
             transition={{ duration: 0.6 }}
             className="heading-2 font-bold mb-6 text-center text-white"
           >
-            How GURU Works
+            How AetherArena Works
           </motion.h2>
           
           <motion.p 
@@ -140,7 +140,7 @@ export default function HowItWorks({ innerRef }: HowItWorksProps) {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="body-text text-gray-300 text-center max-w-3xl mx-auto mb-12"
           >
-            GURU transforms how you interact with AI by processing everything locally on-device, ensuring complete privacy and instant responses. With a powerful toolkit that includes browser automation, file management, web crawling, command-line execution, and API integration, GURU solves complex problems through simple conversation.
+            AetherArena transforms your computing experience with a local AI interface that gives you complete control of your device. Through natural conversation in its terminal-like interface, you can manage files, automate tasks, execute commands, and deploy custom agents—all while keeping your data completely private on your own hardware.
           </motion.p>
           
           {/* Video Player Section */}

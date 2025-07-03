@@ -21,9 +21,9 @@ export default function ProductVision() {
   const products = [
     {
       name: "GURU",
-      tagline: "Your Personal AI Assistant",
-      description: "Iron Man's Jarvis reimagined for the real world. A physical AI companion that processes everything locally.",
-      category: "Consumer Hardware",
+      tagline: "AI Hardware Companion",
+      description: "A specialized hardware device like a Mac mini M4, designed for local AI processing with complete privacy and powerful capabilities.",
+      category: "Hardware Device",
       availability: "Pre-order Q3 2025",
       icon: <Smartphone className="h-8 w-8" />,
       color: "gray",
@@ -56,37 +56,37 @@ export default function ProductVision() {
     },
     {
       name: "AetherArena",
-      tagline: "Self-Improving AI Platform",
-      description: "Brain-like architecture that learns and adapts. Enterprise-grade AI platform for serious computing power.",
-      category: "Enterprise Software",
+      tagline: "Local AI Operating System",
+      description: "A complete AI platform you install locally on your device or server. Features a terminal chat interface with full system control and modular, privacy-focused architecture.",
+      category: "Software Platform",
       availability: "Beta Q2 2025",
       icon: <Server className="h-8 w-8" />,
       color: "slate",
       features: [
-        "Self-improving neural architecture",
-        "Brain-inspired learning modules", 
-        "Scalable computing cluster support",
-        "Custom model training pipeline",
-        "Enterprise security compliance",
-        "API & SDK for developers",
-        "Multi-tenant architecture",
-        "Advanced analytics dashboard"
+        "Floating chat interface",
+        "Enhanced Gemini CLI terminal", 
+        "Full device workspace control",
+        "Agent orchestration system",
+        "Modular microservice architecture",
+        "Install/uninstall AI services like apps",
+        "Personalized learning system",
+        "Completely offline capable"
       ],
       useCases: [
-        "Hospitals processing medical imaging",
-        "Schools providing personalized education",
-        "Enterprises automating complex workflows",
-        "Research institutions running AI experiments"
+        "Software engineers boosting productivity",
+        "Medical professionals processing patient data",
+        "Researchers analyzing complex information",
+        "Companies enhancing employee capabilities"
       ],
       specifications: {
-        "Architecture": "Distributed microservices",
-        "Models": "LLama, GPT-4 compatible APIs",
-        "Deployment": "On-premise, hybrid cloud",
-        "Security": "SOC 2, HIPAA, GDPR compliant",
-        "Scaling": "Auto-scaling clusters",
-        "APIs": "RESTful, GraphQL, WebSocket",
-        "Monitoring": "Real-time performance metrics",
-        "Support": "24/7 enterprise support"
+        "Architecture": "Local microservices",
+        "Interface": "Terminal + floating chat",
+        "Models": "Compatible with various LLM formats",
+        "Deployment": "Local device or on-premise server",
+        "Security": "Fully private, no data leaves device",
+        "Extensibility": "Custom service modules along with various open source modules",
+        "Learning": "Personalized adaptation and self improving abilities",
+        "Support": "Regular updates and new modules"
       }
     }
   ];
@@ -115,8 +115,8 @@ export default function ProductVision() {
             GURU & AetherArena
           </h2>
           <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
-            Two revolutionary products defining the future of privacy-first AI. 
-            From personal assistants to enterprise platforms - we're building the entire ecosystem.
+            Revolutionary privacy-first AI solutions – one powerful hardware device and one 
+            intelligent software platform that work seamlessly together.
           </p>
         </motion.div>
 
@@ -210,8 +210,7 @@ export default function ProductVision() {
               <BrainCircuit className="h-12 w-12 text-cyan-400 mx-auto mb-4" />
               <h4 className="text-2xl font-bold text-white mb-4">Our Vision</h4>
               <p className="text-gray-300 text-lg leading-relaxed">
-                "To democratize AI access through privacy-first solutions that put users in control of their data. 
-                Every interaction should be private, every computation should be local, and every person should have access to the most advanced AI technology - without compromising their privacy or security."
+                "To create a truly personal AI experience that never compromises privacy. AetherArena and GURU together give you the power of an AI assistant that learns about you and your world, adapts to your needs, and remains completely under your control - with all data staying on your device."
               </p>
               <div className="flex items-center justify-center gap-2 mt-6">
                 <span className="text-gray-400 text-sm">— Krish Dokania, CEO & Founder</span>

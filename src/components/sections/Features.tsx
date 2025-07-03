@@ -34,73 +34,73 @@ const WalletIcon = <Wallet className="h-6 w-6 text-pink-400" />;
 const useCases: UseCase[] = [
   {
     icon: BotIcon,
-    title: "Personal Privacy Companion for Digital Nomads",
-    description: "Meet GURU: a pocket-sized, NVIDIA Jetson-powered ally.",
-    problem: "Digital nomads thrive on freedom, working from cafes, airports, and co-working hubs. But unsecured Wi-Fi turns cloud-based tools into ticking time bombs—exposing sensitive data to hackers.",
-    solution: "It delivers real-time translation, task management, and secure document processing—no internet required. Pair it with a mic and camera for hands-free brilliance, and it's the ultimate travel companion for the untethered worker.",
+    title: "Personal AI Workspace Assistant",
+    description: "Your local AI companion that's always ready.",
+    problem: "Traditional AI assistants send your data to the cloud, risking privacy and requiring constant internet. When servers go down, your productivity stops.",
+    solution: "AetherArena operates entirely on your device. The floating terminal interface gives you AI assistance for coding, research, and content creation—all without sending your data anywhere.",
     className: "lg:col-span-2",
     background: <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-black to-black opacity-50 group-hover/bento:opacity-70 transition-opacity"></div>
   },
   {
     icon: ShieldCheckIcon,
-    title: "Secure Healthcare Assistant for Clinics",
-    description: "GURU steps in as a medical marvel.",
-    problem: "Clinics need real-time patient insights to save lives, but cloud uploads risk catastrophic breaches under HIPAA and GDPR. Compliance isn't negotiable—it's everything.",
-    solution: "Equipped with sensors (think pulse oximeters), a mic for transcription, and OmniParser to scan notes or images, it processes vitals and flags issues—all locally. It's a doctor's trusted, silent partner.",
+    title: "Secure Healthcare Assistant",
+    description: "Privacy-first medical aide.",
+    problem: "Healthcare professionals need AI help with patient data, but cloud solutions risk exposing sensitive information and violating HIPAA regulations.",
+    solution: "With AetherArena, doctors can process patient records, analyze medical images, and draft documents—all locally. Data never leaves the hospital network, ensuring total privacy compliance.",
     className: "lg:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-green-900/20 to-transparent"></div>
   },
   {
     icon: GaugeIcon,
-    title: "Hands-Free Field Technician Co-Pilot",
-    description: "GURU goes rugged.",
-    problem: "Field techs on oil rigs or wind farms battle breakdowns in dead zones—no internet, no backup. Delays mean lost revenue and rising stakes.",
-    solution: "Worn with a camera and mic, it uses OmniParser to diagnose gear on the spot and overlays AR repair guides. LangChain digs up manuals instantly—all offline. It's a lifeline when the grid can't help.",
+    title: "Developer's Command Center",
+    description: "Code faster with full system control.",
+    problem: "Developers lose time switching between tools, writing boilerplate code, and managing system tasks across multiple terminals and interfaces.",
+    solution: "AetherArena's terminal interface integrates with your development environment, providing code completion, project scaffolding, automated testing, and full system command capabilities—all through natural conversation.",
     className: "lg:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-red-900/20 to-transparent"></div>
   },
   {
     icon: BookOpenIcon,
-    title: "Accessible Education Tutor for Underserved Communities",
-    description: "GURU becomes a tireless tutor.",
-    problem: "Kids in rural or low-income areas are locked out of personalized learning—cost and connectivity gaps turn education into a privilege, not a right.",
-    solution: "Offline, it delivers adaptive STEM lessons, real-time feedback, and speech-to-text for accessibility. Teachers tweak it to fit local needs, leveling the playing field.",
+    title: "Offline Research Assistant",
+    description: "Knowledge access anywhere.",
+    problem: "Researchers and students need AI to process and analyze large volumes of information, but can't always rely on internet access or cloud-based tools.",
+    solution: "With locally installed knowledge bases, AetherArena helps analyze documents, generate literature reviews, and create research summaries—even in remote fieldwork situations with no internet.",
     className: "lg:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-blue-900/20 to-transparent"></div>
   },
   {
     icon: BriefcaseIcon,
-    title: "Developer Playground for Privacy-First Apps",
-    description: "GURU is their canvas.",
-    problem: "Developers hunger for AI tools, but cloud costs, latency, and privacy risks stifle their creativity. They need freedom, not shackles.",
-    solution: "Powered by Ollama, LangChain, and Jetson Orin, it's an open platform for building smart home controls, robotics, or IoT apps—all local. AetherInc's SDK makes it a breeze to customize.",
+    title: "Custom AI Module Platform",
+    description: "Expand capabilities as needed.",
+    problem: "Standard AI tools force you into a one-size-fits-all solution that either has too many features you don't need or lacks critical functionality.",
+    solution: "AetherArena's modular architecture lets you install only the AI services you need—from document processing to data analysis to creative tools—like apps on your phone, customized for your specific requirements.",
     className: "lg:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-cyan-900/20 to-transparent"></div>
   },
   {
     icon: WalletIcon,
-    title: "Personal Finance Wingman for Gig Workers",
-    description: "GURU is their offline money mentor.",
-    problem: "Gig workers swim in chaos—irregular pay, tax headaches, and budgeting woes. Cloud finance apps promise help but sell out their data. Trust is shattered.",
-    solution: "It tracks earnings, forecasts taxes, and scans receipts with OmniParser—all voice-activated and leak-proof. It's a CPA that fits in your pocket.",
+    title: "Financial Planning System",
+    description: "Your private money advisor.",
+    problem: "Financial tools with AI capabilities collect sensitive financial data and often have subscription fees that add up over time.",
+    solution: "AetherArena processes all your financial information locally. Use voice commands to track expenses, forecast budgets, or plan investments—with total privacy and no recurring costs.",
     className: "lg:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-pink-900/20 to-transparent"></div>
   },
   {
     icon: UsersIcon,
-    title: "Elderly Care Companion for Aging Populations",
-    description: "GURU is a friendly, offline caregiver.",
-    problem: "Seniors living solo need daily support and emergency alerts, but internet-reliant devices feel invasive and impersonal. They deserve warmth, not wires.",
-    solution: "It reminds them of meds, guides exercises, and detects falls with sensors—alerting family if trouble strikes. Its conversational charm melts loneliness away.",
+    title: "Team Productivity Hub",
+    description: "Enterprise efficiency without compromise.",
+    problem: "Companies want AI tools that boost productivity but worry about sensitive data being processed on external servers outside their control.",
+    solution: "Deploy AetherArena on your company server for a team productivity solution that keeps all data in-house. Custom agents help each department while IT maintains complete control over the system.",
     className: "lg:col-span-1",
     background: <div className="absolute inset-0 bg-gradient-radial from-indigo-900/20 to-transparent"></div>
   },
   {
     icon: GlobeIcon,
-    title: "Real-Time Translator for Global Travelers",
-    description: "GURU is a pocket translator.",
-    problem: "Travelers stumble over language barriers in remote corners with no Wi-Fi. Miscommunication turns adventure into aggravation.",
-    solution: "With a mic and camera, it decodes speech and signs offline via OmniParser, beaming translations to your phone. Lightweight and relentless, it's built for the road.",
+    title: "Universal Terminal Interface",
+    description: "Control everything through conversation.",
+    problem: "Managing your digital life means juggling dozens of apps, each with different interfaces and workflows, creating constant context-switching and friction.",
+    solution: "AetherArena's terminal provides a unified interface to control your entire digital environment. Launch apps, process files, write code, and automate tasks—all through a single conversational interface.",
     className: "lg:col-span-2",
     background: <div className="absolute inset-0 bg-gradient-to-br from-orange-900/20 via-black to-black opacity-50 group-hover/bento:opacity-70 transition-opacity"></div>
   },
@@ -136,12 +136,12 @@ export default function Features({ featuresRef }: FeaturesProps) {
           <h2 
             className="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400"
           >
-            Why GURU is Revolutionary
+            Why AetherArena is Revolutionary
           </h2>
           <p 
             className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
           >
-            Your digital companion for research, data analysis, and everyday challenges. GURU combines powerful capabilities with an intuitive interface that understands what you need and delivers results instantly.
+            An AI architecture that runs locally on your hardware, giving you full device control through a simple conversational interface, all while keeping your data completely private.
           </p>
         </motion.div>
 

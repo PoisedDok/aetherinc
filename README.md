@@ -142,6 +142,39 @@ aetherinc/
    - Website: http://localhost:3000
    - Admin Panel: http://localhost:3000/admin
 
+### Docker Quick Start 🚢
+
+Run the full application (Next.js + PostgreSQL) locally in production mode using Docker:
+
+```bash
+# Build & start the stack
+docker compose down && docker compose up -d --build
+
+# On macOS without the docker-compose shim you can use the full path:
+/Applications/Docker.app/Contents/Resources/bin/docker compose down && \
+  /Applications/Docker.app/Contents/Resources/bin/docker compose build && \
+  /Applications/Docker.app/Contents/Resources/bin/docker compose up -d
+
+# Tail logs
+docker compose logs -f web
+```
+
+The `docker-entrypoint.sh` script will:
+
+1. Wait for Postgres to accept connections
+2. Run `prisma migrate deploy` **and** `prisma db push` to guarantee every table exists (fixes the previous `terminal_chats` missing-table issue)
+3. Seed the database via `prisma/seed.cjs` (creates admin user, AI tools, etc.)
+
+👉 If you see `terminal_chats table created successfully` you know the analytics patch has run correctly.
+
+---
+
+## 🔥 What's New (2025-07-03)
+
+1. **Analytics Fix** – The missing `terminal_chats` table is auto-created during seeding, restoring page & chat analytics in Docker.
+2. **Navbar CTA** – "Join Waitlist" ➜ **Get Started** (links to `/contact`).
+3. **Unlimited Admin Chat** – When logged-in as an `ADMIN`, the AetherArena terminal no longer enforces the five-message demo limit.
+
 ---
 
 ## 📊 Database Schema

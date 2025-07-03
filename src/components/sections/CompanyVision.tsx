@@ -15,19 +15,19 @@ export default function CompanyVision() {
     {
       icon: <Shield className="h-8 w-8 text-blue-400" />,
       title: "Privacy First",
-      description: "We believe your data belongs to you. Every AI process happens locally on your device, ensuring complete privacy and security.",
+      description: "We believe your data belongs to you. Every AI process runs locally on your device, so your information never leaves your control.",
       gradient: "from-blue-500/10 to-cyan-500/5"
     },
     {
       icon: <Heart className="h-8 w-8 text-pink-400" />,
       title: "Human-Centered AI",
-      description: "Technology should serve humanity, not the other way around. We build AI that enhances human capability while preserving human agency.",
+      description: "Technology should serve you, not the other way around. Our AI enhances your capabilities while keeping you in full control of your data and decisions.",
       gradient: "from-purple-500/10 to-pink-500/5"
     },
     {
       icon: <Globe className="h-8 w-8 text-green-400" />,
       title: "Universal Access",
-      description: "Revolutionary AI shouldn't be limited to big corporations. We're democratizing access to powerful AI technology for everyone.",
+      description: "Everyone deserves powerful AI that's truly personal. AetherArena brings advanced AI capabilities to your device without compromise or subscription fees.",
       gradient: "from-green-500/10 to-emerald-500/5"
     }
   ];
@@ -160,8 +160,8 @@ export default function CompanyVision() {
                     complete privacy and local processing?
                   </p>
                   <p>
-                    Founded by two University of Glasgow students, our journey began with watching Iron Man 
-                    for the fifth time and asking "Why not build Jarvis, but better?" From that moment, 
+                    Founded by a University of Glasgow student, our journey began with watching Iron Man 
+                    and asking "Why not build Jarvis, but better?" From that moment, 
                     we've been dedicated to creating AI that truly serves its users.
                   </p>
                   <p>

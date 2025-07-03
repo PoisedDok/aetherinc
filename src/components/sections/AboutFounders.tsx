@@ -63,15 +63,15 @@ export default function AboutFounders() {
             />
             <Badge variant="outline" className="relative text-white/90 border-white/20 px-6 py-2 text-sm font-medium backdrop-blur-sm bg-black/30">
               <Sparkles className="w-4 h-4 mr-2" />
-              Meet the Team
+              Meet the Founder
             </Badge>
           </div>
           
           <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-            The Minds Behind <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">AetherInc</span>
+            The Mind Behind <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">AetherInc</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            Two brilliant minds from the University of Glasgow, united by a shared vision 
+            A brilliant mind from the University of Glasgow, with a vision 
             to make AI accessible, private, and revolutionary.
           </p>
         </motion.div>

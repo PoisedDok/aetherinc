@@ -145,7 +145,7 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
             </Button>
           </motion.div>
 
-          {/* Join Waitlist Button */}
+          {/* Get Started Button */}
             <motion.div 
               className="relative"
               initial={{ opacity: 0, scale: 0.8 }}
@@ -162,16 +162,6 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
                 duration={8}
             />
             <Button
-              onClick={() => {
-                if (waitlistRef && scrollToSection) {
-                  scrollToSection(waitlistRef);
-                } else {
-                  const waitlistSection = document.querySelector('[data-section="waitlist"]');
-                  if (waitlistSection) {
-                    waitlistSection.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }
-              }}
               className={cn(
                   "relative font-semibold px-6 py-2 rounded-full transition-all duration-500 text-sm btn-cyber",
                 isScrolled
@@ -179,8 +169,11 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
                     : "bg-gradient-to-r from-white/10 to-cyan-500/10 text-white border-white/20 hover:border-cyan-400/50"
               )}
               size="sm"
+              asChild
             >
-                <span className="relative z-10">Join Waitlist</span>
+                <Link href="/contact" className="relative z-10">
+                  Get Started
+                </Link>
               </Button>
             </motion.div>
           </div>
