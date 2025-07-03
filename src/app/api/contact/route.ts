@@ -65,7 +65,7 @@ export const POST = withSecureErrorHandler(async (request: NextRequest) => {
     });
     
     if (!emailResult.success) {
-      console.error('Failed to send email:', emailResult.error);
+      console.error('Failed to send email');
       // Still return success since we saved to database
     }
     

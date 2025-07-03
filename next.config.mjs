@@ -68,10 +68,10 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   
-  // Skip ESLint during builds for faster deployments
-  // Consider enabling this in development environment instead
+  // Enable ESLint during builds
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false, // Run ESLint during builds
+    dirs: ['src'], // Only run ESLint on the src directory
   },
   
   transpilePackages: ['motion'],
@@ -97,30 +97,36 @@ const nextConfig = {
     pagesBufferLength: 5,
   },
   
-  // Disable TypeScript checking during build
+  // Enable TypeScript checking during build
   typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
-    ignoreBuildErrors: true,
+    // Enable TypeScript type checking during builds
+    ignoreBuildErrors: false,
   },
 
-  // Custom webpack adjustments
+  // Custom webpack adjustments to fix CSS processing in Docker
   webpack: (config) => {
-    // Check for SKIP_MINIMIZATION environment variable to disable all minimizers
-    // This is useful for Docker builds where CSS minimization causes errors
-    if (process.env.SKIP_MINIMIZATION === 'true') {
-      if (config.optimization) {
-        config.optimization.minimize = false;
-        config.optimization.minimizer = [];
-      }
-    } else if (Array.isArray(config.optimization?.minimizer)) {
-      // Local/CI builds keep JS minification while dropping only CssMinimizer.
+    // Always disable CSS minimization to avoid CSS parsing issues
+    if (config.optimization && Array.isArray(config.optimization.minimizer)) {
       config.optimization.minimizer = config.optimization.minimizer.filter(
         (plugin) => plugin.constructor?.name !== 'CssMinimizerPlugin'
       );
     }
+    
+    // Add special handling for globals.css to treat it as raw CSS
+    config.module.rules.forEach((rule) => {
+      if (rule.oneOf) {
+        rule.oneOf.forEach((r) => {
+          if (r.test && r.test.toString().includes('css') && !r.test.toString().includes('module')) {
+            if (r.issuer && r.issuer.and && r.issuer.and.length > 0) {
+              r.issuer.and = r.issuer.and.filter(
+                (issuer) => !(issuer.toString().includes('src/app/globals.css'))
+              );
+            }
+          }
+        });
+      }
+    });
+    
     return config;
   },
 };

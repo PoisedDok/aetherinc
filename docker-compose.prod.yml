@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # Next.js web application
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/aether?schema=public
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-https://aetherinc.xyz}
+    depends_on:
+      - db
+    restart: unless-stopped
+    volumes:
+      - ./scripts:/app/scripts
+    entrypoint: ["/app/scripts/docker-entrypoint.sh"]
+    command: ["node", "server.js"]
+    # Not exposing directly to host, only through Nginx
+
+  # PostgreSQL database
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=aether
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      
+  # Nginx as reverse proxy
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./nginx/www:/var/www/html
+    depends_on:
+      - web
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local 

@@ -38,7 +38,6 @@ export const metadata: Metadata = {
   creator: "AetherInc Limited",
   publisher: "AetherInc Limited",
   category: "Technology",
-  colorScheme: "dark",
   openGraph: {
     title: "AetherInc - Privacy-First AI Solutions | GURU & AetherArena",
     description: "Scottish AI startup building GURU personal AI assistant and AetherArena self-improving platform. Iron Man-inspired vision meets cutting-edge local AI technology.",
@@ -92,6 +91,7 @@ export const viewport: Viewport = {
   initialScale: 0.9,
   maximumScale: 5,
   viewportFit: 'cover',
+  colorScheme: 'dark',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#000000' },
     { media: '(prefers-color-scheme: dark)', color: '#000000' }

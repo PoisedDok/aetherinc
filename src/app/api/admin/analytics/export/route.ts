@@ -5,6 +5,9 @@ import { authOptions } from '@/lib/auth';
 import { ApiError, ErrorType } from '@/lib/errorHandler';
 import { withSecureErrorHandler } from '@/app/api/errorHandler';
 
+// Add export configuration to indicate this route is dynamic
+export const dynamic = 'force-dynamic';
+
 async function checkAdminAuth() {
   const session = await getServerSession(authOptions);
   if (!session || session.user.role !== 'ADMIN') {
