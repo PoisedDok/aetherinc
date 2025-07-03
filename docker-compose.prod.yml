@@ -3,15 +3,16 @@ version: '3.8'
 services:
   # Next.js web application
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/${GITHUB_REPOSITORY:-aetherinc/aetherinc}:latest
     env_file:
       - .env.production
     environment:
       - NODE_ENV=production
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/aether?schema=public
       - NEXTAUTH_URL=${NEXTAUTH_URL:-https://aetherinc.xyz}
+      - NEXT_PUBLIC_API_URL=https://aetherinc.xyz
+      - ANALYTICS_ENABLED=true
+      - CONTACT_FORM_ENABLED=true
     depends_on:
       - db
     restart: unless-stopped
