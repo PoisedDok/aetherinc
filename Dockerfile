@@ -71,6 +71,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/scripts/seed.mjs ./scripts/
+# Copy Excel file if it exists
+COPY --from=builder --chown=nextjs:nodejs /app/AI_Tools.xlsx* ./
 
 # Run database migrations during startup
 COPY --from=builder --chown=nextjs:nodejs /app/scripts/docker-entrypoint.sh ./scripts/

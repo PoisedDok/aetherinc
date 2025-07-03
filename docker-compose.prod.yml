@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    env_file:
+      - .env.production
     environment:
       - NODE_ENV=production
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/aether?schema=public
@@ -15,6 +17,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./scripts:/app/scripts
+      - ./AI_Tools.xlsx:/app/AI_Tools.xlsx
     entrypoint: ["/app/scripts/docker-entrypoint.sh"]
     command: ["node", "server.js"]
     # Not exposing directly to host, only through Nginx

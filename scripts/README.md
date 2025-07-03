@@ -1,6 +1,59 @@
 # Scripts Directory
 
-This directory contains essential scripts for managing the AetherInc project.
+This directory contains various utility scripts for the Aether Inc. project.
+
+## Database Scripts
+
+- `seed.mjs` - Seeds the database with initial data including admin user and AI tools
+- `db-setup.sh` - Sets up the database for development
+- `import-excel-tools.mjs` - Imports AI tools from an Excel file
+- `check-tools-count.mjs` - Checks how many AI tools are in the database
+- `update-admin-password.mjs` - Updates the admin password
+
+## Deployment Scripts
+
+- `deploy.sh` - Deploys the application
+- `ec2-deploy.sh` - Deploys the application to EC2
+- `docker-entrypoint.sh` - Entrypoint script for Docker
+- `start-production.mjs` - Starts the application in production mode
+- `verify-build.mjs` - Verifies the build
+
+## Excel Import Functionality
+
+The application can import AI tools from an Excel file. The Excel file should be named `AI_Tools.xlsx` and placed in the root directory of the project.
+
+### Excel File Format
+
+The Excel file should have the following columns:
+- `Name` (required) - The name of the tool
+- `Category` (required) - The category of the tool
+- `Type` - The type of the tool (e.g., Open Source, Paid)
+- `License` - The license of the tool
+- `Description` - A description of the tool
+- `URL` - The URL of the tool
+- `Pricing` - The pricing information of the tool
+
+### Using the Excel Import
+
+There are two ways to use the Excel import functionality:
+
+1. **During Development:**
+   - Place the `AI_Tools.xlsx` file in the root directory
+   - Run `npm run db:seed` to seed the database with the tools from the Excel file
+
+2. **In Docker:**
+   - Place the `AI_Tools.xlsx` file in the root directory
+   - The Docker container will automatically import the tools during startup
+
+### Checking Imported Tools
+
+To check how many tools are in the database, run:
+
+```bash
+npm run db:check-tools
+```
+
+This will show the total number of tools and a breakdown by category.
 
 ## Essential Scripts
 

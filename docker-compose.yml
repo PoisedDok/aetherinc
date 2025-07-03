@@ -19,6 +19,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./scripts:/app/scripts
+      - ./AI_Tools.xlsx:/app/AI_Tools.xlsx
     entrypoint: ["/app/scripts/docker-entrypoint.sh"]
     command: ["node", "server.js"]
 
