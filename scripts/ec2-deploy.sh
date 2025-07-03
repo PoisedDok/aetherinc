@@ -16,17 +16,21 @@ else
   $DOCKER buildx use multiarch-builder
 fi
 
-# Build the Docker image for production
-echo "🏗️ Building cross-platform Docker image (linux/amd64)..."
-$DOCKER buildx build --platform linux/amd64 -t aetherinc:production --load -f Dockerfile .
+# Build the Docker image for production and export it as a tarball (AMD64 only)
+echo "🏗️ Building AMD64 Docker image and exporting to tar..."
+$DOCKER buildx build --platform linux/amd64 -t aetherinc:production \
+  --output type=tar,dest=aetherinc-production-amd64.tar -f Dockerfile .
+
+# Compress the tarball for transfer
+gzip -f aetherinc-production-amd64.tar
 
 # Verify the tarball was created
-if [ ! -f aetherinc-production.tar.gz ]; then
+if [ ! -f aetherinc-production-amd64.tar.gz ]; then
   echo "❌ Failed to create Docker image tarball!"
   exit 1
 fi
 
-echo "✅ Docker image saved to aetherinc-production.tar.gz ($(du -h aetherinc-production.tar.gz | cut -f1))"
+echo "✅ Docker image saved to aetherinc-production-amd64.tar.gz ($(du -h aetherinc-production-amd64.tar.gz | cut -f1))"
 
 # Make sure .gitattributes includes LFS configuration for the Docker image
 if [ ! -f ".gitattributes" ] || ! grep -q "*.tar.gz filter=lfs" .gitattributes; then
@@ -50,14 +54,14 @@ fi
 
 # Add the Docker image to git
 echo "📤 Adding Docker image to Git..."
-git add aetherinc-production.tar.gz
+git add aetherinc-production-amd64.tar.gz
 git add docker-compose.prod.yml
 git add scripts/ec2-deploy.sh
 git add .gitattributes 2>/dev/null || true
 
 # Commit the changes
 echo "💾 Committing changes..."
-git commit -m "Add production Docker image for EC2 deployment"
+git commit -m "Add AMD64 production Docker image for EC2 deployment"
 
 # Push to remote repository
 echo "🚀 Pushing to remote repository..."
@@ -69,7 +73,7 @@ echo "1. On your EC2 instance, pull the latest repository changes:"
 echo "   git pull origin main"
 echo ""
 echo "2. Extract the Docker image:"
-echo "   gunzip -c aetherinc-production.tar.gz | docker load"
+echo "   gunzip -c aetherinc-production-amd64.tar.gz | docker load"
 echo ""
 echo "3. Make sure you have the .env.production file in place with proper values"
 echo ""
