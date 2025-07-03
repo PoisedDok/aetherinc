@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     google: 'google-site-verification-token',
   },
   alternates: {
-    canonical: 'https://aetherinc.com',
+    canonical: 'https://aetherinc.xyz',
   },
   other: {
     'company-registration': 'SC851680',
@@ -125,7 +125,7 @@ export default function RootLayout({
               "logo": "https://aetherinc.xyz/logo.jpg",
               "sameAs": [
                 "https://twitter.com/aether_inc_ai",
-                "https://linkedin.com/company/aetherinc"
+                "https://www.linkedin.com/company/your-wordsmith"
               ],
               "founder": {
                 "@type": "Person",

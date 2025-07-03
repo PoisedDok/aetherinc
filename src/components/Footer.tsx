@@ -48,7 +48,7 @@ const social: SocialLink[] = [
   },
   {
     label: 'LinkedIn',
-    href: 'https://linkedin.com',
+    href: 'https://www.linkedin.com/company/your-wordsmith',
     icon: <Linkedin size={20} />,
   },
   {
