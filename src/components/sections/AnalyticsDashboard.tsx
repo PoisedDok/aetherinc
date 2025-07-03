@@ -45,6 +45,8 @@ export default function AnalyticsDashboard() {
     start: '',
     end: ''
   });
+  const [isClearing, setIsClearing] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
   
   // Format a date to YYYY-MM-DD
   const formatDate = (date: Date): string => {
@@ -97,7 +99,10 @@ export default function AnalyticsDashboard() {
       if (startDate) queryParams.append('startDate', startDate);
       if (endDate) queryParams.append('endDate', endDate);
       
-      const response = await fetch(`/api/admin/analytics?${queryParams.toString()}`);
+      // Get the base URL from window location to handle Docker environment correctly
+      const baseUrl = window.location.origin;
+      
+      const response = await fetch(`${baseUrl}/api/admin/analytics?${queryParams.toString()}`);
       
       if (!response.ok) {
         throw new Error('Failed to fetch analytics data');
@@ -124,7 +129,10 @@ export default function AnalyticsDashboard() {
       if (startDate) queryParams.append('startDate', startDate);
       if (endDate) queryParams.append('endDate', endDate);
 
-      const res = await fetch(`/api/admin/analytics/export?${queryParams.toString()}`);
+      // Get the base URL from window location to handle Docker environment correctly
+      const baseUrl = window.location.origin;
+
+      const res = await fetch(`${baseUrl}/api/admin/analytics/export?${queryParams.toString()}`);
       if (!res.ok) throw new Error('Failed to export analytics');
 
       const blob = await res.blob();
@@ -147,13 +155,22 @@ export default function AnalyticsDashboard() {
     if (!confirm('This will delete ALL analytics data. Are you sure?')) return;
     try {
       setIsProcessing(true);
-      const res = await fetch('/api/admin/analytics/clear', { method: 'DELETE' });
-      if (!res.ok) throw new Error('Failed to clear analytics');
+      // Get the base URL from window location to handle Docker environment correctly
+      const baseUrl = window.location.origin;
+      
+      const res = await fetch(`${baseUrl}/api/admin/analytics/clear`, { method: 'DELETE' });
+      if (!res.ok) {
+        throw new Error('Failed to clear analytics data');
+      }
+      setMessage('Analytics data cleared successfully!');
+      setTimeout(() => setMessage(''), 3000);
+      
+      // Refresh data
       await fetchAnalyticsData();
-      alert('Analytics data cleared');
     } catch (error) {
-      console.error(error);
-      alert('Failed to clear analytics');
+      console.error('Error clearing analytics:', error);
+      setMessage('Error clearing analytics data');
+      setTimeout(() => setMessage(''), 3000);
     } finally {
       setIsProcessing(false);
     }

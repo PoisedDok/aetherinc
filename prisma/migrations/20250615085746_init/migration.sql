@@ -104,6 +104,20 @@ CREATE TABLE "analytics_events" (
     CONSTRAINT "analytics_events_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "terminal_chats" (
+    "id" TEXT NOT NULL,
+    "sessionId" TEXT NOT NULL,
+    "visitorId" TEXT,
+    "role" TEXT NOT NULL,
+    "content" TEXT NOT NULL,
+    "page" TEXT,
+    "timestamp" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "metadata" JSONB,
+
+    CONSTRAINT "terminal_chats_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
@@ -118,3 +132,12 @@ CREATE UNIQUE INDEX "analytics_page_date_key" ON "analytics"("page", "date");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "analytics_events_eventType_elementId_page_date_key" ON "analytics_events"("eventType", "elementId", "page", "date");
+
+-- CreateIndex
+CREATE INDEX "terminal_chats_sessionId_idx" ON "terminal_chats"("sessionId");
+
+-- CreateIndex
+CREATE INDEX "terminal_chats_visitorId_idx" ON "terminal_chats"("visitorId");
+
+-- CreateIndex
+CREATE INDEX "terminal_chats_timestamp_idx" ON "terminal_chats"("timestamp");

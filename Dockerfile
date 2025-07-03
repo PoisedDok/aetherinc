@@ -38,11 +38,14 @@ ENV SKIP_TRANSFORM_CSS=true
 ENV DATABASE_URL="postgresql://postgres:postgres@db:5432/aether?schema=public"
 ENV NEXTAUTH_URL="http://localhost:3000"
 ENV NEXTAUTH_SECRET="temp_build_secret_not_for_production"
+ENV NEXT_PUBLIC_API_URL="http://localhost:3000"
+ENV ANALYTICS_ENABLED=true
+ENV CONTACT_FORM_ENABLED=true
 
 # Copy PostCSS config and simplified CSS file
 COPY postcss.config.mjs ./postcss.config.mjs
 
-# Create a clean build using special config
+# Build the Next.js application
 RUN npm run build
 
 # Production image, copy all the files and run next
@@ -66,12 +69,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN mkdir -p /app/.next/standalone /app/.next/static /app/.npm
 RUN chown -R nextjs:nodejs /app
 
+# Copy necessary files for the application
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+
+# Copy the API routes to ensure they are available
+COPY --from=builder --chown=nextjs:nodejs /app/src/app/api ./src/app/api
+COPY --from=builder --chown=nextjs:nodejs /app/src/lib/analytics.ts ./src/lib/analytics.ts
+COPY --from=builder --chown=nextjs:nodejs /app/src/lib/database.ts ./src/lib/database.ts
 COPY --from=builder --chown=nextjs:nodejs /app/scripts/seed.mjs ./scripts/
+
 # Copy Excel file if it exists
 COPY --from=builder --chown=nextjs:nodejs /app/AI_Tools.xlsx* ./
 

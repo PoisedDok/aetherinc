@@ -16,6 +16,14 @@ const getVisitorId = (): string => {
   return visitorId;
 };
 
+// Get base API URL
+const getApiBaseUrl = (): string => {
+  if (typeof window === 'undefined') return '';
+  
+  // Use the environment variable if available, otherwise use relative URL
+  return process.env.NEXT_PUBLIC_API_URL || '';
+};
+
 // Track page view
 export const trackPageView = async (): Promise<void> => {
   if (typeof window === 'undefined') return;
@@ -24,8 +32,11 @@ export const trackPageView = async (): Promise<void> => {
     const visitorId = getVisitorId();
     const pathname = window.location.pathname;
     const referrer = document.referrer || 'direct';
+    const baseUrl = getApiBaseUrl();
     
-    await fetch('/api/analytics/pageview', {
+    console.debug('[Analytics] Tracking page view:', pathname);
+    
+    const response = await fetch(`${baseUrl}/api/analytics/pageview`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -34,9 +45,14 @@ export const trackPageView = async (): Promise<void> => {
         referrer
       })
     });
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error('[Analytics] Error tracking page view:', response.status, errorData);
+    }
   } catch (error) {
     // Silent fail - analytics should never break the site
-    console.error('Analytics error:', error);
+    console.error('[Analytics] Error tracking page view:', error);
   }
 };
 
@@ -51,8 +67,11 @@ export const trackEvent = async (
   try {
     const visitorId = getVisitorId();
     const pathname = window.location.pathname;
+    const baseUrl = getApiBaseUrl();
     
-    await fetch('/api/analytics/event', {
+    console.debug('[Analytics] Tracking event:', eventType, elementId);
+    
+    const response = await fetch(`${baseUrl}/api/analytics/event`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -63,9 +82,14 @@ export const trackEvent = async (
         visitorId
       })
     });
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error('[Analytics] Error tracking event:', response.status, errorData);
+    }
   } catch (error) {
     // Silent fail - analytics should never break the site
-    console.error('Analytics error:', error);
+    console.error('[Analytics] Error tracking event:', error);
   }
 };
 
@@ -100,6 +124,14 @@ export const setupEventTracking = (): void => {
 // Analytics provider component
 export const initAnalytics = (): void => {
   if (typeof window === 'undefined') return;
+  
+  // Check if analytics are explicitly disabled
+  if (process.env.NEXT_PUBLIC_ANALYTICS_DISABLED === 'true') {
+    console.info('[Analytics] Analytics are disabled by configuration');
+    return;
+  }
+  
+  console.info('[Analytics] Initializing analytics');
   
   // Track initial page view
   trackPageView();

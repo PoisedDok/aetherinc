@@ -38,9 +38,13 @@ if [ $attempt -gt $max_attempts ]; then
   exit 1
 fi
 
-# Run database migrations
+# Run database migrations with extra options to ensure tables are created
 echo "Running database migrations..."
 npx prisma migrate deploy
+
+# Force database schema sync to ensure all tables are created
+echo "Synchronizing database schema..."
+npx prisma db push --accept-data-loss
 
 # Generate Prisma client if needed
 echo "Generating Prisma client..."
@@ -49,6 +53,31 @@ npx prisma generate
 # Seed database with initial data
 echo "Seeding database..."
 node scripts/seed.mjs
+
+# Verify API directory exists
+echo "Verifying API routes..."
+if [ -d "/app/src/app/api" ]; then
+  echo "API directory exists"
+  ls -la /app/src/app/api
+else
+  echo "WARNING: API directory not found. Analytics and contact forms may not work!"
+fi
+
+# Check if important files are present
+echo "Verifying important files..."
+for file in "/app/src/lib/analytics.ts" "/app/src/lib/database.ts"; do
+  if [ -f "$file" ]; then
+    echo "$file exists"
+  else
+    echo "WARNING: $file not found! Functionality might be impaired."
+  fi
+done
+
+# Print environment status
+echo "Environment status:"
+echo "NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-not set}"
+echo "ANALYTICS_ENABLED=${ANALYTICS_ENABLED:-not set}"
+echo "CONTACT_FORM_ENABLED=${CONTACT_FORM_ENABLED:-not set}"
 
 # Start the application
 echo "Starting Next.js application..."

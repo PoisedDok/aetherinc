@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/database';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import { withSecureErrorHandler } from '@/app/api/errorHandler';
 
 // Middleware to check admin auth
 async function checkAdminAuth() {
@@ -14,8 +15,16 @@ async function checkAdminAuth() {
   return { isAuthorized: true, userId: session.user.id };
 }
 
+// Helper function to format date for Prisma query
+const formatDateForQuery = (dateString: string) => {
+  const date = new Date(dateString);
+  // Reset to midnight
+  date.setHours(0, 0, 0, 0);
+  return date;
+};
+
 // GET /api/admin/analytics - Get analytics data
-export async function GET(request: Request) {
+export const GET = withSecureErrorHandler(async (request: Request) => {
   const auth = await checkAdminAuth();
   
   if (!auth.isAuthorized) {
@@ -26,43 +35,46 @@ export async function GET(request: Request) {
   }
   
   try {
-    // Parse query parameters
-    const url = new URL(request.url);
-    const startDateStr = url.searchParams.get('startDate');
-    const endDateStr = url.searchParams.get('endDate');
+    console.log('Analytics API called - fetching data...');
+    const { searchParams } = new URL(request.url);
+    const startDateParam = searchParams.get('startDate');
+    const endDateParam = searchParams.get('endDate');
     
+    // Default to last 30 days if no dates provided
     let startDate = new Date();
-    startDate.setDate(startDate.getDate() - 30); // Default to last 30 days
+    startDate.setDate(startDate.getDate() - 30);
     startDate.setHours(0, 0, 0, 0);
     
     let endDate = new Date();
     endDate.setHours(23, 59, 59, 999);
     
-    if (startDateStr) {
-      startDate = new Date(startDateStr);
-      startDate.setHours(0, 0, 0, 0);
+    if (startDateParam) {
+      startDate = formatDateForQuery(startDateParam);
     }
     
-    if (endDateStr) {
-      endDate = new Date(endDateStr);
+    if (endDateParam) {
+      endDate = new Date(endDateParam);
       endDate.setHours(23, 59, 59, 999);
     }
     
-    // Get total waitlist count
+    console.log(`Date range: ${startDate.toISOString()} to ${endDate.toISOString()}`);
+    
+    // Count total waitlist entries
     const totalWaitlist = await prisma.waitlistEntry.count();
+    console.log(`Total waitlist entries: ${totalWaitlist}`);
     
-    // Get total AI tools count
+    // Count total AI tools
     const totalTools = await prisma.aITool.count();
+    console.log(`Total AI tools: ${totalTools}`);
     
-    // Get total news articles count
-    const totalNews = await prisma.newsArticle.count();
-    
-    // Get total contact forms count
+    // Count total contact forms
     const totalContactForms = await prisma.contactForm.count();
+    console.log(`Total contact forms: ${totalContactForms}`);
     
     // Get recent signups (last 7 days)
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    sevenDaysAgo.setHours(0, 0, 0, 0);
     
     const recentSignups = await prisma.waitlistEntry.count({
       where: {
@@ -71,22 +83,55 @@ export async function GET(request: Request) {
         }
       }
     });
+    console.log(`Recent signups: ${recentSignups}`);
     
-    // Get page analytics data for the selected date range
-    const pageAnalytics = await prisma.analytics.findMany({
+    // Fetch page views data
+    const pageViews = await prisma.analytics.findMany({
       where: {
         date: {
           gte: startDate,
           lte: endDate
         }
-      },
-      orderBy: {
-        date: 'asc'
       }
     });
     
-    // @ts-ignore - property will exist on generated Prisma client
-    const eventAnalytics = await prisma.analyticsEvent.findMany({
+    // Aggregate page view data by date and by page
+    const viewsByDate = pageViews.reduce((acc, entry) => {
+      const dateKey = entry.date.toISOString().split('T')[0];
+      
+      if (!acc[dateKey]) {
+        acc[dateKey] = {
+          pageViews: 0,
+          uniqueViews: 0
+        };
+      }
+      
+      acc[dateKey].pageViews += entry.pageViews;
+      acc[dateKey].uniqueViews += entry.uniqueViews;
+      
+      return acc;
+    }, {} as Record<string, { pageViews: number, uniqueViews: number }>);
+    
+    const viewsByPage = pageViews.reduce((acc, entry) => {
+      if (!acc[entry.page]) {
+        acc[entry.page] = {
+          pageViews: 0,
+          uniqueViews: 0
+        };
+      }
+      
+      acc[entry.page].pageViews += entry.pageViews;
+      acc[entry.page].uniqueViews += entry.uniqueViews;
+      
+      return acc;
+    }, {} as Record<string, { pageViews: number, uniqueViews: number }>);
+    
+    // Calculate total page views
+    const totalPageViews = pageViews.reduce((sum, entry) => sum + entry.pageViews, 0);
+    const totalUniqueViews = pageViews.reduce((sum, entry) => sum + entry.uniqueViews, 0);
+    
+    // Fetch events data
+    const events = await prisma.analyticsEvent.findMany({
       where: {
         date: {
           gte: startDate,
@@ -96,128 +141,117 @@ export async function GET(request: Request) {
       orderBy: {
         count: 'desc'
       },
-      take: 50 // Limit to top 50 events
+      take: 100
     });
     
-    // Process page analytics data
-    const pageViewsByDate: Record<string, { pageViews: number; uniqueViews: number }> = {};
-    const pageViewsByPage: Record<string, { pageViews: number; uniqueViews: number }> = {};
-    const pageVisitorSets: Record<string, Set<string>> = {};
-    const globalVisitorSet: Set<string> = new Set();
-    let totalPageViews = 0;
-    
-    pageAnalytics.forEach(record => {
-      // Aggregate by date
-      const dateStr = record.date.toISOString().split('T')[0];
-      if (!pageViewsByDate[dateStr]) {
-        pageViewsByDate[dateStr] = {
-          pageViews: 0,
-          uniqueViews: 0
-        };
+    // Aggregate event data
+    const eventsByType = events.reduce((acc, event) => {
+      if (!acc[event.eventType]) {
+        acc[event.eventType] = 0;
       }
-      pageViewsByDate[dateStr].pageViews += record.pageViews;
       
-      // Aggregate by page
-      if (!pageViewsByPage[record.page]) {
-        pageViewsByPage[record.page] = {
-          pageViews: 0,
-          uniqueViews: 0
-        };
-        pageVisitorSets[record.page] = new Set<string>();
+      acc[event.eventType] += event.count;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    const eventsByPage = events.reduce((acc, event) => {
+      if (!acc[event.page]) {
+        acc[event.page] = 0;
       }
-      pageViewsByPage[record.page].pageViews += record.pageViews;
       
-      // Total counts
-      totalPageViews += record.pageViews;
-      
-      // Parse visitors JSON to count unique visitors across all pages
-      try {
-        const visitors = JSON.parse(record.visitors);
-        const visitorIds = Object.keys(visitors);
-        visitorIds.forEach((id) => {
-          globalVisitorSet.add(id);
-          pageVisitorSets[record.page].add(id);
-          // Track unique per date too
-          if (!pageViewsByDate[dateStr].hasOwnProperty('visitorSet')) {
-            (pageViewsByDate[dateStr] as any).visitorSet = new Set<string>();
-          }
-          ((pageViewsByDate[dateStr] as any).visitorSet as Set<string>).add(id);
-        });
-      } catch (e) {
-        // Skip if JSON parsing fails
-      }
-    });
+      acc[event.page] += event.count;
+      return acc;
+    }, {} as Record<string, number>);
     
-    // Finalize unique counts after de-duping
-    const totalUniqueVisitors = globalVisitorSet.size;
-    
-    // Update per-page unique counts
-    Object.keys(pageViewsByPage).forEach((page) => {
-      pageViewsByPage[page].uniqueViews = pageVisitorSets[page].size;
-    });
-    
-    // Update per-date unique counts
-    Object.keys(pageViewsByDate).forEach((date) => {
-      const visitorSet = (pageViewsByDate[date] as any).visitorSet as Set<string> | undefined;
-      pageViewsByDate[date].uniqueViews = visitorSet ? visitorSet.size : 0;
-      delete (pageViewsByDate[date] as any).visitorSet;
-    });
-    
-    // Process event analytics data
-    const eventsByType: Record<string, number> = {};
-    const eventsByPage: Record<string, number> = {};
-    
-    eventAnalytics.forEach((event: any) => {
-      // Aggregate by event type
-      if (!eventsByType[event.eventType]) {
-        eventsByType[event.eventType] = 0;
-      }
-      eventsByType[event.eventType] += event.count;
-      
-      // Aggregate by page
-      if (!eventsByPage[event.page]) {
-        eventsByPage[event.page] = 0;
-      }
-      eventsByPage[event.page] += event.count;
-    });
-    
-    // Format response data
-    const analyticsData = {
-      totalWaitlist,
-      totalTools,
-      totalNews,
-      totalContactForms,
-      recentSignups,
-      pageViews: {
-        total: totalPageViews,
-        unique: totalUniqueVisitors,
-        byDate: pageViewsByDate,
-        byPage: pageViewsByPage
+    // Get terminal chat data
+    const terminalChats = await prisma.terminalChat.findMany({
+      where: {
+        timestamp: {
+          gte: startDate,
+          lte: endDate
+        }
       },
-      events: {
-        byType: eventsByType,
-        byPage: eventsByPage,
-        topEvents: eventAnalytics.map((e: any) => ({
-          id: e.id,
-          eventType: e.eventType,
-          elementId: e.elementId,
-          elementName: e.elementName,
-          page: e.page,
-          count: e.count,
-          date: e.date
-        }))
-      }
-    };
+      orderBy: {
+        timestamp: 'desc'
+      },
+      take: 1000
+    });
     
+    // Aggregate terminal chat data
+    const totalTerminalChats = terminalChats.length;
+    
+    const chatsByRole = terminalChats.reduce((acc, chat) => {
+      if (!acc[chat.role]) {
+        acc[chat.role] = 0;
+      }
+      
+      acc[chat.role]++;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    const chatsByPage = terminalChats.reduce((acc, chat) => {
+      const page = chat.page || 'unknown';
+      
+      if (!acc[page]) {
+        acc[page] = 0;
+      }
+      
+      acc[page]++;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    // Count unique sessions and visitors
+    const uniqueSessions = new Set(terminalChats.map(chat => chat.sessionId)).size;
+    const uniqueVisitors = new Set(terminalChats.filter(chat => chat.visitorId).map(chat => chat.visitorId)).size;
+    
+    // Get most recent chats by session
+    const chatsBySession = terminalChats.reduce((acc, chat) => {
+      if (!acc[chat.sessionId]) {
+        acc[chat.sessionId] = [];
+      }
+      
+      acc[chat.sessionId].push(chat);
+      return acc;
+    }, {} as Record<string, any[]>);
+    
+    // Sort chats by timestamp within each session
+    Object.keys(chatsBySession).forEach(sessionId => {
+      chatsBySession[sessionId].sort((a, b) => 
+        new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+      );
+    });
+    
+    // Return analytics data
     return NextResponse.json({
       success: true,
-      data: analyticsData
+      data: {
+        totalWaitlist,
+        totalTools,
+        totalContactForms,
+        recentSignups,
+        pageViews: {
+          total: totalPageViews,
+          unique: totalUniqueViews,
+          byDate: viewsByDate,
+          byPage: viewsByPage
+        },
+        events: {
+          byType: eventsByType,
+          byPage: eventsByPage,
+          topEvents: events
+        },
+        terminalChat: {
+          total: totalTerminalChats,
+          uniqueSessions,
+          uniqueVisitors,
+          byRole: chatsByRole,
+          byPage: chatsByPage,
+          recentSessions: Object.values(chatsBySession).slice(0, 10) // Get 10 most recent sessions
+        }
+      }
     });
   } catch (error) {
     console.error('Error fetching analytics data:', error);
-    return NextResponse.json(
-      { success: false, message: 'Failed to fetch analytics data' },
-      { status: 500 }
-    );
+    throw error;
   }
-} 
+}); 

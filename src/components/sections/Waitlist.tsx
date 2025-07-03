@@ -54,11 +54,17 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
 
   
   // Handle form submission
+  // Email validation helper
+  const validateEmail = (email: string): boolean => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    // Basic validation
-    if (!formData.email || !formData.email.includes('@')) {
+    if (!validateEmail(formData.email)) {
       setErrorMessage('Please enter a valid email address');
       setFormState('error');
       trackEvent('waitlist_error', { elementName: 'Email validation error' })();
@@ -73,15 +79,24 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
     }
     
     try {
+      // Get the base URL from window location to handle Docker environment correctly
+      const baseUrl = window.location.origin;
+      
       setFormState('submitting');
       trackEvent('waitlist_submission_start', { elementName: 'Waitlist form submission started' })();
       
-      const response = await fetch('/api/waitlist', {
+      const response = await fetch(`${baseUrl}/api/waitlist`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          email: formData.email,
+          name: formData.name,
+          reason: formData.reason,
+          useCase: formData.useCase,
+          earlyAccess: formData.earlyAccess,
+        }),
       });
       
       const data = await response.json();

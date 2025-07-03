@@ -128,10 +128,10 @@ export default function RootLayout({
                 "https://www.linkedin.com/company/your-wordsmith"
               ],
               "founder": {
-                "@type": "Person",
-                "name": "Krish Dokania",
+                  "@type": "Person",
+                  "name": "Krish Dokania",
                 "url": "https://linkedin.com/in/krish-dokania-56203b217"
-              },
+                },
               "description": "AetherInc is a privacy-first AI company revolutionizing how people interact with artificial intelligence through local-first, secure AI tools and solutions."
             })
           }}

@@ -75,7 +75,7 @@ rm aetherinc-docker.tar
 
 echo "✅ Deployment completed!"
 echo "🌐 Your application should be available at http://$EC2_HOST:3000"
-echo "   To set up a domain name and SSL, follow the instructions in DOCKER_DEPLOYMENT.md"
+echo "   To set up a domain name and SSL, follow the instructions in DOCKER_DEPLOYMENT.md" 
 
 # Stop any existing containers
 echo "Stopping existing containers..."

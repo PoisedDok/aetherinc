@@ -61,10 +61,9 @@ export default function Navbar({ scrollToSection, featuresRef, howItWorksRef, wa
             </button>
             <Button 
               variant="outline" 
-              onClick={() => scrollToSection(waitlistRef)}
               className="border-white/30 bg-white/5 text-white hover:bg-white/10 hover:border-white/40"
             >
-              Join Waitlist
+              <Link href="/contact">Get Started</Link>
             </Button>
           </div>
           
@@ -114,12 +113,11 @@ export default function Navbar({ scrollToSection, featuresRef, howItWorksRef, wa
               <Button 
                 variant="outline" 
                 onClick={() => {
-                  scrollToSection(waitlistRef);
                   setMobileMenuOpen(false);
                 }}
                 className="border-white/30 bg-white/5 text-white hover:bg-white/10 hover:border-white/40 w-full"
               >
-                Join Waitlist
+                <Link href="/contact">Get Started</Link>
               </Button>
             </div>
           </motion.div>
