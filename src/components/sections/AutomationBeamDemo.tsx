@@ -1,6 +1,6 @@
 "use client";
 
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef, useRef, useState, useEffect } from 'react';
 import { cn } from "@/lib/utils";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
 
@@ -119,14 +119,21 @@ const Circle = forwardRef<
 Circle.displayName = "Circle";
 
 export default function AutomationBeamDemo() {
-  const containerRef = useRef<HTMLDivElement>(null!);
-  const div1Ref = useRef<HTMLDivElement>(null!);
-  const div2Ref = useRef<HTMLDivElement>(null!);
-  const div3Ref = useRef<HTMLDivElement>(null!);
-  const div4Ref = useRef<HTMLDivElement>(null!);
-  const div5Ref = useRef<HTMLDivElement>(null!);
-  const div6Ref = useRef<HTMLDivElement>(null!);
-  const div7Ref = useRef<HTMLDivElement>(null!);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const div1Ref = useRef<HTMLDivElement>(null);
+  const div2Ref = useRef<HTMLDivElement>(null);
+  const div3Ref = useRef<HTMLDivElement>(null);
+  const div4Ref = useRef<HTMLDivElement>(null);
+  const div5Ref = useRef<HTMLDivElement>(null);
+  const div6Ref = useRef<HTMLDivElement>(null);
+  const div7Ref = useRef<HTMLDivElement>(null);
+
+  const [isMounted, setIsMounted] = useState(false);
+  
+  // Ensure component is mounted before trying to render beams
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <div
@@ -163,48 +170,52 @@ export default function AutomationBeamDemo() {
         </div>
       </div>
 
-      {/* Animated beams connecting circles */}
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div1Ref}
-        toRef={div4Ref}
-        curvature={-75}
-        endYOffset={-10}
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div2Ref}
-        toRef={div4Ref}
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div3Ref}
-        toRef={div4Ref}
-        curvature={75}
-        endYOffset={10}
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div5Ref}
-        toRef={div4Ref}
-        curvature={-75}
-        endYOffset={-10}
-        reverse
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div6Ref}
-        toRef={div4Ref}
-        reverse
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div7Ref}
-        toRef={div4Ref}
-        curvature={75}
-        endYOffset={10}
-        reverse
-      />
+      {/* Only render beams when component is mounted to avoid hydration issues */}
+      {isMounted && (
+        <>
+          <AnimatedBeam
+            containerRef={containerRef}
+            fromRef={div1Ref}
+            toRef={div4Ref}
+            curvature={-75}
+            endYOffset={-10}
+          />
+          <AnimatedBeam
+            containerRef={containerRef}
+            fromRef={div2Ref}
+            toRef={div4Ref}
+          />
+          <AnimatedBeam
+            containerRef={containerRef}
+            fromRef={div3Ref}
+            toRef={div4Ref}
+            curvature={75}
+            endYOffset={10}
+          />
+          <AnimatedBeam
+            containerRef={containerRef}
+            fromRef={div5Ref}
+            toRef={div4Ref}
+            curvature={-75}
+            endYOffset={-10}
+            reverse
+          />
+          <AnimatedBeam
+            containerRef={containerRef}
+            fromRef={div6Ref}
+            toRef={div4Ref}
+            reverse
+          />
+          <AnimatedBeam
+            containerRef={containerRef}
+            fromRef={div7Ref}
+            toRef={div4Ref}
+            curvature={75}
+            endYOffset={10}
+            reverse
+          />
+        </>
+      )}
     </div>
   );
 } 

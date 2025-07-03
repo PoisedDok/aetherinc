@@ -18,7 +18,6 @@ const navigationItems = [
   { label: "Products", href: "/products" },
   { label: "Services", href: "/services" },
   { label: "AI Tools", href: "/ai-tools" },
-  { label: "Insights", href: "/insights" },
   { label: "Contact", href: "/contact" },
 ];
 

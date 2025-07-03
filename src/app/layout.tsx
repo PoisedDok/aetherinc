@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
+import "../components/ui/color-scheme.css";
 import { SessionProvider } from "@/components/SessionProvider";
 import dynamic from "next/dynamic";
 import { validateEnv } from '@/lib/env';
@@ -37,6 +38,7 @@ export const metadata: Metadata = {
   creator: "AetherInc Limited",
   publisher: "AetherInc Limited",
   category: "Technology",
+  colorScheme: "dark",
   openGraph: {
     title: "AetherInc - Privacy-First AI Solutions | GURU & AetherArena",
     description: "Scottish AI startup building GURU personal AI assistant and AetherArena self-improving platform. Iron Man-inspired vision meets cutting-edge local AI technology.",
@@ -87,7 +89,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   width: 'device-width',
-  initialScale: 1,
+  initialScale: 0.9,
   maximumScale: 5,
   viewportFit: 'cover',
   themeColor: [
@@ -102,7 +104,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-GB" className={josefinSans.variable}>
+    <html lang="en-GB" className={`${josefinSans.variable} fit-content`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -110,6 +112,7 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="AetherInc" />
         <meta name="application-name" content="AetherInc" />
+        <meta name="color-scheme" content="dark" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <script
@@ -157,13 +160,15 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen text-white overflow-x-hidden">
+      <body className="min-h-screen text-white overflow-x-hidden max-w-[100vw] color-scheme-dark">
         {/* Global background */}
         <JarvisBackground />
 
         <SessionProvider>
           <AnalyticsProvider>
-            {children}
+            <div className="container-responsive responsive-padding">
+              {children}
+            </div>
           </AnalyticsProvider>
         </SessionProvider>
         <FloatingChat />

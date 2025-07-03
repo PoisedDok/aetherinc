@@ -84,47 +84,51 @@ export default function Services() {
   const deploymentOptions = [
     {
       icon: Lock,
-      title: "Private Cloud",
-      description: "Complete on-premise deployment with full data sovereignty",
-      features: ["Your infrastructure", "Zero data sharing", "Custom security protocols"],
-      ideal: "Enterprise & regulated industries"
+      title: "Your Servers",
+      description: "Keep everything on your own computers - total control and privacy",
+      features: ["Your hardware", "Your data stays put", "Maximum security"],
+      ideal: "Big companies & regulated industries"
     },
     {
       icon: Shield,
-      title: "Hybrid Setup",
-      description: "Best of both worlds - sensitive data stays local, AI processing in secure cloud",
-      features: ["Selective data processing", "Enhanced performance", "Scalable architecture"],
-      ideal: "Growing businesses"
+      title: "Mix and Match",
+      description: "Keep sensitive data local, let AI run in the cloud - best of both worlds",
+      features: ["Choose what stays private", "Faster performance", "Flexible setup"],
+      ideal: "Medium-sized companies"
     },
     {
       icon: Cloud,
-      title: "Managed Cloud",
-      description: "Fully managed AI automation with enterprise-grade security",
-      features: ["Zero maintenance", "Auto-scaling", "24/7 monitoring"],
-      ideal: "Fast deployment needs"
+      title: "Fully Cloud",
+      description: "We handle everything - quick setup with no IT headaches",
+      features: ["No maintenance", "Grows with you", "Always on support"],
+      ideal: "Quick startup needs"
     }
   ];
 
   const businessImpact = [
     {
-      metric: "80%",
-      label: "Reduction in manual tasks",
-      icon: Clock
+      metric: "241%",
+      label: "ROI in time savings & productivity",
+      icon: Clock,
+      source: "https://blogs.microsoft.com/blog/2025/04/22/https-blogs-microsoft-com-blog-2024-11-12-how-real-world-businesses-are-transforming-with-ai/"
     },
     {
-      metric: "2-5x",
-      label: "Faster decision making",
-      icon: Zap
+      metric: "$3.70",
+      label: "Return for every $1 invested in AI",
+      icon: DollarSign,
+      source: "https://blogs.microsoft.com/blog/2025/04/22/https-blogs-microsoft-com-blog-2024-11-12-how-real-world-businesses-are-transforming-with-ai/"
     },
     {
       metric: "90%",
-      label: "Accuracy in data processing",
-      icon: CheckCircle
+      label: "Inventory prediction accuracy",
+      icon: CheckCircle,
+      source: "https://blogs.microsoft.com/blog/2025/04/22/https-blogs-microsoft-com-blog-2024-11-12-how-real-world-businesses-are-transforming-with-ai/"
     },
     {
-      metric: "24/7",
-      label: "Automated operations",
-      icon: TrendingUp
+      metric: "50%",
+      label: "Faster code development",
+      icon: TrendingUp,
+      source: "https://blogs.microsoft.com/blog/2025/04/22/https-blogs-microsoft-com-blog-2024-11-12-how-real-world-businesses-are-transforming-with-ai/"
     }
   ];
 
@@ -237,7 +241,8 @@ const ShineEffect: React.FC<ShineEffectProps> = ({ children, className = "", del
             <motion.div
               key={index}
               variants={fadeUp}
-              className="text-center space-y-3 group"
+              className="text-center space-y-3 group cursor-pointer"
+              onClick={() => window.open(item.source, '_blank')}
             >
               <div className="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center border border-white/20 shadow-lg shadow-white/5 group-hover:scale-110 transition-transform duration-300">
                 <item.icon className={`w-8 h-8 ${
@@ -405,7 +410,7 @@ const ShineEffect: React.FC<ShineEffectProps> = ({ children, className = "", del
               </h2>
             </ShineEffect>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              From completely private to fully managed - choose the deployment that fits your security and operational needs
+              Choose how you want your AI solution set up - on your servers or in the cloud
             </p>
           </motion.div>
 

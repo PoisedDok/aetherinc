@@ -5,7 +5,13 @@ import { workflows } from '@/data/workflows';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import AutomationBeamDemo from "@/components/sections/AutomationBeamDemo";
+import dynamic from 'next/dynamic';
+
+// Import AutomationBeamDemo as a client component to prevent SSR issues
+const AutomationBeamDemo = dynamic(
+  () => import("@/components/sections/AutomationBeamDemo"),
+  { ssr: false }
+);
 
 export default function WorkflowsPage() {
   const [open, setOpen] = useState<string | null>(null);

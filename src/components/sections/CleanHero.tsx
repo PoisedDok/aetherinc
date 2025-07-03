@@ -17,7 +17,7 @@ interface CleanHeroProps {
 
 const morphingTexts = [
   "Join The Race",
-  "We Got you!"
+  "Privacy-First AI"
 ];
 
 export default function CleanHero({ scrollToSection, visionRef, waitlistRef }: CleanHeroProps) {
@@ -134,7 +134,7 @@ export default function CleanHero({ scrollToSection, visionRef, waitlistRef }: C
           className="mb-12 max-w-3xl mx-auto"
         >
           <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-            Meet the on-device AI that runs <strong>100% offline</strong>. No clouds, no snooping—just blazing-fast help that stays on your computer.
+            Meet AetherInc's privacy-first AI that runs <strong>100% offline</strong>. No clouds, no snooping—just blazing-fast intelligence that stays on your computer.
           </p>
           <div className="mt-4 text-gray-500 text-sm">
             Founded in Glasgow, Scotland • Registered Company SC851680

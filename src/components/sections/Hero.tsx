@@ -33,28 +33,32 @@ const bentoItems = [
     description: "All AI tasks process directly on your device for instant responses.",
     icon: <Cpu className="h-6 w-6 text-cyan-400" />,
     className: "md:col-span-1",
-    background: <div className="absolute inset-0 bg-gradient-radial from-cyan-900/20 to-transparent"></div>
+    iconColor: "text-cyan-400",
+    background: null  // Remove background gradient
   },
   {
     title: "Complete Privacy",
     description: "Your data never leaves your possession. No cloud dependency.",
     icon: <ShieldCheck className="h-6 w-6 text-green-400" />,
-    className: "md:col-span-1",
-    background: <div className="absolute inset-0 bg-gradient-radial from-green-900/20 to-transparent"></div>
+    className: "md:col-span-1", 
+    iconColor: "text-green-400",
+    background: null  // Remove background gradient
   },
   {
     title: "Powerful Automation",
     description: "Browser automation, data extraction, and workflow integration.",
     icon: <Database className="h-6 w-6 text-yellow-400" />,
     className: "md:col-span-1",
-    background: <div className="absolute inset-0 bg-gradient-radial from-yellow-900/15 to-transparent"></div>
+    iconColor: "text-yellow-400",
+    background: null  // Remove background gradient
   },
   {
     title: "One-Time Purchase",
     description: "No subscriptions or recurring costs for core AI functions.",
     icon: <Infinity className="h-6 w-6 text-purple-400" />,
     className: "md:col-span-1",
-    background: <div className="absolute inset-0 bg-gradient-radial from-purple-900/20 to-transparent"></div>
+    iconColor: "text-purple-400",
+    background: null  // Remove background gradient
   },
 ];
 
@@ -156,9 +160,17 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
           transition={{ duration: 0.6 }}
           className="mb-6 inline-block"
         >
-          <Badge variant="outline" className="text-white border-white/30 px-4 py-1 text-xs sm:text-sm font-semibold backdrop-blur-sm">
-            Introducing GURU
-          </Badge>
+          <div className="relative">
+            <ShineBorder 
+              className="absolute inset-0 rounded-full" 
+              borderWidth={1}
+              shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
+              duration={8}
+            />
+            <Badge variant="outline" className="text-white border-white/30 px-4 py-1 text-xs sm:text-sm font-semibold backdrop-blur-sm bg-black/10 hover:bg-white/10 transition-all duration-300">
+              Introducing GURU
+            </Badge>
+          </div>
         </motion.div>
 
         <motion.div 
@@ -178,19 +190,29 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 sm:gap-x-10 text-sm sm:text-base text-gray-400 mb-8 mt-6"
+          className="mb-8 mt-6"
         >
-          <div className="flex items-center gap-2">
-            <BrainCircuit size={18} className="text-cyan-400" />
-            <span className="font-semibold text-white">67</span> TOPS NPU
-          </div>
-          <div className="flex items-center gap-2">
-            <Database size={18} className="text-yellow-400" />
-            <span className="font-semibold text-white">10TB</span> Local Storage
-          </div>
-          <div className="flex items-center gap-2">
-            <ShieldCheck size={18} className="text-green-400" />
-            100% On-Device AI
+          <div className="relative overflow-hidden rounded-xl inline-block">
+            <ShineBorder 
+              className="absolute inset-0 opacity-60" 
+              borderWidth={1}
+              shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
+              duration={12}
+            />
+            <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 sm:gap-x-10 text-sm sm:text-base text-gray-400 py-4 px-8 bg-transparent border border-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-sm">
+              <div className="flex items-center gap-2">
+                <BrainCircuit size={18} className="text-cyan-400" />
+                <span className="font-semibold text-white">67</span> TOPS NPU
+              </div>
+              <div className="flex items-center gap-2">
+                <Database size={18} className="text-yellow-400" />
+                <span className="font-semibold text-white">10TB</span> Local Storage
+              </div>
+              <div className="flex items-center gap-2">
+                <ShieldCheck size={18} className="text-green-400" />
+                100% On-Device AI
+              </div>
+            </div>
           </div>
         </motion.div>
 
@@ -198,11 +220,21 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="body-text text-gray-300 max-w-2xl mx-auto mb-10"
+          className="relative mb-10"
         >
-          Your revolutionary AI companion that solves real-world tasks through natural conversation. With powerful browser automation, file management, and seamless API integration—all processed locally for complete privacy. GURU isn't just AI, it's your digital partner that understands what you need and delivers results instant and secure.
-          
-          <div className="block mt-3 text-gray-500 text-sm font-medium">Pre-orders Q3 2025</div>
+          <div className="relative overflow-hidden rounded-xl">
+            <ShineBorder 
+              className="absolute inset-0 opacity-60" 
+              borderWidth={1}
+              shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
+              duration={16}
+            />
+            <div className="body-text text-gray-300 max-w-2xl mx-auto py-6 px-8 bg-transparent border border-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-sm rounded-xl">
+              Your revolutionary AI companion that solves real-world tasks through natural conversation. With powerful browser automation, file management, and seamless API integration—all processed locally for complete privacy. GURU isn't just AI, it's your digital partner that understands what you need and delivers results instant and secure.
+              
+              <div className="block mt-3 text-gray-500 text-sm font-medium">Pre-orders Q3 2025</div>
+            </div>
+          </div>
         </motion.div>
 
         <motion.div 
@@ -218,17 +250,27 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
                 initial={{ opacity: 0, scale: 0.9 }} 
                 animate={{ opacity: 1, scale: 1 }} 
                 transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }}
-                className="relative rounded-lg overflow-hidden"
+                className="relative group"
               > 
-                {item.background}
-                <div className="relative z-10 h-full">
-                  <BentoGridItem
-                    key={i}
-                    title={item.title}
-                    description={item.description}
-                    header={<div className="p-2 rounded-md bg-black/20 flex items-center justify-center">{item.icon}</div>}
-                    className={cn("group/bento hover:shadow-xl transition-shadow duration-200 h-full", item.className)}
-                  />
+                <ShineBorder 
+                  className="absolute inset-0 rounded-xl opacity-60 group-hover:opacity-100 transition-opacity duration-300" 
+                  borderWidth={1}
+                  shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
+                  duration={18}
+                />
+                <div className="relative h-full rounded-xl overflow-hidden bg-transparent border border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg shadow-white/5 hover:bg-white/10 group-hover:scale-[1.02]">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  <div className="relative z-10 h-full p-5">
+                    <div className="flex flex-col h-full">
+                      <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center border border-white/20 shadow-lg shadow-white/5 mb-4">
+                        <div className={item.iconColor}>{item.icon}</div>
+                      </div>
+                      
+                      <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
+                      <p className="text-sm text-gray-300">{item.description}</p>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             ))}

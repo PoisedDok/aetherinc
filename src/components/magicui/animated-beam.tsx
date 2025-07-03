@@ -47,6 +47,7 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
   const id = useId();
   const [pathD, setPathD] = useState("");
   const [svgDimensions, setSvgDimensions] = useState({ width: 0, height: 0 });
+  const [isMounted, setIsMounted] = useState(false);
 
   // Calculate the gradient coordinates based on the reverse prop
   const gradientCoordinates = reverse
@@ -63,9 +64,18 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
         y2: ["0%", "0%"],
       };
 
+  // Ensure component is mounted before trying to access DOM
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
     const updatePath = () => {
-      if (containerRef.current && fromRef.current && toRef.current) {
+      if (!containerRef.current || !fromRef.current || !toRef.current) return;
+
+      try {
         const containerRect = containerRef.current.getBoundingClientRect();
         const rectA = fromRef.current.getBoundingClientRect();
         const rectB = toRef.current.getBoundingClientRect();
@@ -88,30 +98,43 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
           (startX + endX) / 2
         },${controlY} ${endX},${endY}`;
         setPathD(d);
+      } catch (error) {
+        // Silently handle any DOM-related errors
+        console.debug("AnimatedBeam: Error calculating path", error);
       }
     };
 
-    // Initialize ResizeObserver
-    const resizeObserver = new ResizeObserver((entries) => {
-      // For all entries, recalculate the path
-      for (const entry of entries) {
-        updatePath();
+    // Initialize ResizeObserver safely
+    let resizeObserver: ResizeObserver | null = null;
+    
+    try {
+      // Only create the observer if we're in the browser and ResizeObserver exists
+      if (typeof ResizeObserver !== 'undefined') {
+        resizeObserver = new ResizeObserver(() => {
+          // Debounce the update to avoid excessive renders
+          requestAnimationFrame(updatePath);
+        });
+        
+        // Observe the container element if it exists
+        if (containerRef.current) {
+          resizeObserver.observe(containerRef.current);
+        }
       }
-    });
-
-    // Observe the container element
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current);
+      
+      // Initial path update
+      updatePath();
+    } catch (error) {
+      console.debug("AnimatedBeam: Error setting up ResizeObserver", error);
     }
-
-    // Call the updatePath initially to set the initial path
-    updatePath();
 
     // Clean up the observer on component unmount
     return () => {
-      resizeObserver.disconnect();
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
     };
   }, [
+    isMounted,
     containerRef,
     fromRef,
     toRef,
@@ -121,6 +144,11 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
     endXOffset,
     endYOffset,
   ]);
+
+  // Don't render anything until mounted to avoid hydration issues
+  if (!isMounted || !pathD) {
+    return null;
+  }
 
   return (
     <svg

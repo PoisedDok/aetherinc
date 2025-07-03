@@ -13,19 +13,19 @@ export default function CompanyVision() {
 
   const visionPoints = [
     {
-      icon: <Shield className="h-8 w-8" />,
+      icon: <Shield className="h-8 w-8 text-blue-400" />,
       title: "Privacy First",
       description: "We believe your data belongs to you. Every AI process happens locally on your device, ensuring complete privacy and security.",
       gradient: "from-blue-500/10 to-cyan-500/5"
     },
     {
-      icon: <Heart className="h-8 w-8" />,
+      icon: <Heart className="h-8 w-8 text-pink-400" />,
       title: "Human-Centered AI",
       description: "Technology should serve humanity, not the other way around. We build AI that enhances human capability while preserving human agency.",
       gradient: "from-purple-500/10 to-pink-500/5"
     },
     {
-      icon: <Globe className="h-8 w-8" />,
+      icon: <Globe className="h-8 w-8 text-green-400" />,
       title: "Universal Access",
       description: "Revolutionary AI shouldn't be limited to big corporations. We're democratizing access to powerful AI technology for everyone.",
       gradient: "from-green-500/10 to-emerald-500/5"
@@ -93,7 +93,7 @@ export default function CompanyVision() {
               transition: { staggerChildren: 0.2, delayChildren: 0.3 }
             }
           }}
-          className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-24"
         >
           {visionPoints.map((point, index) => (
             <motion.div
@@ -104,23 +104,32 @@ export default function CompanyVision() {
               }}
               className="relative group"
             >
-              <div className="relative">
-                <ShineBorder 
-                  className="absolute inset-0 rounded-xl opacity-60 group-hover:opacity-100 transition-opacity duration-300" 
-                  borderWidth={1}
-                  shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
-                  duration={15 + index * 2}
-                />
-                <Card className={`relative p-8 bg-gradient-to-br ${point.gradient} backdrop-blur-sm border-white/10 hover:border-white/20 transition-all duration-300 h-full group-hover:scale-[1.02]`}>
-                  <div className="text-white mb-6 flex justify-center">
-                    <div className="p-3 rounded-full bg-white/10 backdrop-blur-sm">
+              <ShineBorder 
+                className="absolute inset-0 rounded-xl opacity-60 group-hover:opacity-100 transition-opacity duration-300" 
+                borderWidth={1}
+                shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
+                duration={15 + index * 2}
+              />
+              <Card className="relative h-full p-8 bg-transparent border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg shadow-white/5 hover:bg-white/10 group-hover:scale-[1.02] min-h-[320px] flex flex-col items-center justify-center">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10 space-y-6 flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 shadow-lg shadow-white/5">
+                    <div className={`${
+                      index === 0 ? "text-blue-400" : 
+                      index === 1 ? "text-pink-400" : 
+                      "text-green-400"
+                    }`}>
                       {point.icon}
                     </div>
                   </div>
-                  <h3 className="text-2xl font-bold mb-4 text-white text-center">{point.title}</h3>
-                  <p className="text-gray-300 leading-relaxed text-center">{point.description}</p>
-                </Card>
-              </div>
+                  
+                  <div className="text-center">
+                    <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">{point.title}</h3>
+                    <p className="text-gray-300 leading-relaxed">{point.description}</p>
+                  </div>
+                </div>
+              </Card>
             </motion.div>
           ))}
         </motion.div>
@@ -178,12 +187,20 @@ export default function CompanyVision() {
           }}
           className="text-center"
         >
-          <motion.h3 
+          <motion.div 
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-            className="text-3xl md:text-4xl font-bold mb-12 text-white"
+            className="mb-12 relative inline-block"
           >
-            Our Core Values
-          </motion.h3>
+            <ShineBorder 
+              className="absolute inset-0 rounded-full" 
+              borderWidth={1}
+              shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
+              duration={12}
+            />
+            <h3 className="text-3xl md:text-4xl font-bold text-white bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300 px-4">
+              Our Core Values
+            </h3>
+          </motion.div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {values.map((value, index) => (
@@ -195,23 +212,32 @@ export default function CompanyVision() {
                 }}
                 className="relative group"
               >
-                <div className="relative">
-                  <ShineBorder 
-                    className="absolute inset-0 rounded-xl opacity-50 group-hover:opacity-100 transition-opacity duration-300" 
-                    borderWidth={1}
-                    shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.3)"]}
-                    duration={10 + index * 3}
-                  />
-                  <div className="relative p-8 rounded-xl bg-black/40 border border-white/10 backdrop-blur-sm group-hover:bg-black/60 transition-all duration-300">
-                    <div className="text-white mb-4 flex justify-center">
-                      <div className="p-2 rounded-full bg-white/10">
-                        {value.icon}
+                <ShineBorder 
+                  className="absolute inset-0 rounded-xl opacity-60 group-hover:opacity-100 transition-opacity duration-300" 
+                  borderWidth={1}
+                  shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
+                  duration={10 + index * 3}
+                />
+                <Card className="relative h-full p-8 bg-transparent border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg shadow-white/5 hover:bg-white/10 group-hover:scale-[1.02] min-h-[250px] flex flex-col items-center justify-center">
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-center">
+                      <div className={`w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 shadow-lg shadow-white/5`}>
+                        <div className={`${
+                          index === 0 ? "text-yellow-400" : 
+                          index === 1 ? "text-blue-400" : 
+                          "text-green-400"
+                        }`}>
+                          {value.icon}
+                        </div>
                       </div>
                     </div>
-                    <h4 className="text-xl font-semibold mb-3 text-white">{value.title}</h4>
-                    <p className="text-gray-400 text-sm leading-relaxed">{value.description}</p>
+                    
+                    <div className="text-center">
+                      <h4 className="text-xl font-bold mb-2 bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">{value.title}</h4>
+                      <p className="text-gray-300 text-sm leading-relaxed">{value.description}</p>
+                    </div>
                   </div>
-                </div>
+                </Card>
               </motion.div>
             ))}
           </div>
