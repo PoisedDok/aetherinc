@@ -139,11 +139,11 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
             </Badge>
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-            Join the <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">Waitlist</span>
+          <h2 className="text-4xl font-bold mb-6 text-white">
+            Join the GURU Waitlist
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            Experience GURU, the revolutionary AI companion by AetherInc founded by Krish Dokania and Adrian Wong. 
+            Experience GURU, the revolutionary AI companion by AetherInc founded by Krish Dokania. 
             Reserve your spot to be among the first to own your personal AI assistant for real-world tasks.
           </p>
         </motion.div>

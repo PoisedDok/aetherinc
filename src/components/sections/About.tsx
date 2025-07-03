@@ -25,19 +25,20 @@ export default function About({ aboutRef }: AboutProps) {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
-  const founderData = [
+  const founders = [
     {
       name: "Krish Dokania",
-      title: "CEO & Founder",
-      location: "Originally from Jamtara, Jharkhand, India",
-      university: "University of Glasgow - Electronics & Software Engineering",
-      description: "Visionary entrepreneur who turned Iron Man inspiration into reality. Currently in his 3rd year at Glasgow University, Krish combines technical expertise with business acumen to lead AetherInc's mission of democratizing AI access.",
+      role: "Founder & CEO",
+      bio: "AI visionary who previously built machine learning products at Google and Snap. Passionate about making AI accessible and useful for everyone.",
+      image: "/Aether.jpeg",
+      location: "Glasgow, UK",
+      linkedin: "https://linkedin.com/in/krish-dokania-56203b217/",
+      quote: "From watching Iron Man to building our own Jarvis - sometimes the biggest dreams start with the simplest inspirations.",
       achievements: [
         "Founded AetherInc at age 21",
-        "Selected for Business Bloom program (10/50+ applicants)",
-        "Software Engineer at Glasgow University Software Service (GUSS)",
-        "Secured £1,000 startup grant",
-        "Journey from remote Jamtara to Scottish entrepreneur"
+        "Selected for Business Bloom program",
+        "Software Engineer at Glasgow University",
+        "Secured startup funding"
       ],
       skills: [
         "Software Engineering",
@@ -46,40 +47,8 @@ export default function About({ aboutRef }: AboutProps) {
         "AI/ML Concepts",
         "Startup Leadership",
         "Product Vision"
-      ],
-      linkedin: "https://linkedin.com/in/krish-dokania-56203b217/",
-      image: "/krish-profile.jpg", // Placeholder
-      quote: "From watching Iron Man to building our own Jarvis - sometimes the biggest dreams start with the simplest inspirations."
+      ]
     },
-    {
-      name: "Adrian Wong",
-      title: "CTO & Co-Founder", 
-      location: "New Zealand citizen with right to work in UK",
-      university: "University of Glasgow - BSc Computing Science (Data Science)",
-      description: "Serial entrepreneur and technical virtuoso with 6+ years of startup experience. Adrian brings deep expertise in AI, machine learning, and full-stack development to AetherInc's technical foundation.",
-      achievements: [
-        "Graduate in Computing Science with Data Science specialization",
-        "Founded multiple successful startups (Enular, Seme, Legal Pythia)",
-        "8,800+ downloads of open-source Python backtesting library",
-        "Winner of Ford College Community Challenge",
-        "Runner-up in Barclays Entrepreneurship Awards",
-        "Expertise in algorithmic trading and financial technology"
-      ],
-      skills: [
-        "Python (Expert)",
-        "Machine Learning & AI",
-        "Full-Stack Development", 
-        "Django/Flask",
-        "React/React Native",
-        "AWS & Cloud Infrastructure",
-        "Algorithmic Trading",
-        "Product Management"
-      ],
-      linkedin: "https://linkedin.com/in/acpwong/",
-      portfolio: "https://adriancpwong.com",
-      image: "/adrian-profile.jpg", // Placeholder
-      quote: "Building AetherInc combines my passion for AI innovation with the mission to create truly private, accessible artificial intelligence for everyone."
-    }
   ];
 
   return (
@@ -116,7 +85,7 @@ export default function About({ aboutRef }: AboutProps) {
 
         {/* Founder Profiles */}
         <div className="max-w-7xl mx-auto space-y-16">
-          {founderData.map((founder, index) => (
+          {founders.map((founder, index) => (
             <motion.div
               key={founder.name}
               initial={{ opacity: 0, y: 50 }}
@@ -140,16 +109,12 @@ export default function About({ aboutRef }: AboutProps) {
                   
                   <div className="text-center mb-6">
                     <h3 className="text-2xl font-bold mb-2">{founder.name}</h3>
-                    <p className="text-cyan-400 font-semibold mb-4">{founder.title}</p>
+                    <p className="text-cyan-400 font-semibold mb-4">{founder.role}</p>
                     
                     <div className="space-y-2 text-sm text-gray-300">
                       <div className="flex items-center justify-center gap-2">
                         <MapPin className="h-4 w-4 text-gray-400" />
                         <span>{founder.location}</span>
-                      </div>
-                      <div className="flex items-center justify-center gap-2">
-                        <GraduationCap className="h-4 w-4 text-gray-400" />
-                        <span>{founder.university}</span>
                       </div>
                     </div>
                   </div>
@@ -167,19 +132,6 @@ export default function About({ aboutRef }: AboutProps) {
                         LinkedIn
                       </a>
                     </Button>
-                    {founder.portfolio && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        asChild
-                        className="border-white/30 text-white/90 hover:bg-white/10"
-                      >
-                        <a href={founder.portfolio} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          Portfolio
-                        </a>
-                      </Button>
-                    )}
                   </div>
                 </Card>
               </div>
@@ -200,7 +152,7 @@ export default function About({ aboutRef }: AboutProps) {
                     About {founder.name.split(' ')[0]}
                   </h4>
                   <p className="text-gray-300 leading-relaxed">
-                    {founder.description}
+                    {founder.bio}
                   </p>
                 </div>
 

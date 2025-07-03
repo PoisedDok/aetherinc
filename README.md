@@ -2,7 +2,7 @@
 
 ## 🚀 Company Overview
 
-**AetherInc Limited** is a Scottish AI startup (Company SC851680) founded by Krish Dokania (CEO) and Adrian Wong (CTO). Born from an Iron Man-inspired vision in December 2024, we're building the future of privacy-first AI interaction.
+**AetherInc Limited** is a Scottish AI startup (Company SC851680) founded by Krish Dokania (CEO). Born from an Iron Man-inspired vision in December 2024, we're building the future of privacy-first AI interaction.
 
 ### Our Mission
 Democratizing AI access through privacy-first, local AI solutions that eliminate cloud dependency and data exposure risks.
@@ -278,10 +278,15 @@ Pre-seeded with 57 AI tools including:
   - Electronics & Software Engineering, University of Glasgow
   - LinkedIn: [krish-dokania-56203b217](https://linkedin.com/in/krish-dokania-56203b217/)
 
-- **Adrian Wong** - CTO & Co-Founder  
-  - Computing Science (Data Science), University of Glasgow
-  - Portfolio: [adriancpwong.com](https://adriancpwong.com)
-  - LinkedIn: [acpwong](https://linkedin.com/in/acpwong/)
+---
+
+## About AetherInc
+
+**AetherInc Limited** is a Scottish AI startup (Company SC851680) founded by Krish Dokania (CEO). Born from an Iron Man-inspired vision in December 2024, we're building the future of privacy-first AI interaction.
+
+## Team
+
+- **Krish Dokania** - CEO & Founder
 
 ---
 

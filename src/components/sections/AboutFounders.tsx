@@ -15,34 +15,22 @@ export default function AboutFounders() {
   const founders = [
     {
       name: "Krish Dokania",
-      role: "CEO & Founder",
+      title: "Founder & CEO",
+      role: "Founder & CEO",
+      bio: "A visionary entrepreneur passionate about making AI accessible and useful for everyone. Krish founded AetherInc with the mission to create AI tools that truly understand and serve human needs without compromising on privacy.",
+      image: "/Aether.jpeg",
       location: "Glasgow, Scotland",
       education: "University of Glasgow - Electronics & Software Engineering",
       story: "From a small town in Jharkhand, India to founding AetherInc in Scotland. Krish's journey embodies the power of dreams and determination in building the future of AI.",
       quote: "Sometimes the biggest dreams start with the simplest inspirations - like watching Iron Man for the fifth time.",
       linkedin: "https://linkedin.com/in/krish-dokania-56203b217/",
+      website: "",
       highlights: [
         "Selected for Business Bloom startup program",
         "Software Engineer at Glasgow University",
-        "Secured £1,000 startup grant"
+        "Secured startup funding"
       ],
       gradientColor: "from-gray-500/10 to-gray-600/5"
-    },
-    {
-      name: "Adrian Wong",
-      role: "CTO & Co-Founder", 
-      location: "Glasgow, Scotland",
-      education: "University of Glasgow - BSc Computing Science",
-      story: "Serial entrepreneur with deep expertise in AI, machine learning, and full-stack development. Adrian brings technical excellence to AetherInc's vision.",
-      quote: "Building AetherInc combines my passion for AI innovation with the mission to create truly private, accessible artificial intelligence.",
-      linkedin: "https://linkedin.com/in/acpwong/",
-      website: "https://adriancpwong.com",
-      highlights: [
-        "Founded multiple successful startups",
-        "Expert in Python and ML/AI",
-        "Award-winning entrepreneur"
-      ],
-      gradientColor: "from-gray-600/10 to-gray-700/5"
     }
   ];
 

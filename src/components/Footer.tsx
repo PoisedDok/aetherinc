@@ -108,7 +108,9 @@ export default function Footer() {
               className="text-gray-400 mb-6"
             >
               GURU: Your revolutionary AI companion that solves real-world tasks through natural conversation. 
-              Founded by Krish Dokania and Adrian Wong with a mission to transform how you interact with AI.
+              <div className="mt-2 text-sm text-gray-300">
+                Founded by Krish Dokania with a mission to transform how you interact with AI.
+              </div>
             </motion.p>
             
             {/* Social Links */}
@@ -212,8 +214,8 @@ export default function Footer() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4"
         >
-          <p className="text-sm text-gray-400">
-            &copy; {currentYear} AetherInc. All rights reserved. | Founded by Krish Dokania and Adrian Wong
+          <p className="text-gray-400 text-sm text-center">
+            &copy; {currentYear} AetherInc. All rights reserved. | Founded by Krish Dokania
           </p>
           <div className="flex space-x-4 text-sm text-gray-400">
             <Link href="/privacy" className="hover:text-white">Privacy Policy</Link> {/* Updated Link */}

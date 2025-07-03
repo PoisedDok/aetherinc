@@ -4,7 +4,7 @@ import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { BrainCircuit, MapPin, Award, Users, ExternalLink, Linkedin } from 'lucide-react';
+import { BrainCircuit, MapPin, Award, Users, ExternalLink, Linkedin, Sparkle, Hammer, Rocket, Code, Coins, Globe } from 'lucide-react';
 import Link from 'next/link';
 
 export default function FounderStory() {
@@ -13,74 +13,51 @@ export default function FounderStory() {
 
   const storySteps = [
     {
-      year: "2022",
-      title: "From Jamtara to Glasgow",
-      description: "Krish leaves his remote hometown in Jharkhand, India, to pursue Electronics & Software Engineering at the University of Glasgow",
-      icon: <MapPin className="h-6 w-6" />,
-      location: "Glasgow, Scotland"
+      title: "The Iron Man Inspiration",
+      date: "October 2023",
+      description: "Watching Iron Man, Krish was fascinated by Jarvis's capabilities. He couldn't stop wondering: What if AI could be this helpful in everyday life?",
+      icon: <Sparkle className="h-5 w-5" />
     },
     {
-      year: "Dec 2024",
-      title: "Iron Man Changes Everything",
-      description: "Watching Iron Man, Krish realizes: 'Why not build Jarvis? It's possible with AI now!' The GURU concept is born.",
-      icon: <BrainCircuit className="h-6 w-6" />,
-      location: "Glasgow"
+      title: "The First Prototypes",
+      date: "November 2023",
+      description: "Working nights and weekends, Krish builds his first AI prototype systems to understand what's possible with current technology.",
+      icon: <Hammer className="h-5 w-5" />
     },
     {
-      year: "2025",
-      title: "Business Bloom Success", 
-      description: "Applies to Glasgow University's Business Bloom startup program with GURU concept. Selected from 50+ ideas, receives £1,000 grant.",
-      icon: <Award className="h-6 w-6" />,
-      location: "University of Glasgow"
+      title: "AetherInc Founded",
+      date: "December 2023",
+      description: "AetherInc Limited is officially incorporated in Scotland with a mission to build AI systems that transform how people interact with technology.",
+      icon: <Rocket className="h-5 w-5" />
     },
     {
-      year: "2025",
-      title: "Adrian Joins the Vision",
-      description: "Through his flatmate/landlord's recommendation, Krish connects with Adrian Wong - experienced founder and developer. Adrian joins as CTO & Co-founder.",
-      icon: <Users className="h-6 w-6" />,
-      location: "Glasgow"
+      title: "Product Development Begins",
+      date: "January 2024",
+      description: "Development of the GURU AI assistant begins, focusing on creating a truly helpful AI that runs locally for privacy and security.",
+      icon: <Code className="h-5 w-5" />
     },
     {
-      year: "June 10, 2025",
-      title: "AetherInc Limited Born",
-      description: "Company officially registered in Scotland (SC851680). From Iron Man dreams to registered business reality.",
-      icon: <BrainCircuit className="h-6 w-6" />,
-      location: "Scotland, UK"
+      title: "First External Funding",
+      date: "February 2024",
+      description: "AetherInc secures its first external investment, providing resources to accelerate product development and expand the team.",
+      icon: <Coins className="h-5 w-5" />
+    },
+    {
+      title: "Going Public",
+      date: "April 2024", 
+      description: "Launch of the company website and the announcement of the GURU product to the public. Early waitlist sign-ups begin flowing in.",
+      icon: <Globe className="h-5 w-5" />
     }
   ];
 
-  const founders = [
+  const founderSpotlights = [
     {
       name: "Krish Dokania",
-      role: "CEO & Founder",
-      title: "3rd Year UG Electronics and Software Eng || Software Engineer @GUSS || Founder @AetherInc",
-      background: "From Jamtara, Jharkhand to Glasgow University",
-      journey: "A small-town dreamer who turned Iron Man inspiration into a real AI company. Head of Research & Development at Glasgow University FinTech Society.",
-      linkedin: "https://linkedin.com/in/krish-dokania-56203b217",
-      image: "/founders/krish-dokania.jpg",
-      achievements: [
-        "£1,000 Business Bloom Grant Winner",
-        "Selected from 50+ startup applications", 
-        "Head of R&D, Glasgow FinTech Society",
-        "Software Engineer at GUSS"
-      ]
-    },
-    {
-      name: "Adrian Wong",
-      role: "CTO & Co-founder",
-      title: "Experienced founder & full-stack developer",
-      background: "University of Glasgow Computer Science graduate",
-      journey: "Serial entrepreneur with expertise in FinTech, algorithmic trading, and full-stack development. Multiple startup exits and award-winning track record.",
-      linkedin: "https://linkedin.com/in/acpwong",
-      website: "https://adriancpwong.com",
-      image: "/founders/adrian-wong.jpg",
-      achievements: [
-        "Founded Enular (Financial Technology)",
-        "Multiple entrepreneurship awards",
-        "Full-stack developer & CTO experience",
-        "University of Glasgow Computer Science"
-      ]
+      role: "Founder & CEO",
+      quote: "I wanted to create an AI that doesn't compromise on privacy or capability - something that could transform how we interact with technology while keeping our data secure.",
+      image: "/Aether.jpeg" 
     }
+    // Adrian Wong's entry removed
   ];
 
   return (
@@ -146,10 +123,7 @@ export default function FounderStory() {
                 {/* Content */}
                 <div className="flex-1 bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-white/10">
                   <div className="flex items-center gap-3 mb-2">
-                    <span className="text-gray-300 font-bold text-lg">{step.year}</span>
-                    <Badge variant="outline" className="text-xs text-gray-400 border-gray-600">
-                      {step.location}
-                    </Badge>
+                    <span className="text-gray-300 font-bold text-lg">{step.date}</span>
                   </div>
                   <h3 className="text-xl font-semibold text-white mb-2">{step.title}</h3>
                   <p className="text-gray-300">{step.description}</p>
@@ -185,7 +159,7 @@ export default function FounderStory() {
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {founders.map((founder, index) => (
+            {founderSpotlights.map((founder, index) => (
               <motion.div
                 key={index}
                 variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
@@ -200,55 +174,13 @@ export default function FounderStory() {
                     <div>
                       <h4 className="text-xl font-semibold text-white">{founder.name}</h4>
                                               <p className="text-gray-300 font-medium">{founder.role}</p>
-                      <p className="text-gray-400 text-sm">{founder.background}</p>
                     </div>
                   </div>
 
-                  {/* Bio */}
+                  {/* Quote */}
                   <p className="text-gray-300 mb-6 leading-relaxed">
-                    {founder.journey}
+                    {founder.quote}
                   </p>
-
-                  {/* Achievements */}
-                  <div className="mb-6">
-                    <h5 className="text-white font-semibold mb-3">Key Achievements</h5>
-                    <div className="space-y-2">
-                      {founder.achievements.map((achievement, i) => (
-                        <div key={i} className="flex items-center gap-2">
-                          <div className="w-1.5 h-1.5 rounded-full bg-gray-400" />
-                          <span className="text-gray-300 text-sm">{achievement}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Links */}
-                  <div className="flex gap-3">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      asChild
-                      className="border-gray-400/30 text-gray-300 hover:bg-gray-400/10"
-                    >
-                      <Link href={founder.linkedin} target="_blank" rel="noopener noreferrer">
-                        <Linkedin className="h-4 w-4 mr-2" />
-                        LinkedIn
-                      </Link>
-                    </Button>
-                    {founder.website && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        asChild
-                        className="border-gray-500/30 text-gray-400 hover:bg-gray-500/10"
-                      >
-                        <Link href={founder.website} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          Website
-                        </Link>
-                      </Button>
-                    )}
-                  </div>
                 </div>
               </motion.div>
             ))}

@@ -33,7 +33,6 @@ export const metadata: Metadata = {
   keywords: "AI startup Scotland, privacy AI, local AI, GURU AI assistant, AetherArena platform, on-device AI, AI consulting Glasgow, enterprise AI solutions, NVIDIA Jetson, Iron Man Jarvis, AI automation, Business Bloom",
   authors: [
     { name: "Krish Dokania", url: "https://linkedin.com/in/krish-dokania-56203b217" },
-    { name: "Adrian Wong", url: "https://linkedin.com/in/acpwong" }
   ],
   creator: "AetherInc Limited",
   publisher: "AetherInc Limited",
@@ -49,7 +48,7 @@ export const metadata: Metadata = {
         alt: "AetherInc - Privacy-First AI Solutions"
       }
     ],
-    url: "https://aetherinc.com",
+    url: "https://aetherinc.xyz",
     siteName: "AetherInc",
     locale: "en_GB",
     type: "website",
@@ -121,41 +120,19 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "AetherInc Limited",
-              "alternateName": "AetherInc",
+              "name": "AetherInc",
               "url": "https://aetherinc.xyz",
-              "logo": "https://aetherinc.xyz/logo.png",
-              "description": "Scottish AI startup building privacy-first AI solutions including GURU personal assistant and AetherArena platform",
-              "foundingDate": "2025-06-10",
-              "foundingLocation": {
-                "@type": "Place",
-                "name": "Glasgow, Scotland"
-              },
-              "legalName": "AetherInc Limited",
-              "taxID": "SC851680",
-              "founder": [
-                {
-                  "@type": "Person",
-                  "name": "Krish Dokania",
-                  "jobTitle": "CEO & Founder",
-                  "sameAs": "https://linkedin.com/in/krish-dokania-56203b217"
-                },
-                {
-                  "@type": "Person",
-                  "name": "Adrian Wong",
-                  "jobTitle": "CTO & Co-founder",
-                  "sameAs": "https://linkedin.com/in/acpwong"
-                }
-              ],
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Glasgow",
-                "addressCountry": "Scotland, UK"
-              },
+              "logo": "https://aetherinc.xyz/logo.jpg",
               "sameAs": [
-                "https://linkedin.com/company/aetherinc",
-                "https://twitter.com/aetherinc"
-              ]
+                "https://twitter.com/aether_inc_ai",
+                "https://linkedin.com/company/aetherinc"
+              ],
+              "founder": {
+                "@type": "Person",
+                "name": "Krish Dokania",
+                "url": "https://linkedin.com/in/krish-dokania-56203b217"
+              },
+              "description": "AetherInc is a privacy-first AI company revolutionizing how people interact with artificial intelligence through local-first, secure AI tools and solutions."
             })
           }}
         />
