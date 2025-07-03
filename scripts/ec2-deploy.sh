@@ -19,7 +19,7 @@ fi
 # Build the Docker image for production and export it as a tarball (AMD64 only)
 echo "🏗️ Building AMD64 Docker image and exporting to tar..."
 $DOCKER buildx build --platform linux/amd64 -t aetherinc:production \
-  --output type=tar,dest=aetherinc-production-amd64.tar -f Dockerfile .
+  --output type=docker,dest=aetherinc-production-amd64.tar -f Dockerfile .
 
 # Compress the tarball for transfer
 gzip -f aetherinc-production-amd64.tar
