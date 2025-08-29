@@ -97,45 +97,7 @@ async function seedAITools() {
 
 // Function to check and create missing tables
 async function checkAndCreateMissingTables() {
-  try {
-    console.log('Checking for missing database tables...');
-    
-    // Check if terminal_chats table exists by attempting a query
-    try {
-      await prisma.$queryRaw`SELECT 1 FROM terminal_chats LIMIT 1`;
-      console.log('terminal_chats table exists');
-    } catch (error) {
-      if (error.message.includes('relation "terminal_chats" does not exist')) {
-        console.log('Creating missing terminal_chats table...');
-        
-        // Create the terminal_chats table
-        await prisma.$executeRaw`
-          CREATE TABLE IF NOT EXISTS "terminal_chats" (
-            "id" TEXT NOT NULL,
-            "sessionId" TEXT NOT NULL,
-            "visitorId" TEXT,
-            "role" TEXT NOT NULL,
-            "content" TEXT NOT NULL,
-            "page" TEXT,
-            "timestamp" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            "metadata" JSONB,
-            CONSTRAINT "terminal_chats_pkey" PRIMARY KEY ("id")
-          )
-        `;
-        
-        // Create indexes
-        await prisma.$executeRaw`CREATE INDEX IF NOT EXISTS "terminal_chats_sessionId_idx" ON "terminal_chats"("sessionId")`;
-        await prisma.$executeRaw`CREATE INDEX IF NOT EXISTS "terminal_chats_visitorId_idx" ON "terminal_chats"("visitorId")`;
-        await prisma.$executeRaw`CREATE INDEX IF NOT EXISTS "terminal_chats_timestamp_idx" ON "terminal_chats"("timestamp")`;
-        
-        console.log('terminal_chats table created successfully');
-      } else {
-        console.error('Error checking terminal_chats table:', error);
-      }
-    }
-  } catch (error) {
-    console.error('Error checking database tables:', error);
-  }
+
 }
 
 async function main() {

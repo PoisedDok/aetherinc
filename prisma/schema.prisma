@@ -112,18 +112,4 @@ model AnalyticsEvent {
   @@map("analytics_events")
 }
 
-model TerminalChat {
-  id          String   @id @default(cuid())
-  sessionId   String   // Unique identifier for user session
-  visitorId   String?  // Optional visitor identifier for analytics
-  role        String   // 'user', 'assistant', or 'system'
-  content     String   // Message content
-  page        String?  // Page where the chat occurred
-  timestamp   DateTime @default(now())
-  metadata    Json?    // Additional metadata (e.g., response time, tokens used)
-  
-  @@index([sessionId])
-  @@index([visitorId])
-  @@index([timestamp])
-  @@map("terminal_chats")
-} 
+ 

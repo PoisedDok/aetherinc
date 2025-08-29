@@ -163,63 +163,7 @@ export const GET = withSecureErrorHandler(async (request: Request) => {
       return acc;
     }, {} as Record<string, number>);
     
-    // Get terminal chat data
-    const terminalChats = await prisma.terminalChat.findMany({
-      where: {
-        timestamp: {
-          gte: startDate,
-          lte: endDate
-        }
-      },
-      orderBy: {
-        timestamp: 'desc'
-      },
-      take: 1000
-    });
-    
-    // Aggregate terminal chat data
-    const totalTerminalChats = terminalChats.length;
-    
-    const chatsByRole = terminalChats.reduce((acc, chat) => {
-      if (!acc[chat.role]) {
-        acc[chat.role] = 0;
-      }
-      
-      acc[chat.role]++;
-      return acc;
-    }, {} as Record<string, number>);
-    
-    const chatsByPage = terminalChats.reduce((acc, chat) => {
-      const page = chat.page || 'unknown';
-      
-      if (!acc[page]) {
-        acc[page] = 0;
-      }
-      
-      acc[page]++;
-      return acc;
-    }, {} as Record<string, number>);
-    
-    // Count unique sessions and visitors
-    const uniqueSessions = new Set(terminalChats.map(chat => chat.sessionId)).size;
-    const uniqueVisitors = new Set(terminalChats.filter(chat => chat.visitorId).map(chat => chat.visitorId)).size;
-    
-    // Get most recent chats by session
-    const chatsBySession = terminalChats.reduce((acc, chat) => {
-      if (!acc[chat.sessionId]) {
-        acc[chat.sessionId] = [];
-      }
-      
-      acc[chat.sessionId].push(chat);
-      return acc;
-    }, {} as Record<string, any[]>);
-    
-    // Sort chats by timestamp within each session
-    Object.keys(chatsBySession).forEach(sessionId => {
-      chatsBySession[sessionId].sort((a, b) => 
-        new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
-      );
-    });
+
     
     // Return analytics data
     return NextResponse.json({
@@ -239,14 +183,6 @@ export const GET = withSecureErrorHandler(async (request: Request) => {
           byType: eventsByType,
           byPage: eventsByPage,
           topEvents: events
-        },
-        terminalChat: {
-          total: totalTerminalChats,
-          uniqueSessions,
-          uniqueVisitors,
-          byRole: chatsByRole,
-          byPage: chatsByPage,
-          recentSessions: Object.values(chatsBySession).slice(0, 10) // Get 10 most recent sessions
         }
       }
     });

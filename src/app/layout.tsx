@@ -10,8 +10,7 @@ const CookieConsentBanner = dynamic(() => import('@/components/CookieConsentBann
 
 const josefinSans = Josefin_Sans({ subsets: ["latin"], display: "swap", variable: "--font-josefin-sans" });
 
-// Avoid rendering on the server to prevent RSC boundary issues
-const FloatingChat = dynamic(() => import("@/components/FloatingChat"), { ssr: false });
+
 
 // Dynamically load JarvisBackground (client-side only)
 const JarvisBackground = dynamic(() => import("@/components/JarvisBackground"), {
@@ -150,7 +149,6 @@ export default function RootLayout({
               <CookieConsentBanner />
             </div>
           </AnalyticsProvider>
-          <FloatingChat />
         </SessionProvider>
       </body>
     </html>

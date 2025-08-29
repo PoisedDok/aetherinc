@@ -10,7 +10,6 @@ export async function GET() {
       contactCount: await prisma.contactForm.count(),
       analyticsCount: await prisma.analytics.count(),
       eventsCount: await prisma.analyticsEvent.count(),
-      terminalChatsCount: await prisma.terminalChat.count(),
     };
     
     // Return the counts

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Loader2, Users, Settings, Mail, MessageSquare, BarChart3 } from 'lucide-react';
+import { Loader2, Users, Settings, Mail, BarChart3 } from 'lucide-react';
 
 // Real API functions for fetching data
 const fetchAnalytics = async () => {
@@ -596,239 +596,6 @@ const ContactFormsManager = () => {
   );
 };
 
-const TerminalChatAnalytics = () => {
-  const [chatData, setChatData] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [selectedSession, setSelectedSession] = useState<string | null>(null);
-  
-  useEffect(() => {
-    const fetchChatData = async () => {
-      try {
-        setIsLoading(true);
-        // Get the base URL from window location to handle Docker environment correctly
-        const baseUrl = window.location.origin;
-        
-        const response = await fetch(`${baseUrl}/api/admin/analytics`);
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch terminal chat data');
-        }
-        
-        const result = await response.json();
-        
-        if (result.success && result.data.terminalChat) {
-          setChatData(result.data.terminalChat);
-        } else {
-          console.error('API returned error or missing data');
-        }
-      } catch (error) {
-        console.error('Error fetching terminal chat data:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    
-    fetchChatData();
-  }, []);
-  
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center p-8">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
-      </div>
-    );
-  }
-  
-  if (!chatData) {
-    return (
-      <div className="p-4 text-center">
-        <p className="text-gray-400">No terminal chat data available</p>
-      </div>
-    );
-  }
-  
-  const { total, uniqueSessions, uniqueVisitors, byRole, byPage, recentSessions } = chatData;
-  
-  // Format the role counts for display
-  const roleCounts = Object.entries(byRole || {}).map(([role, count]) => ({
-    role,
-    count: count as number,
-  }));
-  
-  // Format the page counts for display
-  const pageCounts = Object.entries(byPage || {}).map(([page, count]) => ({
-    page,
-    count: count as number,
-  })).sort((a, b) => b.count - a.count);
-  
-  const viewSession = (sessionId: string) => {
-    setSelectedSession(selectedSession === sessionId ? null : sessionId);
-  };
-  
-  // Find the selected session
-  const selectedSessionData = selectedSession 
-    ? recentSessions.find((session: any[]) => session[0]?.sessionId === selectedSession) 
-    : null;
-  
-  return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="bg-gray-900 border-gray-800">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-300">Total Messages</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-white">{total || 0}</div>
-          </CardContent>
-        </Card>
-        
-        <Card className="bg-gray-900 border-gray-800">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-300">Unique Sessions</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-white">{uniqueSessions || 0}</div>
-          </CardContent>
-        </Card>
-        
-        <Card className="bg-gray-900 border-gray-800">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-300">Unique Visitors</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-white">{uniqueVisitors || 0}</div>
-          </CardContent>
-        </Card>
-        
-        <Card className="bg-gray-900 border-gray-800">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-300">Avg. Messages/Session</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-white">
-              {uniqueSessions ? (total / uniqueSessions).toFixed(1) : '0'}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Role breakdown */}
-        <Card className="bg-gray-900 border-gray-800">
-          <CardHeader>
-            <CardTitle className="text-lg font-medium text-white">Message Types</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              {roleCounts.map(({ role, count }) => (
-                <div key={role} className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <span className={`w-3 h-3 rounded-full mr-2 ${
-                      role === 'user' ? 'bg-green-500' : 
-                      role === 'assistant' ? 'bg-blue-500' : 'bg-gray-500'
-                    }`}></span>
-                    <span className="font-medium capitalize text-gray-300">{role}</span>
-                  </div>
-                  <span className="text-gray-400">{count}</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-        
-        {/* Page breakdown */}
-        <Card className="bg-gray-900 border-gray-800">
-          <CardHeader>
-            <CardTitle className="text-lg font-medium text-white">Top Pages</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2 max-h-60 overflow-y-auto">
-              {pageCounts.slice(0, 10).map(({ page, count }) => (
-                <div key={page} className="flex items-center justify-between">
-                  <span className="font-medium truncate max-w-[70%] text-gray-300">{page || 'unknown'}</span>
-                  <span className="text-gray-400">{count}</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      {/* Recent sessions */}
-      <Card className="bg-gray-900 border-gray-800">
-        <CardHeader>
-          <CardTitle className="text-lg font-medium text-white">Recent Chat Sessions</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {recentSessions.length > 0 ? (
-              recentSessions.map((session: any[]) => {
-                // Each session is an array of messages
-                if (!session.length) return null;
-                
-                const firstMessage = session[0];
-                const sessionId = firstMessage.sessionId;
-                const timestamp = new Date(firstMessage.timestamp).toLocaleString();
-                const messageCount = session.length;
-                const isSelected = selectedSession === sessionId;
-                
-                return (
-                  <div key={sessionId} className="border border-gray-700 rounded-md overflow-hidden">
-                    <div 
-                      className="flex justify-between items-center p-3 bg-gray-800 cursor-pointer"
-                      onClick={() => viewSession(sessionId)}
-                    >
-                      <div className="flex flex-col">
-                        <div className="font-medium text-gray-200">Session {sessionId.substring(0, 8)}...</div>
-                        <div className="text-xs text-gray-400">{timestamp}</div>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm text-gray-400">{messageCount} messages</span>
-                        <svg 
-                          className={`w-4 h-4 transition-transform text-gray-400 ${isSelected ? 'rotate-180' : ''}`} 
-                          fill="none" 
-                          stroke="currentColor" 
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </div>
-                    </div>
-                    
-                    {isSelected && (
-                      <div className="p-3 bg-gray-800/50 max-h-80 overflow-y-auto space-y-2">
-                        {session.map((message: any) => (
-                          <div 
-                            key={message.id} 
-                            className={`p-2 rounded-md ${
-                              message.role === 'user' ? 'bg-green-950/40 border-l-4 border-green-600' : 
-                              message.role === 'assistant' ? 'bg-blue-950/40 border-l-4 border-blue-600' : 
-                              'bg-gray-800/40 border-l-4 border-gray-600'
-                            }`}
-                          >
-                            <div className="flex justify-between items-start mb-1">
-                              <span className="font-medium capitalize text-gray-300">{message.role}</span>
-                              <span className="text-xs text-gray-500">
-                                {new Date(message.timestamp).toLocaleTimeString()}
-                              </span>
-                            </div>
-                            <p className="text-sm whitespace-pre-wrap text-gray-300">{message.content}</p>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                );
-              })
-            ) : (
-              <p className="text-gray-400">No recent chat sessions</p>
-            )}
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-};
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -877,13 +644,7 @@ export default function AdminDashboard() {
           >
             Contact Forms
           </TabsTrigger>
-          <TabsTrigger 
-            value="terminal-chat"
-            className="data-[state=active]:bg-blue-600 data-[state=active]:text-white bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition-colors flex items-center"
-          >
-            <MessageSquare className="w-4 h-4 mr-1" />
-            Terminal Chat
-          </TabsTrigger>
+
         </TabsList>
         
         <TabsContent value="overview">
@@ -939,15 +700,7 @@ export default function AdminDashboard() {
           <ContactFormsManager />
         </TabsContent>
         
-        <TabsContent value="terminal-chat">
-          <div className="bg-gray-900 rounded-lg shadow-lg border border-gray-800 p-6">
-            <h2 className="text-2xl font-semibold mb-6 flex items-center text-white">
-              <MessageSquare className="w-6 h-6 mr-2 text-blue-500" />
-              Terminal Chat Analytics
-            </h2>
-            <TerminalChatAnalytics />
-          </div>
-        </TabsContent>
+
       </Tabs>
     </div>
   );
