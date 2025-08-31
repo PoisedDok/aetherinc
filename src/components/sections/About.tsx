@@ -28,7 +28,7 @@ export default function About({ aboutRef }: AboutProps) {
   const founders = [
     {
       name: "Krish Dokania",
-      role: "Founder & CEO",
+      role: "Founder",
       bio: "Electronics & Software Engineering student at University of Glasgow with a passion for making AI accessible and useful for everyone. Selected for the prestigious Business Bloom startup program and actively working to revolutionize privacy-first AI solutions.",
       image: "/Aether.jpeg",
       location: "Glasgow, UK",
@@ -37,8 +37,7 @@ export default function About({ aboutRef }: AboutProps) {
       achievements: [
         "Electronics & Software Engineering Student",
         "Selected for Business Bloom program", 
-        "Software Engineer at Glasgow University",
-        "Secured startup funding"
+        "Software Engineer at Glasgow University"
       ],
       skills: [
         "Software Engineering",
