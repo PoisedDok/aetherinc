@@ -29,16 +29,16 @@ export default function About({ aboutRef }: AboutProps) {
     {
       name: "Krish Dokania",
       role: "Founder & CEO",
-      bio: "AI visionary who previously built machine learning products at Google and Snap. Passionate about making AI accessible and useful for everyone.",
+      bio: "Electronics & Software Engineering student at University of Glasgow with a passion for making AI accessible and useful for everyone. Selected for the prestigious Business Bloom startup program and actively working to revolutionize privacy-first AI solutions.",
       image: "/Aether.jpeg",
       location: "Glasgow, UK",
       linkedin: "https://linkedin.com/in/krish-dokania-56203b217/",
       quote: "From watching Iron Man to building our own Jarvis - sometimes the biggest dreams start with the simplest inspirations.",
       achievements: [
-        "Robotics Engineer",
-        "Selected for Business Bloom program",
+        "Electronics & Software Engineering Student",
+        "Selected for Business Bloom program", 
         "Software Engineer at Glasgow University",
-        "Secured startup Grant"
+        "Secured startup funding"
       ],
       skills: [
         "Software Engineering",
