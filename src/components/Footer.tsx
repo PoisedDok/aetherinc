@@ -21,8 +21,8 @@ interface SocialLink {
 
 // Footer links - Updated
 const products: FooterLink[] = [
-  { label: 'Software', href: '/software' },
   { label: 'Pricing', href: '/pricing' },
+  { label: 'ROI Calculator', href: '/roi-calculator' },
 ];
 
 const company: FooterLink[] = [

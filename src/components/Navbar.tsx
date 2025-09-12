@@ -14,10 +14,9 @@ interface NavbarProps {
 }
 
 const navigationItems = [
+  { label: "For Law Firms", href: "/legal" },
+  { label: "Case Studies", href: "/examples" },
   { label: "About", href: "/about" },
-  { label: "Products", href: "/products" },
-  { label: "Services", href: "/services" },
-  { label: "AI Tools", href: "/ai-tools" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -57,7 +56,7 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
       className={cn(
           "fixed top-0 left-0 right-0 z-[100] transition-all duration-500",
         "border-b border-transparent",
-          isScrolled && "border-cyan-500/20 glass-panel"
+          isScrolled && "border-white/20 glass-panel"
       )}
     >
       <nav className="container mx-auto h-full flex items-center justify-between px-4 sm:px-6">
@@ -66,9 +65,9 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
           style={{ scale: logoScale }}
           className="flex items-center"
         >
-                        <Link href="/" className="text-xl font-bold text-white flex items-center gap-2 hover:opacity-80 transition-opacity">
-              <span className="font-bold">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white font-extrabold">A</span>ether<span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white font-extrabold">I</span>nc
+                        <Link href="/" className="text-2xl font-bold text-white flex items-center gap-2 hover:opacity-80 transition-opacity">
+              <span>
+                <span className="text-white font-extrabold">Aether</span><span className="text-gray-300 font-light">Inc</span>
               </span>
             </Link>
         </motion.div>
@@ -95,11 +94,11 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
               <Button
                 variant="ghost"
                 asChild
-                    className="text-sm text-white/80 hover:text-cyan-400 transition-all duration-300 px-4 py-2 rounded-lg hover:bg-cyan-500/10 hover:border-cyan-500/30 border border-transparent relative group"
+                    className="text-base text-white/90 hover:text-white transition-all duration-300 px-4 py-2 rounded-lg hover:bg-white/10 hover:border-white/30 border border-transparent relative group"
               >
                 <Link href={item.href}>
                   {item.label}
-                      <div className="absolute inset-0 cyber-border-glow opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg border border-white/20"></div>
                 </Link>
               </Button>
                 </motion.div>
@@ -114,12 +113,12 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
             <Button
               variant="ghost"
               asChild
-                  className="text-sm text-purple-400 hover:text-purple-300 transition-all duration-300 px-4 py-2 rounded-lg hover:bg-purple-500/10 hover:border-purple-500/30 border border-transparent relative group"
+                  className="text-base text-white/80 hover:text-white transition-all duration-300 px-4 py-2 rounded-lg hover:bg-white/10 hover:border-white/30 border border-transparent relative group"
             >
               <Link href="/admin">
                 <Shield className="h-3 w-3 mr-1" />
                 Admin
-                    <div className="absolute inset-0 border border-purple-500/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                    <div className="absolute inset-0 border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
               </Link>
             </Button>
               </motion.div>
@@ -139,7 +138,7 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
             <Button
               variant="ghost"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-sm text-white/80 hover:text-cyan-400 transition-all duration-300 p-2 rounded-lg hover:bg-cyan-500/10 border border-transparent hover:border-cyan-500/30"
+                className="text-sm text-white/80 hover:text-white transition-all duration-300 p-2 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/30"
             >
                 {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
@@ -158,21 +157,21 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
                 isScrolled ? "opacity-100" : "opacity-0"
               )}
               borderWidth={1}
-                shineColor={["rgba(0, 255, 255, 0.3)", "rgba(139, 92, 246, 0.6)"]}
+                shineColor={["rgba(255, 255, 255, 0.4)", "rgba(220, 220, 220, 0.6)"]}
                 duration={8}
             />
             <Button
               className={cn(
-                  "relative font-semibold px-6 py-2 rounded-full transition-all duration-500 text-sm btn-cyber",
+                  "relative font-semibold px-6 py-2 rounded-full transition-all duration-500 text-base",
                 isScrolled
-                    ? "bg-gradient-to-r from-cyan-500/20 to-purple-500/20 text-cyan-400 border-cyan-500/50 hover:border-cyan-400 hover:shadow-cyan-strong"
-                    : "bg-gradient-to-r from-white/10 to-cyan-500/10 text-white border-white/20 hover:border-cyan-400/50"
+                    ? "bg-gradient-to-r from-white/20 to-white/10 text-white border border-white/40 hover:border-white/60 hover:shadow-white/10"
+                    : "bg-gradient-to-r from-white/20 to-white/10 text-white border border-white/20 hover:border-white/40"
               )}
               size="sm"
               asChild
             >
                 <Link href="/contact" className="relative z-10">
-                  Get Started
+                  Book Legal Pilot
                 </Link>
               </Button>
             </motion.div>
@@ -190,7 +189,7 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
         transition={{ duration: 0.3, ease: "easeOut" }}
         className={cn(
           "fixed top-[3.5rem] left-0 right-0 z-[90] lg:hidden",
-          "glass-panel-strong border-b border-cyan-500/20",
+          "glass-panel-strong border-b border-white/20",
           isMobileMenuOpen ? "pointer-events-auto" : "pointer-events-none"
         )}
       >
@@ -209,7 +208,7 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
                 <Button
                   variant="ghost"
                   asChild
-                  className="w-full justify-start text-white/80 hover:text-cyan-400 transition-all duration-300 py-3 px-4 rounded-lg hover:bg-cyan-500/10 border border-transparent hover:border-cyan-500/30"
+                  className="w-full justify-start text-white/80 hover:text-white transition-all duration-300 py-3 px-4 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/30"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <Link href={item.href}>
@@ -230,7 +229,7 @@ export default function Navbar({ waitlistRef, scrollToSection }: NavbarProps) {
               <Button
                 variant="ghost"
                 asChild
-                className="w-full justify-start text-purple-400 hover:text-purple-300 transition-all duration-300 py-3 px-4 rounded-lg hover:bg-purple-500/10 border border-transparent hover:border-purple-500/30"
+                className="w-full justify-start text-white/80 hover:text-white transition-all duration-300 py-3 px-4 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/30"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <Link href="/admin">

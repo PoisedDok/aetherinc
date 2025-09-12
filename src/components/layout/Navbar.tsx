@@ -46,24 +46,26 @@ export default function Navbar({ scrollToSection, featuresRef, howItWorksRef, wa
           </Link>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-10">
+            <Link href="/legal" className="text-gray-300 hover:text-white transition-colors text-lg font-medium">
+              For Law Firms
+            </Link>
             <button 
               onClick={() => scrollToSection(featuresRef)} 
-              className="text-gray-300 hover:text-white transition-colors"
+              className="text-gray-300 hover:text-white transition-colors text-lg font-medium"
             >
               Features
             </button>
             <button 
               onClick={() => scrollToSection(howItWorksRef)} 
-              className="text-gray-300 hover:text-white transition-colors"
+              className="text-gray-300 hover:text-white transition-colors text-lg font-medium"
             >
               How It Works
             </button>
             <Button 
-              variant="outline" 
-              className="border-white/30 bg-white/5 text-white hover:bg-white/10 hover:border-white/40"
+              className="glass-effect border border-white/20 text-white text-lg font-semibold px-6 py-2 hover:bg-white/10 hover:border-white/30 backdrop-blur-lg"
             >
-              <Link href="/contact">Get Started</Link>
+              <Link href="/contact">Book a Legal Pilot</Link>
             </Button>
           </div>
           
@@ -91,13 +93,20 @@ export default function Navbar({ scrollToSection, featuresRef, howItWorksRef, wa
             transition={{ duration: 0.3 }}
             className="md:hidden bg-black/90 backdrop-blur-md"
           >
-            <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
+            <div className="container mx-auto px-4 py-4 flex flex-col space-y-6">
+              <Link 
+                href="/legal"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 text-gray-300 hover:text-white transition-colors text-lg font-medium"
+              >
+                For Law Firms
+              </Link>
               <button 
                 onClick={() => {
                   scrollToSection(featuresRef);
                   setMobileMenuOpen(false);
                 }} 
-                className="py-2 text-gray-300 hover:text-white transition-colors"
+                className="py-2 text-gray-300 hover:text-white transition-colors text-lg font-medium"
               >
                 Features
               </button>
@@ -106,18 +115,17 @@ export default function Navbar({ scrollToSection, featuresRef, howItWorksRef, wa
                   scrollToSection(howItWorksRef);
                   setMobileMenuOpen(false);
                 }} 
-                className="py-2 text-gray-300 hover:text-white transition-colors"
+                className="py-2 text-gray-300 hover:text-white transition-colors text-lg font-medium"
               >
                 How It Works
               </button>
               <Button 
-                variant="outline" 
                 onClick={() => {
                   setMobileMenuOpen(false);
                 }}
-                className="border-white/30 bg-white/5 text-white hover:bg-white/10 hover:border-white/40 w-full"
+                className="glass-effect border border-white/20 text-white text-lg font-semibold w-full hover:bg-white/10 hover:border-white/30 backdrop-blur-lg py-3"
               >
-                <Link href="/contact">Get Started</Link>
+                <Link href="/contact">Book a Legal Pilot</Link>
               </Button>
             </div>
           </motion.div>

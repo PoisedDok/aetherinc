@@ -216,14 +216,14 @@ const ShineEffect: React.FC<ShineEffectProps> = ({ children, className = "", del
               <Button asChild size="lg" className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-white/90 via-gray-200/90 to-gray-400/90 text-black hover:from-white hover:via-white hover:to-gray-300 shadow-lg shadow-white/10">
                 <Link href="/contact" className="flex items-center gap-2">
                   Get Your Quick Win Demo
-                  <ArrowRight className="w-4 h-4 text-blue-600" />
+                  <ArrowRight className="w-4 h-4 text-white" />
                 </Link>
               </Button>
             </ShineEffect>
             <Button asChild variant="outline" size="lg" className="px-8 py-4 text-lg font-semibold border-white/20 hover:bg-white/10 hover:border-white/40 transition-all duration-300">
-              <Link href="/ai-tools" className="flex items-center gap-2">
-                Explore AI Tools
-                <ArrowRight className="w-4 h-4 text-purple-400" />
+              <Link href="/roi-calculator" className="flex items-center gap-2">
+                <Calculator className="w-4 h-4" />
+                Calculate ROI
               </Link>
             </Button>
           </div>
@@ -436,11 +436,11 @@ const ShineEffect: React.FC<ShineEffectProps> = ({ children, className = "", del
                 <Card className="relative h-full p-8 bg-transparent border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg shadow-white/5 hover:bg-white/10 group-hover:scale-[1.02]">
                   <div className="space-y-6">
                     <div className="flex items-center gap-4">
-                                              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 shadow-lg shadow-white/5">
-                          <option.icon className={`w-6 h-6 ${
-                            index === 0 ? "text-violet-400" : 
-                            index === 1 ? "text-sky-400" : 
-                            "text-amber-400"
+                                              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 shadow-lg shadow-white/5 group-hover:bg-white/15 transition-all duration-300">
+                          <option.icon className={`w-6 h-6 transition-all duration-300 ${
+                            index === 0 ? "text-violet-400 group-hover:text-violet-300" :
+                            index === 1 ? "text-sky-400 group-hover:text-sky-300" :
+                            "text-amber-400 group-hover:text-amber-300"
                           }`} />
                         </div>
                       <ShineEffect delay={index * 0.2}>
@@ -453,14 +453,18 @@ const ShineEffect: React.FC<ShineEffectProps> = ({ children, className = "", del
                     <div className="space-y-2">
                       {option.features.map((feature, featureIndex) => (
                         <div key={featureIndex} className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 text-cyan-300" />
-                          <span className="text-sm text-gray-200">{feature}</span>
+                          <CheckCircle className="w-4 h-4 text-cyan-300 group-hover:text-cyan-200 transition-all duration-300" />
+                          <span className="text-sm text-gray-200 group-hover:text-white transition-all duration-300">{feature}</span>
                         </div>
                       ))}
                       </div>
               
-                    <div className="pt-4 border-t border-white/10">
-                      <div className="text-sm text-gray-300 font-medium">Ideal for: <span className="text-white">{option.ideal}</span></div>
+                    <div className="pt-4 border-t border-white/10 group-hover:border-white/20 transition-all duration-300">
+                      <div className="text-sm text-gray-300 group-hover:text-gray-200 font-medium transition-all duration-300">Ideal for: <span className={`font-semibold transition-all duration-300 ${
+                        index === 0 ? "text-violet-300 group-hover:text-violet-200" :
+                        index === 1 ? "text-sky-300 group-hover:text-sky-200" :
+                        "text-amber-300 group-hover:text-amber-200"
+                      }`}>{option.ideal}</span></div>
                     </div>
                   </div>
                 </Card>
@@ -494,14 +498,14 @@ const ShineEffect: React.FC<ShineEffectProps> = ({ children, className = "", del
               <Button asChild size="lg" className="px-10 py-5 text-lg font-semibold bg-gradient-to-r from-white/90 via-gray-200/90 to-gray-400/90 hover:from-white hover:via-white hover:to-gray-300 text-black shadow-lg shadow-white/10">
                 <Link href="/contact" className="flex items-center gap-2">
                   Schedule Your Demo
-                  <ArrowRight className="w-5 h-5 text-blue-600" />
+                  <ArrowRight className="w-5 h-5 text-white" />
                 </Link>
               </Button>
             </ShineEffect>
             <Button asChild variant="outline" size="lg" className="px-10 py-5 text-lg font-semibold border-white/20 hover:bg-white/10 hover:border-white/40 transition-all duration-300">
-              <Link href="/ai-tools" className="flex items-center gap-2">
-                Browse AI Tools
-                <ArrowRight className="w-5 h-5 text-purple-400" />
+              <Link href="/roi-calculator" className="flex items-center gap-2">
+                <Calculator className="w-5 h-5" />
+                See ROI Calculator
               </Link>
             </Button>
           </div>

@@ -3,7 +3,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { CheckCircle, ArrowRight, XCircle, Sparkles, Users } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from "@/components/ui/badge";
@@ -155,15 +154,15 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
           </div>
           
           <h2 className="text-4xl font-bold mb-6 text-white">
-            Join the GURU Waitlist
+            Reserve Your Private AI Paralegal
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            Experience GURU, the revolutionary AI companion by AetherInc founded by Krish Dokania. 
-            Reserve your spot to be among the first to own your personal AI assistant for real-world tasks.
+            Experience GURU, the privacy-first AI by AetherInc founded by Krish Dokania. 
+            Reserve your spot to be among the first law firms to own your personal AI paralegal for confidential document workflows.
           </p>
         </motion.div>
         
-        <div className="max-w-lg mx-auto">
+        <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -176,8 +175,8 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
               shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.5)"]}
               duration={15}
             />
-            <Card className="relative p-8 bg-black/60 border-white/10 backdrop-blur-sm">
-              <h3 className="text-2xl font-bold mb-6 text-white text-center">Reserve Your Device</h3>
+            <Card className="relative p-10 lg:p-12 bg-black/60 border-white/10 backdrop-blur-sm">
+              <h3 className="text-2xl font-bold mb-8 text-white text-center">Book Your Legal Pilot</h3>
               
               {/* Success Message */}
               {formState === 'success' && (
@@ -207,7 +206,7 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
               )}
               
               <form ref={formRef} onSubmit={handleSubmit}>
-                <div className="space-y-6">
+                <div className="space-y-8">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                       Full Name
@@ -219,11 +218,11 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Enter your name"
-                      className="bg-black/40 border-white/20 text-white placeholder:text-gray-500 focus:border-white/40 focus:ring-white/20"
+                      className="bg-black/40 border-white/20 text-white placeholder:text-gray-500 focus:border-white/40 focus:ring-white/20 py-4"
                       disabled={formState === 'submitting'}
                     />
                   </div>
-                  
+
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                       Email Address
@@ -235,11 +234,11 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="your@email.com"
-                      className="bg-black/40 border-white/20 text-white placeholder:text-gray-500 focus:border-white/40 focus:ring-white/20"
+                      className="bg-black/40 border-white/20 text-white placeholder:text-gray-500 focus:border-white/40 focus:ring-white/20 py-4"
                       disabled={formState === 'submitting'}
                     />
                   </div>
-                  
+
                   <div>
                     <label htmlFor="reason" className="block text-sm font-medium text-gray-300 mb-2">
                       Why are you interested in GURU? (Optional)
@@ -250,7 +249,7 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
                       value={formData.reason}
                       onChange={handleChange}
                       placeholder="Tell us about your use case..."
-                      className="bg-black/40 border-white/20 text-white placeholder:text-gray-500 focus:border-white/40 focus:ring-white/20 min-h-[100px]"
+                      className="bg-black/40 border-white/20 text-white placeholder:text-gray-500 focus:border-white/40 focus:ring-white/20 min-h-[120px] py-4"
                       disabled={formState === 'submitting'}
                     />
                   </div>
@@ -258,7 +257,7 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
                   <div className="pt-2">
                     <TrackedButton
                       type="submit"
-                      className="w-full bg-white hover:bg-gray-100 text-black font-semibold py-6 rounded-lg transition-all duration-300 text-base h-auto transform hover:scale-[1.02] flex items-center justify-center gap-2"
+                      className="w-full bg-white hover:bg-gray-100 text-black font-semibold py-7 px-10 rounded-xl transition-all duration-300 text-xl h-auto transform hover:scale-[1.02] flex items-center justify-center gap-2"
                       disabled={formState === 'submitting'}
                       trackingId="waitlist_join_button"
                       trackingName="Waitlist Join Button"
@@ -270,7 +269,7 @@ export default function Waitlist({ waitlistRef }: WaitlistProps) {
                         </>
                       ) : (
                         <>
-                          <span>Join Waitlist</span>
+                          <span>Reserve Legal Pilot</span>
                           <ArrowRight className="w-5 h-5" />
                         </>
                       )}

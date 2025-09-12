@@ -181,7 +181,7 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
         >
           <MorphingText 
             texts={morphingTexts}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight whitespace-nowrap"
           />
         </motion.div>
 
@@ -202,15 +202,15 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
             <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 sm:gap-x-10 text-sm sm:text-base text-gray-400 py-4 px-8 bg-transparent border border-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-sm">
               <div className="flex items-center gap-2">
                 <BrainCircuit size={18} className="text-cyan-400" />
-                <span className="font-semibold text-white">67</span> TOPS NPU
+                <span className="font-semibold text-white">99%+</span> Contract Accuracy
               </div>
               <div className="flex items-center gap-2">
                 <Database size={18} className="text-yellow-400" />
-                <span className="font-semibold text-white">10TB</span> Local Storage
+                <span className="font-semibold text-white">Complete</span> Privacy
               </div>
               <div className="flex items-center gap-2">
                 <ShieldCheck size={18} className="text-green-400" />
-                100% On-Device AI
+                Professional Grade
               </div>
             </div>
           </div>
@@ -292,7 +292,7 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
             />
             <Button
               onClick={() => scrollToSection(waitlistRef)}
-              className="relative bg-white hover:bg-white/90 text-black font-semibold py-3 px-8 rounded-full transition duration-300 shadow-glow-subtle text-base sm:text-lg h-auto min-w-[180px] transform hover:scale-105"
+              className="relative w-full sm:w-auto bg-white hover:bg-white/90 text-black font-semibold py-3 px-6 sm:px-8 rounded-full transition duration-300 shadow-glow-subtle text-base sm:text-lg h-auto min-w-[180px] sm:min-w-[180px] transform hover:scale-105"
               size="lg"
             >
               Reserve Your GURU
@@ -309,7 +309,7 @@ export default function Hero({ scrollToSection, featuresRef, waitlistRef }: Hero
             <Button
               variant="outline"
               onClick={() => scrollToSection(featuresRef)}
-              className="relative bg-white/5 hover:bg-white/10 text-white border border-white/30 font-semibold py-3 px-8 rounded-full transition duration-300 text-base sm:text-lg h-auto backdrop-blur-md min-w-[180px] transform hover:scale-105"
+              className="relative w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white border border-white/30 font-semibold py-3 px-6 sm:px-8 rounded-full transition duration-300 text-base sm:text-lg h-auto backdrop-blur-md min-w-[180px] sm:min-w-[180px] transform hover:scale-105"
               size="lg"
             >
               Explore Features

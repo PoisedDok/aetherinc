@@ -22,13 +22,6 @@ function BaseCard({ className, ...props }: React.ComponentProps<"div">) {
 function Card({ className, ...props }: React.ComponentProps<"div">) {
   const pathname = usePathname();
 
-  // Keep default card styling for AI Tools pages to avoid heavy hover effects
-  const isAiTools = pathname?.startsWith("/ai-tools");
-
-  if (isAiTools) {
-    return <BaseCard className={className} {...props} />;
-  }
-
   return (
     <MagicCard className={className}>
       <BaseCard className="bg-transparent border-none shadow-none p-0" {...props} />

@@ -7,7 +7,8 @@ import { ShineBorder } from '@/components/magicui/shine-border';
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowDown, Sparkles, Zap } from 'lucide-react';
+import { ArrowDown, Sparkles, Zap, AlertTriangle } from 'lucide-react';
+import Link from 'next/link';
 
 interface CleanHeroProps {
   scrollToSection: (ref: React.RefObject<HTMLElement | null>) => void;
@@ -16,8 +17,9 @@ interface CleanHeroProps {
 }
 
 const morphingTexts = [
-  "Join The Race",
-  "Privacy-First AI"
+  "AI Paralegal",
+  "Complete Privacy",
+  "Legal Excellence"
 ];
 
 export default function CleanHero({ scrollToSection, visionRef, waitlistRef }: CleanHeroProps) {
@@ -86,11 +88,13 @@ export default function CleanHero({ scrollToSection, visionRef, waitlistRef }: C
         className="container relative mx-auto z-10 text-center px-4 sm:px-6 max-w-5xl"
         style={{ y: heroY }}
       >
+        
+
         {/* Company Badge */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
           className="mb-8 inline-block"
         >
           <div className="relative">
@@ -102,7 +106,7 @@ export default function CleanHero({ scrollToSection, visionRef, waitlistRef }: C
             />
             <Badge variant="outline" className="relative text-white/90 border-white/20 px-6 py-2 text-sm font-medium backdrop-blur-sm bg-black/30">
               <Sparkles className="w-4 h-4 mr-2 text-white/70" />
-              AetherInc Limited
+              GURU AI Paralegal
             </Badge>
           </div>
         </motion.div>
@@ -111,17 +115,17 @@ export default function CleanHero({ scrollToSection, visionRef, waitlistRef }: C
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           className="mb-6"
         >
           <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-white">
-            AetherInc
+            GURU
           </h1>
-          
+
           <div className="relative">
-            <MorphingText 
-              texts={morphingTexts}
-              className="text-2xl sm:text-3xl md:text-4xl font-medium text-gray-400"
+            <MorphingText
+              texts={["AI Assistant", "Document Helper", "Legal Partner"]}
+              className="text-2xl sm:text-3xl md:text-4xl font-medium text-gray-400 whitespace-nowrap"
             />
           </div>
         </motion.div>
@@ -130,14 +134,14 @@ export default function CleanHero({ scrollToSection, visionRef, waitlistRef }: C
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
           className="mb-12 max-w-3xl mx-auto"
         >
           <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-            Meet AetherInc's privacy-first AI that runs <strong>100% offline</strong>. No clouds, no snooping—just blazing-fast intelligence that stays on your computer.
+            Imagine a private AI assistant that could review legal documents <strong>without sending them online</strong>. You could save hours on document review while maintaining complete privacy and professional standards.
           </p>
           <div className="mt-4 text-gray-500 text-sm">
-            Founded in Glasgow, Scotland • Registered Company SC851680
+            By AetherInc • Glasgow, Scotland • Trusted by law firms nationwide
           </div>
         </motion.div>
 
@@ -145,7 +149,7 @@ export default function CleanHero({ scrollToSection, visionRef, waitlistRef }: C
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
           className="flex flex-col sm:flex-row justify-center gap-4 mb-16"
         >
           <div className="relative overflow-hidden rounded-full">
@@ -156,12 +160,14 @@ export default function CleanHero({ scrollToSection, visionRef, waitlistRef }: C
               duration={10}
             />
             <Button
-              onClick={() => scrollToSection(visionRef)}
-              className="relative bg-white hover:bg-gray-100 text-black font-semibold py-3 px-8 rounded-full transition-all duration-300 text-base h-auto min-w-[200px] transform hover:scale-105 shadow-xl"
+              asChild
+              className="relative w-full sm:w-auto bg-white hover:bg-gray-100 text-black font-semibold py-3 px-6 sm:px-8 rounded-full transition-all duration-300 text-base h-auto min-w-[200px] sm:min-w-[200px] transform hover:scale-105 shadow-xl"
               size="lg"
             >
-              <Zap className="w-4 h-4 mr-2" />
-              Discover Our Vision
+              <Link href="/roi-calculator">
+                <Zap className="w-4 h-4 mr-2" />
+                ROI Calculator
+              </Link>
             </Button>
           </div>
 
@@ -174,11 +180,11 @@ export default function CleanHero({ scrollToSection, visionRef, waitlistRef }: C
             />
             <Button
               variant="outline"
-              onClick={() => scrollToSection(waitlistRef)}
-              className="relative bg-black/30 hover:bg-black/50 text-white border border-white/30 font-semibold py-3 px-8 rounded-full transition-all duration-300 text-base h-auto backdrop-blur-md min-w-[200px] transform hover:scale-105"
+              asChild
+              className="relative w-full sm:w-auto bg-black/30 hover:bg-black/50 text-white border border-white/30 font-semibold py-3 px-6 sm:px-8 rounded-full transition-all duration-300 text-base h-auto backdrop-blur-md min-w-[200px] sm:min-w-[200px] transform hover:scale-105"
               size="lg"
             >
-              Join the Future
+              <Link href="/legal">Explore</Link>
             </Button>
           </div>
         </motion.div>
@@ -187,10 +193,10 @@ export default function CleanHero({ scrollToSection, visionRef, waitlistRef }: C
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1 }}
+          transition={{ duration: 0.6, delay: 1.1 }}
           className="flex flex-col items-center gap-2 text-gray-500"
         >
-          <span className="text-sm">Learn more about us</span>
+          <span className="text-sm">Discover legal AI solutions</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}

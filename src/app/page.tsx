@@ -9,7 +9,8 @@ import { BackToTop } from '@/components/ui/back-to-top';
 
 // Dynamically load sections for better performance
 const CleanHero = dynamic(() => import('@/components/sections/CleanHero'), { ssr: false });
-const CompanyVision = dynamic(() => import('@/components/sections/CompanyVision'), { ssr: false });
+const LegalMission = dynamic(() => import('@/components/sections/LegalMission'), { ssr: false });
+const LegalHighlights = dynamic(() => import('@/components/sections/LegalHighlights'), { ssr: false });
 const Waitlist = dynamic(() => import('@/components/sections/Waitlist'), { ssr: false });
 
 export default function Home() {
@@ -58,8 +59,9 @@ export default function Home() {
           waitlistRef={waitlistRef}
         />
         <section ref={visionRef}>
-          <CompanyVision />
+          <LegalMission />
         </section>
+        <LegalHighlights />
         <Waitlist waitlistRef={waitlistRef} />
       </main>
       <Footer />

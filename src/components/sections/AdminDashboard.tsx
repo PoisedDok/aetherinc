@@ -633,12 +633,6 @@ export default function AdminDashboard() {
             Waitlist
           </TabsTrigger>
           <TabsTrigger 
-            value="ai-tools"
-            className="data-[state=active]:bg-blue-600 data-[state=active]:text-white bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition-colors"
-          >
-            AI Tools
-          </TabsTrigger>
-          <TabsTrigger 
             value="contact"
             className="data-[state=active]:bg-blue-600 data-[state=active]:text-white bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition-colors"
           >
@@ -690,10 +684,6 @@ export default function AdminDashboard() {
         
         <TabsContent value="waitlist">
           <WaitlistManager />
-        </TabsContent>
-        
-        <TabsContent value="ai-tools">
-          <AIToolsManager />
         </TabsContent>
         
         <TabsContent value="contact">

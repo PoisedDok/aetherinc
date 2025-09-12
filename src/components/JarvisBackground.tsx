@@ -81,8 +81,9 @@ export default function JarvisBackground({ className = "" }: JarvisBackgroundPro
 
     // Draw grid
     const drawGrid = () => {
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
-      ctx.lineWidth = 0.5;
+      // Darken grid lines further
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
+      ctx.lineWidth = 0.25;
       
       // Horizontal lines
       const gridSpacing = 30;
@@ -103,8 +104,8 @@ export default function JarvisBackground({ className = "" }: JarvisBackgroundPro
 
       // Add a few brighter accent lines
       const accentInterval = gridSpacing * 5;
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+      ctx.lineWidth = 0.5;
       
       for (let y = 0; y < window.innerHeight; y += accentInterval) {
         ctx.beginPath();
@@ -126,15 +127,16 @@ export default function JarvisBackground({ className = "" }: JarvisBackgroundPro
       particlesRef.current.forEach(particle => {
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity * 0.5})`;
+        // Reduce particle brightness
+        ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity * 0.15})`;
         ctx.fill();
       });
     };
 
     // Draw HUD-like elements to mimic Jarvis
     const drawHudElements = () => {
-      // Draw corner brackets
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      // Draw corner brackets (darker)
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
       ctx.lineWidth = 2;
       const cornerSize = 30;
       
@@ -171,7 +173,8 @@ export default function JarvisBackground({ className = "" }: JarvisBackgroundPro
       
       // Add pulsing glow (reduced opacity)
       const pulse = Math.sin(now * 0.002) * 0.5 + 0.5;
-      ctx.fillStyle = `rgba(255, 255, 255, ${0.02 * pulse})`;
+      // Make the pulsing overlay subtler
+      ctx.fillStyle = `rgba(255, 255, 255, ${0.005 * pulse})`;
       ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
       
       // Draw futuristic circular interface in bottom right
@@ -183,14 +186,14 @@ export default function JarvisBackground({ className = "" }: JarvisBackgroundPro
       // Outer circle
       ctx.beginPath();
       ctx.arc(circleX, circleY, radiusOuter, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 + pulse * 0.1})`;
+      ctx.strokeStyle = `rgba(255, 255, 255, ${0.05 + pulse * 0.03})`;
       ctx.lineWidth = 2;
       ctx.stroke();
       
       // Inner circle with rotation
       ctx.beginPath();
       ctx.arc(circleX, circleY, radiusInner, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 + pulse * 0.1})`;
+      ctx.strokeStyle = `rgba(255, 255, 255, ${0.06 + pulse * 0.03})`;
       ctx.lineWidth = 1;
       ctx.stroke();
       
@@ -202,7 +205,7 @@ export default function JarvisBackground({ className = "" }: JarvisBackgroundPro
       ctx.beginPath();
       ctx.moveTo(circleX, circleY);
       ctx.lineTo(endX, endY);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
       ctx.lineWidth = 2;
       ctx.stroke();
       
@@ -222,17 +225,17 @@ export default function JarvisBackground({ className = "" }: JarvisBackgroundPro
       if (mouseRef.current.active) {
         const { x, y } = mouseRef.current;
         
-        // Mouse tracking circle
+        // Brighten mouse tracking circle
         ctx.beginPath();
         ctx.arc(x, y, 20, 0, Math.PI * 2);
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 1.5;
         ctx.stroke();
         
         // Outer tracking circle with pulsing
         ctx.beginPath();
         ctx.arc(x, y, 20 + pulse * 10, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.strokeStyle = 'rgba(200, 200, 200, 0.2)';
         ctx.lineWidth = 1;
         ctx.stroke();
         
@@ -240,14 +243,14 @@ export default function JarvisBackground({ className = "" }: JarvisBackgroundPro
         ctx.beginPath();
         ctx.moveTo(x, y);
         ctx.lineTo(circleX, circleY);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(211, 211, 211, 0.3)';
+        ctx.lineWidth = 1.2;
         ctx.setLineDash([5, 5]);
         ctx.stroke();
         ctx.setLineDash([]);
         
         // Display coordinates
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
         ctx.fillText(`X: ${Math.floor(x)}`, x + 25, y);
         ctx.fillText(`Y: ${Math.floor(y)}`, x + 25, y + 20);
       }

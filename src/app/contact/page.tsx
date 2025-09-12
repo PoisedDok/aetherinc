@@ -7,7 +7,7 @@ import { ShineBorder } from '@/components/magicui/shine-border';
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
-import { ArrowRight, ArrowLeft, Mail, MapPin, Calendar, Clock, Users, Sparkles, Zap } from "lucide-react"
+import { ArrowRight, ArrowLeft, Mail, MapPin, Calendar, Clock, Users, Sparkles, Zap, Calculator } from "lucide-react"
 import Link from "next/link"
 
 export default function ContactPage() {
@@ -130,20 +130,20 @@ export default function ContactPage() {
 
         {/* Contact Options */}
         <section className="relative py-24 px-4">
-          <div className="max-w-7xl mx-auto relative z-10">
-            <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="max-w-6xl mx-auto relative z-10">
+            <div className="grid xl:grid-cols-3 gap-8 lg:gap-12 items-start">
               {/* Contact Form */}
-              <div className="relative group">
+              <div className="relative group xl:col-span-2">
                 <ShineBorder 
                   className="absolute inset-0 rounded-xl opacity-60 group-hover:opacity-100 transition-opacity duration-300" 
                   borderWidth={1}
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                   duration={12}
                 />
-                <Card className="relative border-white/10 bg-gradient-to-br from-gray-900/80 to-black/80 p-8 shadow-lg shadow-black/20 transition-all duration-300">
-                  <h2 className="text-2xl font-bold mb-6 text-white">Send us a Message</h2>
-                  <form className="space-y-6" onSubmit={handleSubmit}>
-                    <div className="grid md:grid-cols-2 gap-4">
+                <Card className="relative border-white/10 bg-transparent p-10 lg:p-12 shadow-lg shadow-white/5 transition-all duration-300">
+                  <h2 className="text-2xl font-bold mb-8 text-white">Send us a Message</h2>
+                  <form className="space-y-8" onSubmit={handleSubmit}>
+                    <div className="grid md:grid-cols-2 gap-6">
                       <div>
                         <label className="block text-sm font-medium mb-2 text-gray-300">First Name</label>
                         <input 
@@ -151,7 +151,7 @@ export default function ContactPage() {
                           name="firstName"
                           value={formState.firstName}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 border border-white/20 bg-black/30 rounded-lg focus:border-white/40 focus:outline-none text-white placeholder-gray-500"
+                          className="w-full px-4 py-4 border border-white/20 bg-black/30 rounded-lg focus:border-white/40 focus:outline-none text-white placeholder-gray-500"
                           placeholder="Enter your first name"
                         />
                       </div>
@@ -162,7 +162,7 @@ export default function ContactPage() {
                           name="lastName"
                           value={formState.lastName}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 border border-white/20 bg-black/30 rounded-lg focus:border-white/40 focus:outline-none text-white placeholder-gray-500"
+                          className="w-full px-4 py-4 border border-white/20 bg-black/30 rounded-lg focus:border-white/40 focus:outline-none text-white placeholder-gray-500"
                           placeholder="Enter your last name"
                         />
                       </div>
@@ -211,12 +211,12 @@ export default function ContactPage() {
                     
                     <div>
                       <label className="block text-sm font-medium mb-2 text-gray-300">Message</label>
-                      <textarea 
-                        rows={4}
+                      <textarea
+                        rows={5}
                         name="message"
                         value={formState.message}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-white/20 bg-black/30 rounded-lg focus:border-white/40 focus:outline-none resize-none text-white placeholder-gray-500"
+                        className="w-full px-4 py-4 border border-white/20 bg-black/30 rounded-lg focus:border-white/40 focus:outline-none resize-none text-white placeholder-gray-500"
                         placeholder="Tell us about your AI needs and how we can help..."
                       />
                     </div>
@@ -228,7 +228,7 @@ export default function ContactPage() {
                         shineColor={["rgba(255, 255, 255, 0.3)", "rgba(255, 255, 255, 0.7)"]}
                         duration={10}
                       />
-                      <Button type="submit" size="lg" className="relative bg-gradient-to-r from-white/90 via-gray-200/90 to-gray-400/90 hover:from-white hover:via-white hover:to-gray-300 text-black w-full px-8 py-6 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300" disabled={isSubmitting}>
+                      <Button type="submit" size="lg" className="relative bg-gradient-to-r from-white/90 via-gray-200/90 to-gray-400/90 hover:from-white hover:via-white hover:to-gray-300 text-black w-full px-10 py-7 text-xl font-semibold rounded-full transform hover:scale-105 transition-all duration-300" disabled={isSubmitting}>
                         Send Message <ArrowRight className="ml-2 h-5 w-5 text-blue-600" />
                       </Button>
                     </div>
@@ -245,36 +245,36 @@ export default function ContactPage() {
                     shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                     duration={14}
                   />
-                  <Card className="relative border-white/10 bg-gradient-to-br from-gray-900/80 to-black/80 p-8 shadow-lg shadow-black/20 transition-all duration-300">
-                    <h2 className="text-2xl font-bold mb-6 text-white">Contact Information</h2>
+                  <Card className="relative border-white/10 hover:border-white/20 bg-transparent p-8 shadow-lg shadow-white/5 hover:shadow-white/10 transition-all duration-300 group-hover:scale-[1.02]">
+                    <h2 className="text-2xl font-bold mb-6 text-white group-hover:text-gray-100 transition-all duration-300">Contact Information</h2>
                     <div className="space-y-6">
                       <div className="flex gap-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-gray-700/80 to-black/80 border border-white/20 shadow-lg shadow-black/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <MapPin className="h-6 w-6 text-emerald-400" />
+                        <div className="w-12 h-12 bg-white/10 border border-white/20 shadow-lg shadow-white/5 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-all duration-300">
+                          <MapPin className="h-6 w-6 text-emerald-400 group-hover:text-emerald-300 transition-all duration-300" />
                         </div>
                         <div>
-                          <h3 className="font-semibold mb-1 text-white">Location</h3>
-                          <p className="text-gray-300">Glasgow, Scotland<br />United Kingdom</p>
+                          <h3 className="font-semibold mb-1 text-white group-hover:text-gray-100 transition-all duration-300">Location</h3>
+                          <p className="text-gray-300 group-hover:text-gray-200 transition-all duration-300">Glasgow, Scotland<br />United Kingdom</p>
                         </div>
                       </div>
                       
                       <div className="flex gap-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-gray-700/80 to-black/80 border border-white/20 shadow-lg shadow-black/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Mail className="h-6 w-6 text-sky-400" />
+                        <div className="w-12 h-12 bg-white/10 border border-white/20 shadow-lg shadow-white/5 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-all duration-300">
+                          <Mail className="h-6 w-6 text-sky-400 group-hover:text-sky-300 transition-all duration-300" />
                         </div>
                         <div>
-                          <h3 className="font-semibold mb-1 text-white">Email</h3>
-                          <p className="text-gray-300">info@aetherinc.xyz</p>
+                          <h3 className="font-semibold mb-1 text-white group-hover:text-gray-100 transition-all duration-300">Email</h3>
+                          <p className="text-gray-300 group-hover:text-gray-200 transition-all duration-300">info@aetherinc.xyz</p>
                         </div>
                       </div>
-                      
+
                       <div className="flex gap-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-gray-700/80 to-black/80 border border-white/20 shadow-lg shadow-black/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Clock className="h-6 w-6 text-indigo-400" />
+                        <div className="w-12 h-12 bg-white/10 border border-white/20 shadow-lg shadow-white/5 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-all duration-300">
+                          <Clock className="h-6 w-6 text-indigo-400 group-hover:text-indigo-300 transition-all duration-300" />
                         </div>
                         <div>
-                          <h3 className="font-semibold mb-1 text-white">Business Hours</h3>
-                          <p className="text-gray-300">Monday - Friday<br />9:00 AM - 6:00 PM GMT</p>
+                          <h3 className="font-semibold mb-1 text-white group-hover:text-gray-100 transition-all duration-300">Business Hours</h3>
+                          <p className="text-gray-300 group-hover:text-gray-200 transition-all duration-300">Monday - Friday<br />9:00 AM - 6:00 PM GMT</p>
                         </div>
                       </div>
                     </div>
@@ -289,7 +289,7 @@ export default function ContactPage() {
                     shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                     duration={16}
                   />
-                  <Card className="relative border-white/10 bg-gradient-to-br from-gray-900/80 to-black/80 p-8 shadow-lg shadow-black/20 transition-all duration-300">
+                  <Card className="relative border-white/10 bg-transparent p-8 shadow-lg shadow-white/5 transition-all duration-300">
                     <h3 className="text-xl font-bold mb-4 text-white">Quick Actions</h3>
                     <div className="space-y-4">
                       <div className="relative">
@@ -300,7 +300,7 @@ export default function ContactPage() {
                           duration={12}
                         />
                         <Button asChild variant="outline" size="lg" className="relative border-white/30 text-white hover:bg-white/10 bg-black/30 backdrop-blur-sm w-full justify-start px-8 py-6 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300">
-                          <Link href="/products" className="flex items-center">
+                          <Link href="/legal" className="flex items-center">
                             <Calendar className="mr-3 h-5 w-5 text-amber-400" />
                             Schedule Demo
                           </Link>
@@ -315,9 +315,24 @@ export default function ContactPage() {
                           duration={14}
                         />
                         <Button asChild variant="outline" size="lg" className="relative border-white/30 text-white hover:bg-white/10 bg-black/30 backdrop-blur-sm w-full justify-start px-8 py-6 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300">
-                          <Link href="/services" className="flex items-center">
+                          <Link href="/legal" className="flex items-center">
                             <Users className="mr-3 h-5 w-5 text-violet-400" />
                             Book Consultation
+                          </Link>
+                        </Button>
+                      </div>
+
+                      <div className="relative">
+                        <ShineBorder
+                          className="absolute inset-0 rounded-full"
+                          borderWidth={1}
+                          shineColor={["rgba(255, 255, 255, 0.15)", "rgba(255, 255, 255, 0.4)"]}
+                          duration={16}
+                        />
+                        <Button asChild variant="outline" size="lg" className="relative border-white/30 text-white hover:bg-white/10 bg-black/30 backdrop-blur-sm w-full justify-start px-8 py-6 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300">
+                          <Link href="/roi-calculator" className="flex items-center">
+                            <Calculator className="mr-3 h-5 w-5 text-green-400" />
+                            ROI Calculator
                           </Link>
                         </Button>
                       </div>
@@ -333,13 +348,13 @@ export default function ContactPage() {
                     shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                     duration={18}
                   />
-                  <Card className="relative border-white/10 bg-gradient-to-br from-gray-900/80 to-black/80 p-6 shadow-lg shadow-black/20 transition-all duration-300">
-                    <h3 className="text-lg font-bold mb-4 text-white">Company Details</h3>
-                    <div className="text-sm text-gray-300 space-y-2">
-                      <p><strong className="text-white">Company:</strong> AetherInc Limited</p>
-                      <p><strong className="text-white">Registration:</strong> SC851680</p>
-                      <p><strong className="text-white">Founded:</strong> June 10, 2025</p>
-                      <p><strong className="text-white">Location:</strong> Glasgow, Scotland</p>
+                  <Card className="relative border-white/10 hover:border-white/20 bg-transparent p-6 shadow-lg shadow-white/5 hover:shadow-white/10 transition-all duration-300 group-hover:scale-[1.02]">
+                    <h3 className="text-lg font-bold mb-4 text-white group-hover:text-gray-100 transition-all duration-300">Company Details</h3>
+                    <div className="text-sm text-gray-300 group-hover:text-gray-200 space-y-2 transition-all duration-300">
+                      <p><strong className="text-white group-hover:text-gray-100 transition-all duration-300">Company:</strong> AetherInc Limited</p>
+                      <p><strong className="text-white group-hover:text-gray-100 transition-all duration-300">Registration:</strong> SC851680</p>
+                      <p><strong className="text-white group-hover:text-gray-100 transition-all duration-300">Founded:</strong> June 10, 2025</p>
+                      <p><strong className="text-white group-hover:text-gray-100 transition-all duration-300">Location:</strong> Glasgow, Scotland</p>
                     </div>
                   </Card>
                 </div>
@@ -368,9 +383,9 @@ export default function ContactPage() {
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                   duration={12}
                 />
-                <Card className="relative border-white/10 bg-gradient-to-br from-gray-900/80 to-black/80 p-6 shadow-lg shadow-black/20 transition-all duration-300">
-                  <h3 className="text-lg font-semibold mb-3 text-white">How quickly can you respond to inquiries?</h3>
-                  <p className="text-gray-300">We typically respond to all inquiries within 24 hours during business days. For urgent matters, please mention "URGENT" in your subject line.</p>
+                <Card className="relative border-white/10 hover:border-white/20 bg-transparent p-6 shadow-lg shadow-white/5 hover:shadow-white/10 transition-all duration-300 group-hover:scale-[1.02]">
+                  <h3 className="text-lg font-semibold mb-3 text-white group-hover:text-gray-100 transition-all duration-300">How quickly can you respond to inquiries?</h3>
+                  <p className="text-gray-300 group-hover:text-gray-200 transition-all duration-300">We typically respond to all inquiries within 24 hours during business days. For urgent matters, please mention "URGENT" in your subject line.</p>
                 </Card>
               </div>
 
@@ -381,9 +396,9 @@ export default function ContactPage() {
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                   duration={14}
                 />
-                <Card className="relative border-white/10 bg-gradient-to-br from-gray-900/80 to-black/80 p-6 shadow-lg shadow-black/20 transition-all duration-300">
-                  <h3 className="text-lg font-semibold mb-3 text-white">Do you offer free consultations?</h3>
-                  <p className="text-gray-300">Yes! We offer a complimentary 30-minute consultation to discuss your AI needs and how our privacy-first solutions can benefit your business.</p>
+                <Card className="relative border-white/10 hover:border-white/20 bg-transparent p-6 shadow-lg shadow-white/5 hover:shadow-white/10 transition-all duration-300 group-hover:scale-[1.02]">
+                  <h3 className="text-lg font-semibold mb-3 text-white group-hover:text-gray-100 transition-all duration-300">Do you offer free consultations?</h3>
+                  <p className="text-gray-300 group-hover:text-gray-200 transition-all duration-300">Yes! We offer a complimentary 30-minute consultation to discuss your AI needs and how our privacy-first solutions can benefit your business.</p>
                 </Card>
               </div>
 
@@ -394,9 +409,9 @@ export default function ContactPage() {
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                   duration={16}
                 />
-                <Card className="relative border-white/10 bg-gradient-to-br from-gray-900/80 to-black/80 p-6 shadow-lg shadow-black/20 transition-all duration-300">
-                  <h3 className="text-lg font-semibold mb-3 text-white">What makes AetherInc different from other AI companies?</h3>
-                  <p className="text-gray-300">Our privacy-first approach ensures all AI processing happens locally on your devices. Your data never leaves your control, providing enterprise-grade security with cutting-edge AI capabilities.</p>
+                <Card className="relative border-white/10 hover:border-white/20 bg-transparent p-6 shadow-lg shadow-white/5 hover:shadow-white/10 transition-all duration-300 group-hover:scale-[1.02]">
+                  <h3 className="text-lg font-semibold mb-3 text-white group-hover:text-gray-100 transition-all duration-300">What makes AetherInc different from other AI companies?</h3>
+                  <p className="text-gray-300 group-hover:text-gray-200 transition-all duration-300">Our privacy-first approach ensures all AI processing happens locally on your devices. Your data never leaves your control, providing enterprise-grade security with cutting-edge AI capabilities.</p>
                 </Card>
               </div>
 
@@ -407,9 +422,9 @@ export default function ContactPage() {
                   shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                   duration={18}
                 />
-                <Card className="relative border-white/10 bg-gradient-to-br from-gray-900/80 to-black/80 p-6 shadow-lg shadow-black/20 transition-all duration-300">
-                  <h3 className="text-lg font-semibold mb-3 text-white">Can I schedule a product demonstration?</h3>
-                  <p className="text-gray-300">Absolutely! We'd love to show you GURU and AetherArena in action. Use the contact form above or click "Schedule Demo" to book a personalized demonstration.</p>
+                <Card className="relative border-white/10 hover:border-white/20 bg-transparent p-6 shadow-lg shadow-white/5 hover:shadow-white/10 transition-all duration-300 group-hover:scale-[1.02]">
+                  <h3 className="text-lg font-semibold mb-3 text-white group-hover:text-gray-100 transition-all duration-300">Can I schedule a product demonstration?</h3>
+                  <p className="text-gray-300 group-hover:text-gray-200 transition-all duration-300">Absolutely! We'd love to show you GURU and AetherArena in action. Use the contact form above or click "Schedule Demo" to book a personalized demonstration.</p>
                 </Card>
               </div>
             </div>
@@ -434,8 +449,8 @@ export default function ContactPage() {
                   duration={10}
                 />
                 <Button asChild size="lg" className="relative bg-gradient-to-r from-white/90 via-gray-200/90 to-gray-400/90 hover:from-white hover:via-white hover:to-gray-300 text-black px-8 py-6 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300">
-                  <Link href="/products" className="flex items-center gap-2">
-                    Explore Products <ArrowRight className="ml-2 h-5 w-5 text-blue-600" />
+                  <Link href="/examples" className="flex items-center gap-2">
+                    View Case Studies <ArrowRight className="ml-2 h-5 w-5 text-blue-600" />
                   </Link>
                 </Button>
               </div>
@@ -448,8 +463,8 @@ export default function ContactPage() {
                   duration={14}
                 />
                 <Button asChild variant="outline" size="lg" className="relative border-white/30 text-white hover:bg-white/10 bg-black/30 backdrop-blur-sm px-8 py-6 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300">
-                  <Link href="/services" className="flex items-center gap-2">
-                    View Services <ArrowRight className="h-4 w-4 text-purple-400" />
+                  <Link href="/legal" className="flex items-center gap-2">
+                    For Law Firms <ArrowRight className="h-4 w-4 text-purple-400" />
                   </Link>
                 </Button>
               </div>

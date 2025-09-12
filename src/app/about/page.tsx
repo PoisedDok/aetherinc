@@ -9,7 +9,7 @@ import { ShineBorder } from '@/components/magicui/shine-border';
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
-import { ArrowRight, ArrowLeft, Users, Calendar, MapPin, Award, Sparkles } from "lucide-react"
+import { ArrowLeft, Users, Calendar, MapPin, Award, Sparkles, Calculator } from "lucide-react"
 import Link from "next/link"
 
 export default function AboutPage() {
@@ -31,10 +31,10 @@ export default function AboutPage() {
           {/* Page Header */}
           <section className="relative py-24 px-4 overflow-hidden">
             <div className="max-w-7xl mx-auto relative z-10">
-              <div className="flex items-center gap-4 mb-8">
+              <div className="flex items-center justify-between gap-4 mb-8">
                 <div className="relative">
-                  <ShineBorder 
-                    className="absolute inset-0 rounded-lg" 
+                  <ShineBorder
+                    className="absolute inset-0 rounded-lg"
                     borderWidth={1}
                     shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.3)"]}
                     duration={8}
@@ -43,6 +43,20 @@ export default function AboutPage() {
                     <Link href="/">
                       <ArrowLeft className="h-4 w-4 mr-2" />
                       Back to Home
+                    </Link>
+                  </Button>
+                </div>
+                <div className="relative">
+                  <ShineBorder
+                    className="absolute inset-0 rounded-lg"
+                    borderWidth={1}
+                    shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.3)"]}
+                    duration={8}
+                  />
+                  <Button asChild variant="ghost" size="sm" className="relative text-gray-400 hover:text-white border border-white/10">
+                    <Link href="/roi-calculator">
+                      <Calculator className="h-4 w-4 mr-2" />
+                      ROI Calculator
                     </Link>
                   </Button>
                 </div>
@@ -73,6 +87,41 @@ export default function AboutPage() {
             </div>
           </section>
 
+          {/* Mission & Values */}
+          <section className="relative py-24 px-4 overflow-hidden">
+            <div className="max-w-5xl mx-auto relative z-10 text-center space-y-10">
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
+                Our Mission & Core Values
+              </h2>
+              <p className="text-lg md:text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
+                AetherInc exists to <strong>unlock human potential</strong> with privacy-first AI. We believe
+                every professional should be able to harness cutting-edge intelligence <em>without giving up control of their data</em>.
+                That guiding principle shapes everything we build—from on-device models to transparent pricing.
+              </p>
+              <div className="grid md:grid-cols-3 gap-8 text-left">
+                <Card className="bg-transparent border-white/10 hover:border-white/20 p-6 backdrop-blur-sm h-full transition-all duration-300 hover:bg-white/5 group-hover:scale-[1.02]">
+                  <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-gray-100 transition-all duration-300">Privacy Before Profit</h3>
+                  <p className="text-gray-400 group-hover:text-gray-300 text-sm leading-relaxed transition-all duration-300">
+                    Your information is sacred. We will never mine, sell, or share client data. Our business model is simple:
+                    build excellent software and charge fairly for it—no hidden data monetisation.
+                  </p>
+                </Card>
+                <Card className="bg-transparent border-white/10 hover:border-white/20 p-6 backdrop-blur-sm h-full transition-all duration-300 hover:bg-white/5 group-hover:scale-[1.02]">
+                  <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-gray-100 transition-all duration-300">Radical Simplicity</h3>
+                  <p className="text-gray-400 group-hover:text-gray-300 text-sm leading-relaxed transition-all duration-300">
+                    Great technology should feel invisible. From product design to customer support, we obsess over removing friction so you can focus on meaningful work, not tool maintenance.
+                  </p>
+                </Card>
+                <Card className="bg-transparent border-white/10 hover:border-white/20 p-6 backdrop-blur-sm h-full transition-all duration-300 hover:bg-white/5 group-hover:scale-[1.02]">
+                  <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-gray-100 transition-all duration-300">Measured Innovation</h3>
+                  <p className="text-gray-400 group-hover:text-gray-300 text-sm leading-relaxed transition-all duration-300">
+                    We pursue breakthrough research while maintaining rigorous testing and peer review. Innovation means nothing unless it is <em>reliable</em>, <em>auditable</em>, and <em>safe</em> in real-world use.
+                  </p>
+                </Card>
+              </div>
+            </div>
+          </section>
+
           {/* Company Quick Facts */}
           <section className="relative py-24 px-4">
             <div className="max-w-7xl mx-auto relative z-10">
@@ -84,12 +133,12 @@ export default function AboutPage() {
                     shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                     duration={12}
                   />
-                  <Card className="relative border-white/10 p-6 text-center transition-all duration-300 group-hover:scale-[1.02]">
-                    <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                      <Calendar className="h-6 w-6 text-white/80" />
+                  <Card className="relative border-white/10 hover:border-white/20 p-6 text-center transition-all duration-300 group-hover:scale-[1.02] hover:bg-white/5">
+                    <div className="w-12 h-12 bg-white/10 group-hover:bg-white/15 rounded-lg flex items-center justify-center mx-auto mb-4 transition-all duration-300">
+                      <Calendar className="h-6 w-6 text-white/80 group-hover:text-white transition-all duration-300" />
                     </div>
-                    <h3 className="text-lg font-semibold mb-2 text-white">Founded</h3>
-                    <p className="text-gray-400">June 10, 2025</p>
+                    <h3 className="text-lg font-semibold mb-2 text-white group-hover:text-gray-100 transition-all duration-300">Founded</h3>
+                    <p className="text-gray-400 group-hover:text-gray-300 transition-all duration-300">June 10, 2025</p>
                   </Card>
                 </div>
                 
@@ -100,12 +149,12 @@ export default function AboutPage() {
                     shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                     duration={14}
                   />
-                  <Card className="relative border-white/10 p-6 text-center transition-all duration-300 group-hover:scale-[1.02]">
-                    <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                      <MapPin className="h-6 w-6 text-white/80" />
+                  <Card className="relative border-white/10 hover:border-white/20 p-6 text-center transition-all duration-300 group-hover:scale-[1.02] hover:bg-white/5">
+                    <div className="w-12 h-12 bg-white/10 group-hover:bg-white/15 rounded-lg flex items-center justify-center mx-auto mb-4 transition-all duration-300">
+                      <MapPin className="h-6 w-6 text-white/80 group-hover:text-white transition-all duration-300" />
                     </div>
-                    <h3 className="text-lg font-semibold mb-2 text-white">Headquarters</h3>
-                    <p className="text-gray-400">Glasgow, Scotland</p>
+                    <h3 className="text-lg font-semibold mb-2 text-white group-hover:text-gray-100 transition-all duration-300">Headquarters</h3>
+                    <p className="text-gray-400 group-hover:text-gray-300 transition-all duration-300">Glasgow, Scotland</p>
                   </Card>
                 </div>
                 
@@ -116,12 +165,12 @@ export default function AboutPage() {
                     shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                     duration={16}
                   />
-                  <Card className="relative border-white/10 p-6 text-center transition-all duration-300 group-hover:scale-[1.02]">
-                    <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                      <Award className="h-6 w-6 text-white/80" />
+                  <Card className="relative border-white/10 hover:border-white/20 p-6 text-center transition-all duration-300 group-hover:scale-[1.02] hover:bg-white/5">
+                    <div className="w-12 h-12 bg-white/10 group-hover:bg-white/15 rounded-lg flex items-center justify-center mx-auto mb-4 transition-all duration-300">
+                      <Award className="h-6 w-6 text-white/80 group-hover:text-white transition-all duration-300" />
                     </div>
-                    <h3 className="text-lg font-semibold mb-2 text-white">Grant Winner</h3>
-                    <p className="text-gray-400">Glasgow University</p>
+                    <h3 className="text-lg font-semibold mb-2 text-white group-hover:text-gray-100 transition-all duration-300">Grant Winner</h3>
+                    <p className="text-gray-400 group-hover:text-gray-300 transition-all duration-300">Glasgow University</p>
                   </Card>
                 </div>
                 
@@ -132,12 +181,12 @@ export default function AboutPage() {
                     shineColor={["rgba(255, 255, 255, 0.1)", "rgba(255, 255, 255, 0.4)"]}
                     duration={18}
                   />
-                  <Card className="relative border-white/10 p-6 text-center transition-all duration-300 group-hover:scale-[1.02]">
-                    <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                      <Users className="h-6 w-6 text-white/80" />
+                  <Card className="relative border-white/10 hover:border-white/20 p-6 text-center transition-all duration-300 group-hover:scale-[1.02] hover:bg-white/5">
+                    <div className="w-12 h-12 bg-white/10 group-hover:bg-white/15 rounded-lg flex items-center justify-center mx-auto mb-4 transition-all duration-300">
+                      <Users className="h-6 w-6 text-white/80 group-hover:text-white transition-all duration-300" />
                     </div>
-                    <h3 className="text-lg font-semibold mb-2 text-white">Team</h3>
-                    <p className="text-gray-400">Solo Founder</p>
+                    <h3 className="text-lg font-semibold mb-2 text-white group-hover:text-gray-100 transition-all duration-300">Team</h3>
+                    <p className="text-gray-400 group-hover:text-gray-300 transition-all duration-300">Solo Founder</p>
                   </Card>
                 </div>
               </div>
@@ -147,46 +196,6 @@ export default function AboutPage() {
           {/* The Minds Behind AetherInc Section */}
           <About aboutRef={aboutRef} />
 
-          {/* CTA Section */}
-          <section className="relative py-24 px-4 overflow-hidden">
-            <div className="max-w-4xl mx-auto text-center relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-                Ready to Join Our <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-300 to-white">Journey?</span>
-              </h2>
-              <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-                Be part of the privacy-first AI revolution. Explore our products and services.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <div className="relative">
-                  <ShineBorder 
-                    className="absolute inset-0 rounded-full opacity-100" 
-                    borderWidth={2}
-                    shineColor={["rgba(255, 255, 255, 0.3)", "rgba(255, 255, 255, 0.7)"]}
-                    duration={10}
-                  />
-                  <Button asChild size="lg" className="relative bg-white hover:bg-gray-100 text-black px-8 py-6 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300">
-                    <Link href="/products">
-                      Explore Products <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
-                </div>
-                
-                <div className="relative">
-                  <ShineBorder 
-                    className="absolute inset-0 rounded-full" 
-                    borderWidth={1}
-                    shineColor={["rgba(255, 255, 255, 0.15)", "rgba(255, 255, 255, 0.4)"]}
-                    duration={14}
-                  />
-                  <Button asChild variant="outline" size="lg" className="relative border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300">
-                    <Link href="/services">
-                      View Services
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </section>
         </main>
       </div>
       
