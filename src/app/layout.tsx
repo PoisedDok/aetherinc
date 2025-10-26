@@ -74,7 +74,8 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'google-site-verification-token',
+    google: process.env.GOOGLE_SITE_VERIFICATION || 'google-site-verification-token',
+    yandex: process.env.YANDEX_VERIFICATION || '',
   },
   alternates: {
     canonical: 'https://aetherinc.xyz',
@@ -115,6 +116,29 @@ export default function RootLayout({
         <meta name="color-scheme" content="dark" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+        {/* AI Bot Optimization Meta Tags */}
+        <meta name="generator" content="Next.js" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+        {/* AI Content Hints */}
+        <meta name="ai-content-type" content="business, technology, ai, software" />
+        <meta name="ai-audience" content="businesses, developers, enterprises, startups" />
+        <meta name="ai-keywords" content="AI, artificial intelligence, machine learning, privacy, local AI, edge computing, automation, consulting" />
+        <meta name="ai-summary" content="AetherInc provides privacy-first AI solutions including GURU personal assistant and AetherArena platform for secure, local AI applications." />
+
+        {/* Additional SEO and Performance */}
+        <meta name="theme-color" content="#000000" />
+        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="format-detection" content="telephone=no" />
+
+        {/* Preload critical resources */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+
+        {/* Organization Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -124,16 +148,154 @@ export default function RootLayout({
               "name": "AetherInc",
               "url": "https://aetherinc.xyz",
               "logo": "https://aetherinc.xyz/logo.jpg",
+              "image": "https://aetherinc.xyz/og-image.jpg",
+              "description": "Scottish AI startup building privacy-first AI solutions including GURU personal AI assistant and AetherArena self-improving platform. Local AI, no cloud dependency.",
+              "foundingDate": "2025-06-10",
+              "founder": {
+                "@type": "Person",
+                "name": "Krish Dokania",
+                "url": "https://linkedin.com/in/krish-dokania-56203b217",
+                "jobTitle": "Founder & CEO",
+                "sameAs": [
+                  "https://linkedin.com/in/krish-dokania-56203b217",
+                  "https://twitter.com/aether_inc_ai"
+                ]
+              },
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "GB",
+                "addressRegion": "Scotland",
+                "addressLocality": "Glasgow"
+              },
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+44-XXXXXXXXXX",
+                "contactType": "customer service",
+                "availableLanguage": ["English"],
+                "url": "https://aetherinc.xyz/contact"
+              },
               "sameAs": [
                 "https://twitter.com/aether_inc_ai",
-                "https://www.linkedin.com/company/your-wordsmith"
+                "https://www.linkedin.com/company/aetherinc",
+                "https://github.com/aetherinc"
               ],
-              "founder": {
-                  "@type": "Person",
-                  "name": "Krish Dokania",
-                "url": "https://linkedin.com/in/krish-dokania-56203b217"
+              "knowsAbout": [
+                "Artificial Intelligence",
+                "Machine Learning",
+                "Privacy-First AI",
+                "Local AI Solutions",
+                "NVIDIA Jetson",
+                "Edge Computing",
+                "Computer Vision",
+                "Natural Language Processing",
+                "AI Automation",
+                "Enterprise AI Solutions"
+              ],
+              "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "AetherInc Products & Services",
+                "itemListElement": [
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Product",
+                      "name": "GURU AI Assistant",
+                      "description": "Personal AI assistant that runs locally on your device with Iron Man-inspired interface",
+                      "category": "Software",
+                      "brand": "AetherInc"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Product",
+                      "name": "AetherArena Platform",
+                      "description": "Self-improving AI platform for enterprise applications",
+                      "category": "Software",
+                      "brand": "AetherInc"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "AI Consulting Services",
+                      "description": "Expert AI consulting for businesses in Glasgow and Scotland",
+                      "provider": {
+                        "@type": "Organization",
+                        "name": "AetherInc"
+                      }
+                    }
+                  }
+                ]
+              },
+              "areaServed": [
+                {
+                  "@type": "Country",
+                  "name": "United Kingdom"
                 },
-              "description": "AetherInc is a privacy-first AI company revolutionizing how people interact with artificial intelligence through local-first, secure AI tools and solutions."
+                {
+                  "@type": "State",
+                  "name": "Scotland"
+                }
+              ],
+              "priceRange": "$$",
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "5.0",
+                "reviewCount": "1"
+              }
+            })
+          }}
+        />
+
+        {/* Website Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "AetherInc",
+              "url": "https://aetherinc.xyz",
+              "description": "Privacy-First AI Solutions | GURU & AetherArena",
+              "publisher": {
+                "@type": "Organization",
+                "name": "AetherInc",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://aetherinc.xyz/logo.jpg"
+                }
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://aetherinc.xyz/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              },
+              "sameAs": [
+                "https://twitter.com/aether_inc_ai",
+                "https://www.linkedin.com/company/aetherinc",
+                "https://github.com/aetherinc"
+              ]
+            })
+          }}
+        />
+
+        {/* Breadcrumb Schema for better navigation */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://aetherinc.xyz"
+                }
+              ]
             })
           }}
         />

@@ -2,6 +2,56 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { rateLimiter } from './lib/middleware/rateLimiter';
 
+// Define redirect rules for common misspellings and variations
+const redirectRules: Record<string,string> = {
+  // Common misspellings of the domain
+  '/aetherinc.com': 'https://aetherinc.xyz',
+  '/www.aetherinc.com': 'https://aetherinc.xyz',
+  '/aetherinc.net': 'https://aetherinc.xyz',
+  '/www.aetherinc.net': 'https://aetherinc.xyz',
+  '/aetherinc.org': 'https://aetherinc.xyz',
+  '/www.aetherinc.org': 'https://aetherinc.xyz',
+
+  // Common misspellings of the company name
+  '/aether': 'https://aetherinc.xyz',
+  '/aetherinc': 'https://aetherinc.xyz',
+  '/aether-inc': 'https://aetherinc.xyz',
+  '/aether_inc': 'https://aetherinc.xyz',
+  '/aetherinc-ai': 'https://aetherinc.xyz',
+
+  // Product name variations
+  '/guru': 'https://aetherinc.xyz/products',
+  '/guru-ai': 'https://aetherinc.xyz/products',
+  '/guru-assistant': 'https://aetherinc.xyz/products',
+  '/aetherarena': 'https://aetherinc.xyz/products',
+  '/aether-arena': 'https://aetherinc.xyz/products',
+  '/arena': 'https://aetherinc.xyz/products',
+
+  // Service variations
+  '/consulting': 'https://aetherinc.xyz/contact',
+  '/ai-consulting': 'https://aetherinc.xyz/contact',
+  '/services': 'https://aetherinc.xyz/contact',
+
+  // Industry terms that should redirect to relevant pages
+  '/privacy-ai': 'https://aetherinc.xyz',
+  '/local-ai': 'https://aetherinc.xyz',
+  '/edge-ai': 'https://aetherinc.xyz',
+  '/on-device-ai': 'https://aetherinc.xyz',
+  '/nvidia-jetson': 'https://aetherinc.xyz',
+  '/iron-man-ai': 'https://aetherinc.xyz',
+  '/jarvis-ai': 'https://aetherinc.xyz',
+
+  // Legacy URLs or old page names
+  '/about-us': 'https://aetherinc.xyz/about',
+  '/contact-us': 'https://aetherinc.xyz/contact',
+  '/products-and-services': 'https://aetherinc.xyz/products',
+
+  // Social media and external links that should redirect
+  '/twitter': 'https://twitter.com/aether_inc_ai',
+  '/linkedin': 'https://www.linkedin.com/company/aetherinc',
+  '/github': 'https://github.com/aetherinc',
+};
+
 // Define paths that need rate limiting
 const RATE_LIMITED_PATHS = [
   '/api/auth',
@@ -102,11 +152,40 @@ function validateCSRF(request: NextRequest): NextResponse | null {
 
 // Apply middleware for non-admin routes
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  
+  const { pathname, search } = request.nextUrl;
+  const searchParams = search || '';
+
   // Don't process admin routes (handled by separate middleware)
   if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
     return NextResponse.next();
+  }
+
+  // Handle redirects first
+  const redirectUrl = redirectRules[pathname];
+  if (redirectUrl) {
+    const finalUrl = searchParams ? `${redirectUrl}${searchParams}` : redirectUrl;
+    return NextResponse.redirect(finalUrl, {
+      status: 301, // Permanent redirect for SEO
+    });
+  }
+
+  // Handle case-insensitive redirects for common variations
+  const lowerPathname = pathname.toLowerCase();
+  if (lowerPathname.includes('ai') && !pathname.includes('/ai-tools')) {
+    if (lowerPathname.includes('tool') || lowerPathname.includes('bot') || lowerPathname.includes('assistant')) {
+      return NextResponse.redirect(`https://aetherinc.xyz/ai-tools${searchParams}`, {
+        status: 302, // Temporary redirect for search queries
+      });
+    }
+  }
+
+  // Handle trailing slash redirects for SEO
+  if (pathname.length > 1 && pathname.endsWith('/') && !pathname.startsWith('/_next')) {
+    const pathWithoutTrailingSlash = pathname.slice(0, -1);
+    return NextResponse.redirect(
+      new URL(pathWithoutTrailingSlash + searchParams, request.url),
+      { status: 301 }
+    );
   }
   
   // Step 1: Apply rate limiting to sensitive paths
@@ -131,11 +210,16 @@ export function middleware(request: NextRequest) {
 // Create a separate auth middleware export
 export const config = {
   matcher: [
-    // Apply to API endpoints
-    '/api/auth/:path*',
-    '/api/admin/:path*',
-    '/api/contact/:path*',
-    '/api/waitlist/:path*',
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public files with extensions
+     */
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.).*)',
+    // Also apply to API endpoints for rate limiting and security
+    '/api/:path*',
     '/admin/login',
   ],
 }; 
